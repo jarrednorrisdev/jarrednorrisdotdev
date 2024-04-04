@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import NavMenu from "./nav-menu";
+import { cn } from "@/lib/utils";
 
-export default async function Navbar() {
+export default async function Navbar({ className }: { className?: string }) {
   return (
-    <nav className="border-b transition-all duration-300   ">
+    <nav className={cn("border-b transition-all duration-300 ", className)}>
       <div className="container mx-auto flex items-center justify-between py-2">
         <h1 className="transition-hover cursor-pointer font-semibold hover:opacity-75">
           <Link href="/">

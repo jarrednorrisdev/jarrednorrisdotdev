@@ -35,10 +35,12 @@ export default function HomePage() {
   ];
 
   return (
-    <main className="flex flex-col gap-6 p-6 md:container md:mx-auto">
-      <MainHero imageUrl="/images/portrait.jpg" />
-      <Separator />
-      <Tabs defaultValue="Experience" className="">
+    <main className=" flex flex-col gap-4 p-4 md:container md:mx-auto">
+      <MainHero
+        imageUrl="/images/portrait.jpg"
+        className=" border border-accent bg-background p-4 "
+      />
+      <Tabs defaultValue="Experience">
         <TabsList className="flex">
           <TabsTrigger className="flex flex-grow" value="Experience">
             Experience
@@ -83,7 +85,7 @@ const EducationData = [
   {
     institution: "University of Lincoln",
     role: "Games Computing BSc (Hons)",
-    date: "2017 - 2021",
+    date: "2018 - 2021",
     description:
       "I studied Games Computing at the University of Lincoln, where I developed a strong foundation in computer science and software engineering. I gained experience in game development, artificial intelligence, and computer graphics.",
   },
@@ -91,9 +93,10 @@ const EducationData = [
 
 function WorkTimelineShowcase() {
   return (
-    <TimelineShowcase className="w-fit">
+    <TimelineShowcase className="w-fit ">
       {JobData.map((job) => (
         <TimelineEntry
+          className="rounded border bg-background p-2"
           key={job.institution}
           date={<TimelineEntryDate>{job.date}</TimelineEntryDate>}
           label={<TimelineEntryLabel>{job.institution}</TimelineEntryLabel>}
@@ -119,6 +122,7 @@ function EducationTimelineShowcase() {
     <TimelineShowcase className="w-fit">
       {EducationData.map((institution) => (
         <TimelineEntry
+          className="rounded border bg-background p-2"
           key={institution.institution}
           date={<TimelineEntryDate>{institution.date}</TimelineEntryDate>}
           label={

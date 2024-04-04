@@ -8,15 +8,26 @@ import {
 } from "../typography/typography";
 import { Button } from "../ui/button";
 import { Download } from "lucide-react";
+import { BackgroundBeams } from "../ui/background-beams";
+import { cn } from "@/lib/utils";
 
 const ShortBio =
   "Hi I'm Jarred. I thrive on finding creative solutions to complex problems. From crafting immersive virtual worlds in Unity to architecting scalable web applications in React, my expertise lies in leveraging technology to innovate and drive user experience.";
 
 //todo: fix not visible separator
 
-export default function MainHero({ imageUrl }: { imageUrl?: string }) {
+export default function MainHero({
+  imageUrl,
+  className,
+}: {
+  imageUrl?: string;
+  className?: string;
+}) {
   return (
-    <header className="flex flex-wrap gap-8 md:flex-nowrap">
+    <header
+      className={cn("flex flex-wrap gap-8 rounded md:flex-nowrap ", className)}
+    >
+      <BackgroundBeams />
       {imageUrl ? (
         <div className="flex flex-grow items-center justify-center ">
           <Image

@@ -28,6 +28,7 @@ export function TimelineEntry({
   actions,
   description,
   children,
+  className,
 }: {
   date: React.ReactNode;
   label: React.ReactNode;
@@ -35,9 +36,10 @@ export function TimelineEntry({
   actions?: React.ReactNode[];
   description: React.ReactNode;
   children?: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <li className="flex gap-6 p-4">
+    <li className={cn("flex gap-6 p-4", className)}>
       <div className="flex">{date}</div>
       <div className="flex flex-col">
         {label}
