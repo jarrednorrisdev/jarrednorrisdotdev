@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import { Separator } from "../ui/separator";
@@ -5,7 +7,7 @@ import {
   TypographyH1,
   TypographyMuted,
   TypographyP,
-	TypographySmall,
+  TypographySmall,
 } from "../typography/typography";
 import { Button } from "../ui/button";
 import { Download } from "lucide-react";
@@ -51,7 +53,7 @@ export default function MainHero({
         </div>
         <TypographyP>{ShortBio}</TypographyP>
         <div className="flex flex-col gap-2">
-          <div className="flex flex-wrap gap-2 items-center">
+          <div className="flex flex-wrap items-center gap-2">
             <TypographySmall>Skills:</TypographySmall>
             <Badge>Javascript</Badge>
             <Badge>Typescript</Badge>
@@ -70,10 +72,26 @@ export default function MainHero({
 }
 
 function HeroButtons() {
+  const handleDownloadCV = () => {
+    // Create a link element
+    const link = document.createElement("a");
+    // Set the path of the link to your CV file
+    // Note: Adjust the path if your CV is located in a different directory
+    link.href = "/Jarred Norris - CV.pdf";
+    // Set the download attribute to the filename you want users to see
+    link.download = "Jarred Norris - CV.pdf";
+    // Append the link to the body
+    document.body.appendChild(link);
+    // Trigger the click event on the link
+    link.click();
+    // Remove the link from the body
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="flex items-center gap-4 max-[479px]:flex-wrap">
       {/* <Button variant="secondary">Contact</Button> */}
-      <Button variant="default">
+      <Button variant="default" onClick={handleDownloadCV}>
         <div className="mr-2 flex w-5 flex-col items-center">
           <Download />
         </div>

@@ -45,7 +45,9 @@ export function TimelineEntry({
         {label}
         {role}
         {description}
-        <TypographyP className="py-2">{children}</TypographyP>
+        <TypographyP className="whitespace-pre-line py-2">
+          {children}
+        </TypographyP>
         {actions}
       </div>
     </li>
