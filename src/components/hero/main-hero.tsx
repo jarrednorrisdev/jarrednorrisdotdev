@@ -5,11 +5,13 @@ import {
   TypographyH1,
   TypographyMuted,
   TypographyP,
+	TypographySmall,
 } from "../typography/typography";
 import { Button } from "../ui/button";
 import { Download } from "lucide-react";
 import { BackgroundBeams } from "../ui/background-beams";
 import { cn } from "@/lib/utils";
+import { Badge } from "../ui/badge";
 
 const ShortBio =
   "Hi I'm Jarred. I thrive on finding creative solutions to complex problems. From crafting immersive virtual worlds in Unity to architecting scalable web applications in React, my expertise lies in leveraging technology to innovate and drive user experience.";
@@ -35,11 +37,11 @@ export default function MainHero({
             width={512}
             height={512}
             alt="Picture of the world's most hireable software engineer."
-            className="aspect-square max-w-64 rounded object-cover"
+            className="aspect-square max-w-64 rounded border-8 border-primary object-cover"
           />
         </div>
       ) : null}
-      <div className="flex flex-wrap gap-8 p-2">
+      <div className="flex flex-col gap-8 p-2">
         <div className="flex flex-col gap-2">
           <TypographyH1>Jarred Norris</TypographyH1>
           <TypographyMuted>
@@ -48,6 +50,20 @@ export default function MainHero({
           <HeroButtons></HeroButtons>
         </div>
         <TypographyP>{ShortBio}</TypographyP>
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-wrap gap-2 items-center">
+            <TypographySmall>Skills:</TypographySmall>
+            <Badge>Javascript</Badge>
+            <Badge>Typescript</Badge>
+            <Badge>React</Badge>
+            <Badge>C#</Badge>
+            <Badge>Unity</Badge>
+            <Badge>Unreal</Badge>
+            <Badge>Git</Badge>
+            <Badge>Rust</Badge>
+            <Badge>Python</Badge>
+          </div>
+        </div>
       </div>
     </header>
   );

@@ -22,7 +22,7 @@ export default async function Navbar({ className }: { className?: string }) {
         </h1>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <NavMenu />
+          {/* <NavMenu /> */}
         </div>
       </div>
     </nav>
