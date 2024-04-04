@@ -28,7 +28,6 @@ export default function HomePage() {
 }
 
 function TimelineShowcases() {
-	const [isPinned, setPinShowcase] = React.useState(false);
   return (
     <Tabs defaultValue="Experience" className="min-w-1/2 px-4 ">
       <TabsList className="">
