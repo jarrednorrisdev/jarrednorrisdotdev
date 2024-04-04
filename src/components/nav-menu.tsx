@@ -25,9 +25,9 @@ export default function NavMenu({}: Props) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => {}}>Games</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => {}}>Experience</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => {}}>About Me</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {}}>Home</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {}}>Settings</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => {}}>About the Site</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

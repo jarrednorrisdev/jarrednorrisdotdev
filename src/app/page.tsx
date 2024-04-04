@@ -1,65 +1,51 @@
 import React from "react";
-import { BriefcaseIcon, Gamepad, PersonStanding } from "lucide-react";
 import MainHero from "@/components/hero/main-hero";
-import { Separator } from "@/components/ui/separator";
-import { TodoNavButtons } from "./TodoNavButtons";
+
 import {
   TimelineEntry,
   TimelineEntryDate,
   TimelineEntryLabel,
   TimelineEntryRole,
   TimelineShowcase,
-} from "../components/job-experience-showcase";
+} from "../components/timeline-showcase";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Meteors } from "@/components/ui/meteors";
 
 export default function HomePage() {
-  const iconSize = 32;
-
-  const sectionLinks = [
-    {
-      label: "Experience",
-      icon: <BriefcaseIcon size={iconSize} />,
-      href: "/experience",
-    },
-    {
-      label: "About Me",
-      icon: <PersonStanding size={iconSize} />,
-      href: "/experience",
-    },
-    {
-      label: "Game Projects",
-      icon: <Gamepad size={iconSize} />,
-      href: "/experience",
-    },
-  ];
-
   return (
-    <main className=" flex flex-col gap-4 p-4 md:container md:mx-auto">
-      <MainHero
-        imageUrl="/images/portrait.jpg"
-        className=" border border-accent bg-background p-4 "
-      />
-      <Tabs defaultValue="Experience">
-        <TabsList className="flex">
-          <TabsTrigger className="flex flex-grow" value="Experience">
-            Experience
-          </TabsTrigger>
-          <TabsTrigger className="flex flex-grow" value="Education">
-            Education
-          </TabsTrigger>
-          <TabsTrigger className="flex flex-grow" value="Games">
-            Projects
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="Experience">
-          <WorkTimelineShowcase />
-        </TabsContent>
-        <TabsContent value="Education">
-          <EducationTimelineShowcase />
-        </TabsContent>
-      </Tabs>
+    <main className=" flex  flex-col gap-8  border-accent bg-background  p-6 md:container md:mx-auto ">
+      <MainHero imageUrl="/images/portrait.jpg" className=" " />
+      {/* <Separator /> */}
+      <div className="flex h-max flex-wrap gap-2 lg:flex-nowrap">
+        <TimelineShowcases />
+
+        <div></div>
+      </div>
     </main>
+  );
+}
+
+function TimelineShowcases() {
+	const [isPinned, setPinShowcase] = React.useState(false);
+  return (
+    <Tabs defaultValue="Experience" className="min-w-1/2 px-4 ">
+      <TabsList className="">
+        <TabsTrigger className="" value="Experience">
+          Experience
+        </TabsTrigger>
+        <TabsTrigger className="" value="Education">
+          Education
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="Experience">
+        <WorkTimelineShowcase />
+      </TabsContent>
+      <TabsContent value="Education">
+        <EducationTimelineShowcase />
+      </TabsContent>
+    </Tabs>
   );
 }
 
@@ -93,10 +79,9 @@ const EducationData = [
 
 function WorkTimelineShowcase() {
   return (
-    <TimelineShowcase className="w-fit ">
+    <TimelineShowcase>
       {JobData.map((job) => (
         <TimelineEntry
-          className="rounded border bg-background p-2"
           key={job.institution}
           date={<TimelineEntryDate>{job.date}</TimelineEntryDate>}
           label={<TimelineEntryLabel>{job.institution}</TimelineEntryLabel>}
@@ -122,7 +107,6 @@ function EducationTimelineShowcase() {
     <TimelineShowcase className="w-fit">
       {EducationData.map((institution) => (
         <TimelineEntry
-          className="rounded border bg-background p-2"
           key={institution.institution}
           date={<TimelineEntryDate>{institution.date}</TimelineEntryDate>}
           label={
