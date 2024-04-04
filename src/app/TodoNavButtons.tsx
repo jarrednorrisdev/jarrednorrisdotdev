@@ -3,14 +3,21 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-export function TodoNavButtons(props) {
+export function TodoNavButtons({
+  className,
+  links,
+}: {
+  className?: string;
+  links: { label: string; icon: React.ReactNode; href: string }[];
+}) {
   return (
-    <div className="flex flex-grow flex-col flex-wrap gap-4">
-      {props.sectionLinks.map((link, index) => (
+    <div className={cn("flex flex-grow flex-wrap gap-4", className)}>
+      {links.map((link, index) => (
         <Button
           asChild
-          variant="outline"
-          className={cn("flex flex-grow gap-2 p-12 text-center")}
+          variant="secondary"
+          size="lg"
+          className={cn("flex flex-grow gap-2 p-8 text-center")}
           key={link.label}
         >
           <Link
