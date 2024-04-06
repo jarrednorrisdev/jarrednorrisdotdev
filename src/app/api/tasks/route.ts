@@ -11,7 +11,7 @@ export interface Task {
 export async function GET(req: NextRequest, res: NextResponse<Task>) {
   console.log("request", req);
   console.log("context", res);
-  return Response.json({
+  return NextResponse.json({
     tasks: [
       { id: "0", name: "taskname" },
       { id: "1", name: "taskname" },
@@ -29,5 +29,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json("invalid content typee", { status: 400 });
   }
   const data = await req.json();
-  return Response.json(data, { status: 201 });
+  return NextResponse.json(data, { status: 201 });
 }
