@@ -1,13 +1,13 @@
 import { NextResponse, NextRequest } from "next/server";
 import { headers } from "next/headers";
 
-
 export interface Task {
   id: string;
   name: string;
 }
 
 export async function GET(req: NextRequest, res: NextResponse<Task>) {
+  console.log("GET /api/tasks");
   return NextResponse.json({
     tasks: [
       { id: "0", name: "taskname0" },
