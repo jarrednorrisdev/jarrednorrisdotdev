@@ -1,13 +1,13 @@
 import { TypographyP } from "@/components/typography/typography";
 import getDomain from "@/lib/getDomain";
 import CreateTask from "./createTask";
-// import { helloWorld } from "@/db/db";
+import { helloWorld } from "@/db/db";
 import { Task } from "../api/tasks/route";
 
 export default async function TasksHub() {
   const data = await getTasks();
-  // const dbHello = await helloWorld();
-  // console.log("dbHello", dbHello);
+  const dbHello = await helloWorld();
+  console.log("dbHello", dbHello);
 
   return (
     <main className="flex flex-col gap-8 border-accent bg-background p-6 md:container md:mx-auto">
