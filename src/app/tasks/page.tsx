@@ -29,11 +29,12 @@ export default async function TasksHub() {
 }
 
 async function getTasks() {
-  const domain = getDomain();
-  console.log("domain: ", domain);
-  const endpoint = `${domain}/api/tasks`;
-  console.log("endpoint: ", endpoint);
-  const res = await fetch(endpoint, { next: { revalidate: 10 } });
+  // const domain = getDomain();
+  // console.log("domain: ", domain);
+  // const endpoint = `${domain}/api/tasks`;
+  // console.log("endpoint: ", endpoint);
+  // const res = await fetch(endpoint, { next: { revalidate: 10 } });
+  const res = await fetch("/api/tasks", { next: { revalidate: 10 } });
   if (!res.ok) {
     throw new Error("Failed to fetch tasks");
   }
