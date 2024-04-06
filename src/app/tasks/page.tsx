@@ -1,14 +1,10 @@
 import { TypographyP } from "@/components/typography/typography";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import getDomain from "@/lib/getDomain";
 import CreateTask from "./createTask";
 import { helloWorld } from "@/lib/db";
 
 export default async function TasksHub() {
   const data = await getData();
-
-  const handleAddTask = async () => {};
   const dbHello = await helloWorld();
   console.log("dbHello", dbHello);
 
@@ -46,4 +42,3 @@ async function getData() {
 }
 
 export const runtime = "edge";
-export const prefferedEdgeRegion = "dub1";
