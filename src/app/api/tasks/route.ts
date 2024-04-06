@@ -1,7 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { headers } from "next/headers";
 
-export const runtime = "edge";
 
 export interface Task {
   id: string;
