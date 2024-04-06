@@ -30,7 +30,6 @@ export default async function TasksHub() {
 
 async function getTasks() {
   const domain = getDomain();
-  console.log("domain: ", domain);
   const endpoint = `${domain}/api/tasks`;
   console.log("endpoint: ", endpoint);
   const res = await fetch(endpoint, { next: { revalidate: 10 } });
@@ -41,7 +40,7 @@ async function getTasks() {
   }
 
   if (res.headers.get("content-type") !== "application/json") {
-    return { tasks: [] };
+    throw new Error("Invalid content type");
   }
 
   return res.json();
