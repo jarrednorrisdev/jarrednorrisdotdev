@@ -4,6 +4,8 @@ import CreateTask from "./createTask";
 import { helloWorld } from "@/db/db";
 import { Task } from "../api/tasks/route";
 
+export const runtime = 'edge';
+
 export default async function TasksHub() {
   const data = await getTasks();
   const dbHello = await helloWorld();
@@ -38,8 +40,7 @@ async function getTasks() {
     return { tasks: [] };
   }
 
-  const data = res.json();
-  return {data};
+  return res.json();
 }
 
-export const runtime = 'edge';
+
