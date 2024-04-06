@@ -6,12 +6,13 @@ export default function getDomain() {
   const domain = () => {
     switch (env.NEXT_PUBLIC_VERCEL_ENV) {
       case "development":
-        return "localhost:3000";
+        return env.NEXT_PUBLIC_VERCEL_BRANCH_URL ? env.NEXT_PUBLIC_VERCEL_BRANCH_URL : "localhost:3000";
       case "preview":
         return env.NEXT_PUBLIC_VERCEL_BRANCH_URL;
       case "production":
         return env.NEXT_PUBLIC_VERCEL_URL;
     }
   };
+
   return `${protocol}://${domain()}`;
 }

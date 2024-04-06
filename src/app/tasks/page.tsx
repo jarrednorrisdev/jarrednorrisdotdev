@@ -30,6 +30,7 @@ export default async function TasksHub() {
 
 async function getTasks() {
   const domain = getDomain();
+  console.log("domain: ", domain);
   const endpoint = `${domain}/api/tasks`;
   const res = await fetch(endpoint, { next: { revalidate: 10 } });
   if (!res.ok) {
