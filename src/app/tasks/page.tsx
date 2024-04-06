@@ -1,15 +1,15 @@
 import { TypographyP } from "@/components/typography/typography";
 import getDomain from "@/lib/getDomain";
-// import CreateTask from "./createTask";
-import { helloWorld } from "@/db/db";
-import { Task } from "../api/tasks/route";
+import CreateTask from "@/app/tasks/createTask";
+// import { helloWorld } from "@/db/db";
+import { Task } from "@/app/api/tasks/route";
 
-export const runtime = 'edge';
+// export const runtime = "edge";
 
 export default async function TasksHub() {
   const data = await getTasks();
-  const dbHello = await helloWorld();
-  console.log("dbHello", dbHello);
+  // const dbHello = await helloWorld();
+  // console.log("dbHello", dbHello);
 
   return (
     <main className="flex flex-col gap-8 border-accent bg-background p-6 md:container md:mx-auto">
@@ -23,7 +23,7 @@ export default async function TasksHub() {
             })}
         </ul>
       </div>
-      {/* <CreateTask /> */}
+      <CreateTask />
     </main>
   );
 }
@@ -32,9 +32,9 @@ async function getTasks() {
   const domain = getDomain();
   const endpoint = `${domain}/api/tasks`;
   console.log("endpoint: ", endpoint);
-  const res = await fetch(endpoint, { next: { revalidate: 10 } });
-  console.log("res.json(): ", await res.json());
-  
+  // const res = await fetch(endpoint, { next: { revalidate: 10 } });
+  const res = await fetch(endpoint);
+
   if (!res.ok) {
     console.error(`HTTP error status: ${res.status}`, await res.url);
     throw new Error("Failed to fetch tasks");
@@ -46,5 +46,3 @@ async function getTasks() {
 
   return res.json();
 }
-
-
