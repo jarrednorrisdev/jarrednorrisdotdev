@@ -6,7 +6,7 @@ export interface Task {
   name: string;
 }
 
-export async function GET(req: NextRequest, res: NextResponse<Task>) {
+export async function GET() {
   console.log("GET /api/tasks");
   return NextResponse.json({
     tasks: [
@@ -17,6 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse<Task>) {
 }
 
 export async function POST(req: NextRequest) {
+  console.log("POST /api/tasks");
   const headersList = headers();
   const contentType = headersList.get("content-type");
 

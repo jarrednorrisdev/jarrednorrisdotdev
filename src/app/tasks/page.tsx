@@ -33,9 +33,10 @@ async function getTasks() {
   const endpoint = `${domain}/api/tasks`;
   console.log("endpoint: ", endpoint);
   const res = await fetch(endpoint, { next: { revalidate: 10 } });
+  console.log("res.json(): ", await res.json());
   
   if (!res.ok) {
-    console.error(`HTTP error status: ${res.status}`, await res.text());
+    console.error(`HTTP error status: ${res.status}`, await res.url);
     throw new Error("Failed to fetch tasks");
   }
 
