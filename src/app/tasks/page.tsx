@@ -3,8 +3,9 @@ import getDomain from "@/lib/getDomain";
 import CreateTask from "./createTask";
 import { helloWorld } from "@/lib/db";
 
+
 export default async function TasksHub() {
-  const data = await getData();
+  const data = await getTasks();
   const dbHello = await helloWorld();
   console.log("dbHello", dbHello);
 
@@ -25,15 +26,15 @@ export default async function TasksHub() {
   );
 }
 
-async function getData() {
+async function getTasks() {
   const domain = getDomain();
   const endpoint = `${domain}/api/tasks`;
-  const res = await fetch(endpoint);
+  const res = await fetch(endpoint, { next: { revalidate: 10 } });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
 
-  if (res.headers.get("Content-Type") !== "application/json") {
+  if (res.headers.get("content-type") !== "application/json") {
     return { tasks: [] };
   }
 

@@ -37,20 +37,23 @@ export default function CreateTask({}: Props) {
   async function onSubmitTask(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-		console.log("values: ", values);
-		const JSONData = JSON.stringify(values);
-		
-		const endpoint = `api/tasks`;
-		const options = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSONData,
-		};
+    console.log("values: ", values);
+    const newTask = { id: "0", taskname: values.taskname };
+    const JSONData = JSON.stringify(newTask);
+    console.log("JSONData", JSONData);
+
+    const endpoint = `api/tasks`;
+    const options = {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSONData,
+    };
 		const response = await fetch(endpoint, options);
-		const result = await response.json();
-		console.log("result", result);
+		console.log("onSubmitTask response:", response);
+    const result = await response.json();
+    console.log("onSubmitTask result:", result);
   }
 
   //<form className="flex flex-col gap-8">
@@ -70,9 +73,7 @@ export default function CreateTask({}: Props) {
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>
-              <FormDescription>
-                This is your task name.
-              </FormDescription>
+              <FormDescription>This is your task name.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

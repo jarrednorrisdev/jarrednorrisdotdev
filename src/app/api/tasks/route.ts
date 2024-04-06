@@ -1,8 +1,15 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 
-export async function GET(request, context) {
-  console.log("request", request);
-  console.log("context", context);
+interface Task {
+  id: string;
+  name: string;
+}
+
+export async function GET(req: NextApiRequest, res: NextApiResponse<Task>) {
+  console.log("request", req);
+  console.log("context", res);
   return NextResponse.json({
     tasks: [
       { id: "0", name: "taskname" },
@@ -11,11 +18,15 @@ export async function GET(request, context) {
   });
 }
 
-export async function POST(request) {
-	const contentType = request.headers.get("content-type");
-	if (contentType !== "application/json") { 
-		return NextResponse.json("invalid content type", {status: 400});
-	}
-  const data = await request.json();
-  return NextResponse.json(data, {status: 201});
+export async function POST(req: NextApiRequest) {
+  const headersList = headers();
+
+  const contentType = headersList.get("content-type");
+  console.log("contentType: ", contentType);
+
+  if (contentType !== "application/json") {
+    return NextResponse.json("invalid content typee", { status: 400 });
+  }
+  const data = await req.read();
+  return NextResponse.json(data, { status: 201 });
 }
