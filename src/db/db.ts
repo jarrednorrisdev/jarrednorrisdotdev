@@ -1,5 +1,6 @@
 import { neon } from "@neondatabase/serverless";
-const sql = neon(process.env.DATABASE_URL ? process.env.DATABASE_URL : "");
+import { env } from "@/env";
+const sql = neon(env.DATABASE_URL);
 
 export async function helloWorld() {
   const [dbResponse] = await sql`SELECT NOW();`;
