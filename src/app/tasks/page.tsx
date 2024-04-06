@@ -1,6 +1,6 @@
 import { TypographyP } from "@/components/typography/typography";
 import getDomain from "@/lib/getDomain";
-import CreateTask from "./createTask";
+// import CreateTask from "./createTask";
 import { helloWorld } from "@/db/db";
 import { Task } from "../api/tasks/route";
 
@@ -23,7 +23,7 @@ export default async function TasksHub() {
             })}
         </ul>
       </div>
-      <CreateTask />
+      {/* <CreateTask /> */}
     </main>
   );
 }
