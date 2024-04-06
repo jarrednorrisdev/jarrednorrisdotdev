@@ -27,19 +27,19 @@ export default async function TasksHub() {
 }
 
 async function getTasks() {
-  // const domain = getDomain();
-  // const endpoint = `${domain}/api/tasks`;
-  // const res = await fetch(endpoint, { next: { revalidate: 10 } });
-  // if (!res.ok) {
-  //   throw new Error("Failed to fetch data");
-  // }
+  const domain = getDomain();
+  const endpoint = `${domain}/api/tasks`;
+  const res = await fetch(endpoint, { next: { revalidate: 10 } });
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
 
-  // if (res.headers.get("content-type") !== "application/json") {
-  //   return { tasks: [] };
-  // }
+  if (res.headers.get("content-type") !== "application/json") {
+    return { tasks: [] };
+  }
 
-  // const data = res.json();
-  const tasks = [{id: "0", name:"task 0"}]
-  return {tasks};
+  const data = res.json();
+  return {data};
 }
 
+export const runtime = 'edge';
