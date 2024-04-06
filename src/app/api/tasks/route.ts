@@ -6,7 +6,7 @@ export interface Task {
   name: string;
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   console.log("GET /api/tasks");
   return NextResponse.json({
     tasks: [
