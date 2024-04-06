@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { headers } from "next/headers";
 
-interface Task {
+export interface Task {
   id: string;
   name: string;
 }
