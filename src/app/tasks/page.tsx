@@ -42,4 +42,3 @@ async function getTasks() {
   return data;
 }
 
-export const runtime = "edge";

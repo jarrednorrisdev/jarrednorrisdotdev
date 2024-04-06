@@ -6,7 +6,7 @@ export const env = createEnv({
     DATABASE_URL: z.string().url(),
   },
   client: {
-    NEXT_PUBLIC_VERCEL_ENV: z.enum(["development", "test", "production"]),
+    NEXT_PUBLIC_VERCEL_ENV: z.enum(["development", "preview", "production"]),
     NEXT_PUBLIC_VERCEL_URL: z.string().url(),
   },
   experimental__runtimeEnv: {
