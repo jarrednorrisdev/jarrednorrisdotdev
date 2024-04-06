@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 
 const formSchema = z.object({
-  taskname: z
+  name: z
     .string()
     .min(2, "Task name must be at least 2 characters")
     .max(50, "Task name must be at most 50 characters"),
@@ -30,7 +30,7 @@ export default function CreateTask({}: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      taskname: "taskname",
+      name: "taskname",
     },
   });
 
@@ -38,7 +38,7 @@ export default function CreateTask({}: Props) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log("values: ", values);
-    const newTask = { id: "0", taskname: values.taskname };
+    const newTask = { id: "0", name: values.name };
     const JSONData = JSON.stringify(newTask);
     console.log("JSONData", JSONData);
 
@@ -66,7 +66,7 @@ export default function CreateTask({}: Props) {
       <form onSubmit={form.handleSubmit(onSubmitTask)} className="space-y-8">
         <FormField
           control={form.control}
-          name="taskname"
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Task Name</FormLabel>

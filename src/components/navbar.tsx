@@ -32,7 +32,7 @@ export default async function Navbar({ className }: { className?: string }) {
             </Link>
           </h1>
           <div className="flex">
-            <TooltipProvider>
+            {/* <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
                   <Button variant="outline">Projects</Button>
@@ -44,7 +44,7 @@ export default async function Navbar({ className }: { className?: string }) {
                   </div>
                 </TooltipContent>
               </Tooltip>
-            </TooltipProvider>
+            </TooltipProvider> */}
           </div>
         </div>
         <div className="flex items-center gap-2">
