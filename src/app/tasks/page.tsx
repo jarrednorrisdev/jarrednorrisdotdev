@@ -33,7 +33,16 @@ async function getTasks() {
   const endpoint = `${domain}/api/tasks`;
   console.log("endpoint: ", endpoint);
   // const res = await fetch(endpoint, { next: { revalidate: 10 } });
-  const res = await fetch(endpoint);
+
+  const options = {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+    },
+    next: { revalidate: 0 },
+  };
+
+  const res = await fetch(endpoint, options);
 
   if (!res.ok) {
     console.error(`HTTP error status: ${res.status}`, await res.url);

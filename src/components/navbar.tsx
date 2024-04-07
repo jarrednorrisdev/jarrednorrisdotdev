@@ -1,5 +1,3 @@
-
-
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import NavMenu from "./nav-menu";
@@ -32,6 +30,7 @@ export default async function Navbar({ className }: { className?: string }) {
             </Link>
           </h1>
           <div className="flex">
+            <Button asChild><Link href="/tasks">Tasks</Link></Button>
             {/* <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
