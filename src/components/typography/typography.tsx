@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "~/lib/utils";
 import React from "react";
 
 interface ITypographyProps {
@@ -63,7 +63,10 @@ export function TypographyP({ children, className }: ITypographyProps) {
   return <p className={cn("leading-5", className)}>{children}</p>;
 }
 
-export function TypographyBlockquote({ children, className }: ITypographyProps) {
+export function TypographyBlockquote({
+  children,
+  className,
+}: ITypographyProps) {
   return (
     <blockquote className={cn("mt-6 border-l-2 pl-6 italic", className)}>
       {children}
@@ -71,11 +74,14 @@ export function TypographyBlockquote({ children, className }: ITypographyProps) 
   );
 }
 
-export function TypographyInlineCode({ children, className }: ITypographyProps) {
+export function TypographyInlineCode({
+  children,
+  className,
+}: ITypographyProps) {
   return (
     <code
       className={cn(
-        "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+        "bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
         className,
       )}
     >
@@ -86,7 +92,7 @@ export function TypographyInlineCode({ children, className }: ITypographyProps) 
 
 export function TypographyLead({ children, className }: ITypographyProps) {
   return (
-    <p className={cn("text-xl text-muted-foreground", className)}>{children}</p>
+    <p className={cn("text-muted-foreground text-xl", className)}>{children}</p>
   );
 }
 
@@ -106,6 +112,6 @@ export function TypographySmall({ children, className }: ITypographyProps) {
 
 export function TypographyMuted({ children, className }: ITypographyProps) {
   return (
-    <p className={cn("text-sm text-muted-foreground", className)}>{children}</p>
+    <p className={cn("text-muted-foreground text-sm", className)}>{children}</p>
   );
 }
