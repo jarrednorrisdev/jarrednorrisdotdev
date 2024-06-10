@@ -3,7 +3,6 @@ import React from "react";
 import {
   TypographyH4,
   TypographyMuted,
-  TypographyP,
 } from "./typography/typography";
 
 export function TimelineShowcase({
@@ -20,31 +19,26 @@ export function TimelineShowcase({
 
 export function TimelineEntry({
   date,
-  label,
-  role,
+  title,
+  subtitle,
   actions,
-  description,
   children,
   className,
 }: {
   date: React.ReactNode;
-  label: React.ReactNode;
-  role: React.ReactNode;
+  title: React.ReactNode;
+  subtitle: React.ReactNode;
   actions?: React.ReactNode[];
-  description: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
 }) {
   return (
-    <li className={cn("flex gap-4 rounded-sm border p-2", className)}>
-      <div className="flex">{date}</div>
-      <div className="flex flex-col md:overflow-scroll">
-        {label}
-        {role}
-        {description}
-        <TypographyP className="whitespace-pre-line py-2">
-          {children}
-        </TypographyP>
+    <li className={cn("flex gap-4  py-2", className)}>
+      <div className="flex min-w-24">{date}</div>
+      <div className="flex flex-col gap-1 ">
+        {title}
+        {subtitle}
+        {children}
         {actions}
       </div>
     </li>
@@ -63,7 +57,7 @@ export function TimelineEntryDate({
   );
 }
 
-export function TimelineEntryLabel({
+export function TimelineEntryTitle({
   children,
 }: {
   children?: React.ReactNode;
@@ -79,7 +73,7 @@ export function TimelineEntryActions({
   return <div className="flex justify-end">{children}</div>;
 }
 
-export function TimelineEntryRole({
+export function TimelineEntrySubTitle({
   children,
 }: {
   children?: React.ReactNode;

@@ -1,8 +1,5 @@
 import { getImage } from "~/server/queries";
-import Image from "next/image";
 import {
-  TypographyH2,
-  TypographyH3,
   TypographyH4,
   TypographyP,
 } from "~/components/typography/typography";

@@ -10,7 +10,7 @@ export function TypographyH1({ children, className }: ITypographyProps) {
   return (
     <h1
       className={cn(
-        "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+        "scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl",
         className,
       )}
     >
@@ -81,7 +81,7 @@ export function TypographyInlineCode({
   return (
     <code
       className={cn(
-        "bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+        "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
         className,
       )}
     >
@@ -92,7 +92,7 @@ export function TypographyInlineCode({
 
 export function TypographyLead({ children, className }: ITypographyProps) {
   return (
-    <p className={cn("text-muted-foreground text-xl", className)}>{children}</p>
+    <p className={cn("text-xl text-muted-foreground", className)}>{children}</p>
   );
 }
 
@@ -112,6 +112,6 @@ export function TypographySmall({ children, className }: ITypographyProps) {
 
 export function TypographyMuted({ children, className }: ITypographyProps) {
   return (
-    <p className={cn("text-muted-foreground text-sm", className)}>{children}</p>
+    <p className={cn("text-sm text-muted-foreground", className)}>{children}</p>
   );
 }
