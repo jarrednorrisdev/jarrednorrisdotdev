@@ -1,6 +1,6 @@
-import Image from "next/image";
 import React from "react";
-import { getImage } from "~/server/queries";
+import { Modal } from "~/components/modal";
+import { ImageView } from "~/app/gallery/_components/ImageView";
 
 export default async function ImageModal({
   params: { id: photoId },
@@ -12,10 +12,9 @@ export default async function ImageModal({
     return <div>Invalid image id</div>;
   }
 
-  const image = await getImage(idAsNumber);
   return (
-    <div>
-      <Image src={image.url} alt={image.name} width={256} height={256} />
-    </div>
+    <Modal className=" max-h-screen m-8 max-w-screen-2xl overflow-y-scroll">
+      <ImageView imageId={idAsNumber} />
+    </Modal>
   );
 }
