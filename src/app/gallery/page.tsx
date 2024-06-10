@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   return (
-    <main className="flex flex-grow flex-col flex-wrap items-center justify-center gap-4 p-4 md:container md:mx-auto md:overflow-auto ">
+    <main className="flex flex-col flex-wrap items-center justify-center gap-4 p-4 md:container md:mx-auto md:overflow-auto ">
       <TypographyH1>Image Gallery</TypographyH1>
       <div className="flex flex-col gap-4">
         <TypographyH3>Upload an image</TypographyH3>

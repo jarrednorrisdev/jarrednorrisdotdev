@@ -11,5 +11,9 @@ export default async function ImagePage({
     return <div>Invalid image id</div>;
   }
 
-  return <ImageView imageId={idAsNumber} />;
+  return (
+    <div className="container flex h-[90dvh] max-h-[90dvh] flex-grow flex-col gap-4 overflow-auto">
+      <ImageView imageId={idAsNumber} />
+    </div>
+  );
 }

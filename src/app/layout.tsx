@@ -32,10 +32,12 @@ export default function RootLayout({
             enableSystem={true}
             disableTransitionOnChange
           >
-            <TopNav className="bg-background" />
-            {children}
-            {modal}
-            <div id="modal-root" />
+            <div className="h-dvh max-h-dvh flex-col gap-4 overflow-auto">
+              <TopNav className="bg-background" />
+              {children}
+              {modal}
+              <div id="modal-root" />
+            </div>
           </ThemeProvider>
         </body>
       </html>

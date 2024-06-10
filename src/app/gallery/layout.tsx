@@ -14,10 +14,10 @@ export default function GalleryLayout({
   modal: React.ReactNode;
 }) {
   return (
-    <>
+    <div>
       {children}
       {modal}
       <div id="modal-root" />
-    </>
+    </div>
   );
 }
