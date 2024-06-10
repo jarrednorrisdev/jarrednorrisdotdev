@@ -6,6 +6,7 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { ThemeProvider } from "~/components/theme-provider";
+import React from "react";
 
 export const metadata = {
   title: "jarrednorrisdev",
@@ -15,8 +16,10 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <ClerkProvider>
@@ -31,6 +34,8 @@ export default function RootLayout({
           >
             <TopNav className="bg-background" />
             {children}
+            {modal}
+            <div id="modal-root" />
           </ThemeProvider>
         </body>
       </html>

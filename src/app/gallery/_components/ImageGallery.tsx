@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getCurrentUserImages } from "~/server/queries";
 
 export async function ImageGallery() {
@@ -9,13 +10,15 @@ export async function ImageGallery() {
       <div className="flex flex-wrap gap-4">
         {images.map((image) => (
           <div key={image.id} className="flex w-32 flex-col gap-4">
-            <Image
-              src={image.url}
-              alt={image.name}
-              width={256}
-              height={256}
-              className="rounded-lg"
-            />
+            <Link href={`gallery/img/${image.id}`}>
+              <Image
+                src={image.url}
+                alt={image.name}
+                width={256}
+                height={256}
+                className="rounded-lg"
+              />
+            </Link>
             <div className="text-lg">{image.name}</div>
           </div>
         ))}
