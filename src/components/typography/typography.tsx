@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "~/lib/utils";
 import React from "react";
 
 interface ITypographyProps {
@@ -10,7 +10,7 @@ export function TypographyH1({ children, className }: ITypographyProps) {
   return (
     <h1
       className={cn(
-        "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
+        "scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl",
         className,
       )}
     >
@@ -63,7 +63,10 @@ export function TypographyP({ children, className }: ITypographyProps) {
   return <p className={cn("leading-5", className)}>{children}</p>;
 }
 
-export function TypographyBlockquote({ children, className }: ITypographyProps) {
+export function TypographyBlockquote({
+  children,
+  className,
+}: ITypographyProps) {
   return (
     <blockquote className={cn("mt-6 border-l-2 pl-6 italic", className)}>
       {children}
@@ -71,7 +74,10 @@ export function TypographyBlockquote({ children, className }: ITypographyProps) 
   );
 }
 
-export function TypographyInlineCode({ children, className }: ITypographyProps) {
+export function TypographyInlineCode({
+  children,
+  className,
+}: ITypographyProps) {
   return (
     <code
       className={cn(

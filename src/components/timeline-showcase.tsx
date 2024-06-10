@@ -1,15 +1,9 @@
-import { cn } from "@/lib/utils";
+import { cn } from "~/lib/utils";
 import React from "react";
 import {
-  TypographyH1,
-  TypographyH3,
   TypographyH4,
   TypographyMuted,
-  TypographyP,
 } from "./typography/typography";
-import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
-import { Badge } from "./ui/badge";
 
 export function TimelineShowcase({
   className,
@@ -18,36 +12,33 @@ export function TimelineShowcase({
   className?: string;
   children?: React.ReactNode;
 }) {
-  return <ol className={cn("flex flex-col gap-4", className)}>{children}</ol>;
+  return (
+    <div className={cn("flex flex-col gap-4 ", className)}>{children}</div>
+  );
 }
 
 export function TimelineEntry({
   date,
-  label,
-  role,
+  title,
+  subtitle,
   actions,
-  description,
   children,
   className,
 }: {
   date: React.ReactNode;
-  label: React.ReactNode;
-  role: React.ReactNode;
+  title: React.ReactNode;
+  subtitle: React.ReactNode;
   actions?: React.ReactNode[];
-  description: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
 }) {
   return (
-    <li className={cn("flex gap-6 p-4", className)}>
-      <div className="flex">{date}</div>
-      <div className="flex flex-col">
-        {label}
-        {role}
-        {description}
-        <TypographyP className="whitespace-pre-line py-2">
-          {children}
-        </TypographyP>
+    <li className={cn("flex gap-4  py-2", className)}>
+      <div className="flex min-w-24">{date}</div>
+      <div className="flex flex-col gap-1 ">
+        {title}
+        {subtitle}
+        {children}
         {actions}
       </div>
     </li>
@@ -66,7 +57,7 @@ export function TimelineEntryDate({
   );
 }
 
-export function TimelineEntryLabel({
+export function TimelineEntryTitle({
   children,
 }: {
   children?: React.ReactNode;
@@ -82,7 +73,7 @@ export function TimelineEntryActions({
   return <div className="flex justify-end">{children}</div>;
 }
 
-export function TimelineEntryRole({
+export function TimelineEntrySubTitle({
   children,
 }: {
   children?: React.ReactNode;
