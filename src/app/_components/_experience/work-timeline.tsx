@@ -7,7 +7,7 @@ import {
 } from "~/components/timeline-showcase";
 import { TypographyP } from "~/components/typography/typography";
 
-export function WorkTimelineShowcase() {
+export function WorkTimeline() {
   return (
     <TimelineShowcase>
       <TimelineEntry

@@ -7,7 +7,7 @@ import {
 } from "~/components/timeline-showcase";
 import { TypographyP } from "~/components/typography/typography";
 
-export function EducationTimelineShowcase() {
+export function EducationTimeline() {
   return (
     <TimelineShowcase>
       <TimelineEntry
@@ -49,7 +49,7 @@ export function EducationTimelineShowcase() {
       </TimelineEntry>
       <TimelineEntry
         date={<TimelineEntryDate>2015 - 2017</TimelineEntryDate>}
-        title={<TimelineEntryTitle>University of Lincoln</TimelineEntryTitle>}
+        title={<TimelineEntryTitle>Presdales Academy</TimelineEntryTitle>}
         subtitle={
           <TimelineEntrySubTitle>
             Mathematics, Biology, Politics - A-Levels

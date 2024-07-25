@@ -36,6 +36,8 @@ export const posts = createTable(
   }),
 );
 
+export type Post = typeof posts.$inferSelect;
+
 export const images = createTable(
   "image",
   {
@@ -54,3 +56,5 @@ export const images = createTable(
     createdAtIndex: index("images_created_at_idx").on(table.createdAt),
   }),
 );
+
+export type Image = typeof images.$inferSelect;

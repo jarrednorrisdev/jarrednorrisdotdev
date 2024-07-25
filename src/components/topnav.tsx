@@ -8,8 +8,13 @@ import { cn } from "~/lib/utils";
 
 export default function TopNav({ className }: { className?: string }) {
   return (
-    <nav className={cn("border-b transition-all duration-300 ", className)}>
-      <div className="container mx-auto flex items-center justify-between py-2">
+    <nav
+      className={cn(
+        " flex items-center   border-b transition-all duration-300 ",
+        className,
+      )}
+    >
+      <div className="container flex justify-between">
         <div className="flex items-center gap-4">
           <Link href="/">
             <TypographyH3>
@@ -17,7 +22,6 @@ export default function TopNav({ className }: { className?: string }) {
               <span className="text-primary">dev</span>
             </TypographyH3>
           </Link>
-          {/* <a href="/gallery">Image Gallery</a> */}
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />

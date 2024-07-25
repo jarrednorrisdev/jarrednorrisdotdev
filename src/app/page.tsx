@@ -1,15 +1,20 @@
-import MainHero from "~/components/hero/main-hero";
-import { PreviousExperienceShowcase } from "./_components/PreviousExperienceShowcase";
+import { MainHero } from "~/app/_components/main-hero";
+import { BackgroundGradient } from "~/components/animated-border";
+import { ExperienceCard } from "./_components/_experience/experience-card";
+import { ProjectsCard } from "./_components/_projects/projects-card";
+import { BorderBeam } from "~/components/magicui/border-beam";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   return (
-    <main className="flex flex-grow flex-wrap gap-4 p-4 md:container md:mx-auto md:overflow-auto ">
-      <div className=" flex flex-row  flex-wrap gap-4 rounded border  p-4 lg:flex-nowrap">
-        <MainHero className="flex flex-grow gap-8 rounded border bg-background px-4 py-2 lg:w-1/3" />
-        <PreviousExperienceShowcase className="flex flex-grow flex-wrap gap-2 rounded border bg-background px-5 py-3  md:overflow-hidden  " />
+    <main className="container grid h-full grid-cols-1 justify-stretch gap-4 p-4 lg:grid-cols-5 ">
+      <div className="flex flex-grow flex-col gap-4 lg:col-span-3">
+        <MainHero />
+        
+        <ExperienceCard />
       </div>
+      <ProjectsCard />
     </main>
   );
 }
