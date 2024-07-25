@@ -1,20 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WorkTimelineShowcase } from "./WorkTimelineShowcase";
-import { EducationTimelineShowcase } from "./EducationTimelineShowcase";
+import { WorkTimeline } from "./work-timeline";
+import { EducationTimeline } from "./education-timeline";
 import { cn } from "~/lib/utils";
 
-export function PreviousExperienceShowcase({
-  className,
-}: {
-  className?: string;
-}) {
+export function ExperienceShowcase({ className }: { className?: string }) {
   return (
-    <div
-      className={cn(
-        className,
-        "",
-      )}
-    >
+    <div className={cn(className, "")}>
       <Tabs defaultValue="Experience" className="min-w-1/2 ">
         <TabsList className="p-0" variant="ghost">
           <TabsTrigger className="" value="Experience" variant="outline">
@@ -26,10 +17,10 @@ export function PreviousExperienceShowcase({
         </TabsList>
         <div className="flex  flex-col md:overflow-scroll">
           <TabsContent className="md:overflow-auto" value="Experience">
-            <WorkTimelineShowcase />
+            <WorkTimeline />
           </TabsContent>
           <TabsContent className="" value="Education">
-            <EducationTimelineShowcase />
+            <EducationTimeline />
           </TabsContent>
         </div>
       </Tabs>

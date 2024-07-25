@@ -1,11 +1,5 @@
 import React from "react";
 
-export const metadata = {
-  title: "jarrednorrisdev",
-  description: "The Personal Website of Jarred Norris, Software Engineer",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
-};
-
 export default function GalleryLayout({
   children,
   modal,

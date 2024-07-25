@@ -17,6 +17,21 @@ export async function getCurrentUserImages() {
   return images;
 }
 
+export async function getOtherUserImages() {
+  const user = auth();
+
+  if (!user.userId) {
+    throw new Error("User not signed in");
+  }
+
+  const images = await db.query.images.findMany({
+    where: (model, { ne }) => ne(model.userId, user.userId),
+    orderBy: (model, { desc }) => desc(model.createdAt),
+  });
+
+  return images;
+}
+
 export async function getImage(id: number) {
   const user = auth();
 

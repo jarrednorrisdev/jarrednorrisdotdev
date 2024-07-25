@@ -1,9 +1,7 @@
 import { cn } from "~/lib/utils";
 import React from "react";
-import {
-  TypographyH4,
-  TypographyMuted,
-} from "./typography/typography";
+import { TypographyH4, TypographyMuted } from "./typography/typography";
+import { Separator } from "./ui/separator";
 
 export function TimelineShowcase({
   className,
@@ -34,12 +32,15 @@ export function TimelineEntry({
 }) {
   return (
     <li className={cn("flex gap-4  py-2", className)}>
-      <div className="flex min-w-24">{date}</div>
-      <div className="flex flex-col gap-1 ">
-        {title}
-        {subtitle}
-        {children}
-        {actions}
+      <div className="flex min-w-24 justify-center py-[0.3rem]">{date}</div>
+			<div className="flex  gap-4   ">
+				<Separator orientation="vertical" className="h-full w-px" />
+        <div className="flex flex-col gap-1   ">
+          {title}
+          {subtitle}
+          {children}
+          {actions}
+        </div>
       </div>
     </li>
   );
@@ -51,7 +52,7 @@ export function TimelineEntryDate({
   children?: React.ReactNode;
 }) {
   return (
-    <TypographyMuted className="h-min rounded p-2 font-mono md:text-nowrap">
+    <TypographyMuted className="flex  flex-grow justify-end rounded text-end">
       {children}
     </TypographyMuted>
   );
