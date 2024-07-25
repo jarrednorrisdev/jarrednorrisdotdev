@@ -13,7 +13,7 @@ export default async function ImageModal({
   }
 
   return (
-    <Modal className="flex  max-w-[95dvw] max-h-[90dvh] overflow-y-scroll">
+    <Modal className="min-w-max w-max">
       <ImageView imageId={idAsNumber} />
     </Modal>
   );

@@ -8,18 +8,18 @@ export function ExperienceShowcase({ className }: { className?: string }) {
     <div className={cn(className, "")}>
       <Tabs defaultValue="Experience" className="min-w-1/2 ">
         <TabsList className="p-0" variant="ghost">
-          <TabsTrigger className="" value="Experience" variant="outline">
+          <TabsTrigger  value="Experience" variant="outline">
             Experience
           </TabsTrigger>
-          <TabsTrigger className="" value="Education" variant="outline">
+          <TabsTrigger  value="Education" variant="outline">
             Education
           </TabsTrigger>
         </TabsList>
         <div className="flex  flex-col md:overflow-scroll">
-          <TabsContent className="md:overflow-auto" value="Experience">
+          <TabsContent  value="Experience">
             <WorkTimeline />
           </TabsContent>
-          <TabsContent className="" value="Education">
+          <TabsContent  value="Education">
             <EducationTimeline />
           </TabsContent>
         </div>

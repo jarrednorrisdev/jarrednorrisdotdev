@@ -17,8 +17,8 @@ export async function ImageView({
   const image = await getImage(imageId);
   const imageUploader = await clerkClient.users.getUser(image.userId);
   return (
-    <div className={cn("flex flex-grow gap-4 overflow-auto p-4", className)}>
-      <div className="flex flex-shrink-0 flex-grow flex-col ">
+    <div className={cn("flex flex-grow gap-4 overflow-auto p-4 justify-between", className)}>
+      <div className="flex flex-col ">
         <TypographyH4>{image.name}</TypographyH4>
         <Separator orientation="horizontal" />
         <div className="flex flex-grow flex-col gap-2 overflow-auto">
@@ -28,7 +28,7 @@ export async function ImageView({
           </TypographyP>
         </div>
       </div>
-      <div className="flex flex-shrink-[2] p-4">
+      <div className="">
 				<img src={image.url} alt={image.name} />
 				
       </div>

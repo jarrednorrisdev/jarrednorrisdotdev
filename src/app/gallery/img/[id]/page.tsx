@@ -12,7 +12,7 @@ export default async function ImagePage({
   }
 
   return (
-    <div className="container flex h-[90dvh] max-h-[90dvh] flex-grow flex-col gap-4 overflow-auto">
+    <div className="container flex h-full flex-grow flex-col flex-wrap items-stretch gap-4 p-4">
       <ImageView imageId={idAsNumber} />
     </div>
   );

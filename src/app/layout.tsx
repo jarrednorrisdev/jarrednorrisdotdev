@@ -44,7 +44,7 @@ export default function RootLayout({
           >
             <div className="  flex h-dvh max-h-dvh flex-grow flex-col items-stretch justify-stretch overflow-auto">
               <TopNav className="bg-background/80 px-8 py-2 backdrop-blur-lg" />
-              <ParticlesEffect />
+              {/* <ParticlesEffect /> */}
               {children}
               {modal}
               <div id="modal-root" />

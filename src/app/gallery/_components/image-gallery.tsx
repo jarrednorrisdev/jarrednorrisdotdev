@@ -1,8 +1,8 @@
 import NextImage from "next/image";
 import Link from "next/link";
 import React from "react";
-import Card from "~/components/card";
 import { TypographyH4 } from "~/components/typography/typography";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { type Image } from "~/server/db/schema";
 
 export async function ImageGallery({
@@ -13,12 +13,11 @@ export async function ImageGallery({
   galleryTitle: React.ReactNode;
 }) {
   return (
-    <Card className="flex flex-grow flex-col gap-4 ">
-      {galleryTitle}
-      <div className="flex flex-wrap gap-4">
-        {images.map((image) => (
-          <Card key={image.id} className="flex w-64 flex-col gap-4 p-2">
-            <Link href={`gallery/img/${image.id}`}>
+    <div className="flex flex-wrap justify-around gap-4">
+      {images.map((image) => (
+        <Card key={image.id} className="flex w-64 flex-col gap-4 p-2">
+          <Link href={`gallery/img/${image.id}`}>
+            
               <NextImage
                 src={image.url}
                 alt={image.name}
@@ -26,13 +25,10 @@ export async function ImageGallery({
                 height={256}
                 className="rounded-lg"
               />
-
-              <div className="truncate text-lg">{image.name}</div>
-            </Link>
-          </Card>
-        ))}
-      </div>
-    </Card>
+          </Link>
+        </Card>
+      ))}
+    </div>
   );
 }
 
