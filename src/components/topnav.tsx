@@ -10,7 +10,7 @@ export default function TopNav({ className }: { className?: string }) {
   return (
     <nav
       className={cn(
-        " flex items-center   border-b transition-all duration-300 ",
+        " flex items-center border-b transition-all duration-300 ",
         className,
       )}
     >

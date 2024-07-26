@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { ProjectsList, ProjectsListItem } from "./projects-list";
 import { FilmIcon, ImageIcon } from "lucide-react";
-import { BorderBeam } from "~/components/magicui/border-beam";
 
 export function ProjectsCard() {
   const projectRecsDescription = `
@@ -12,7 +11,6 @@ export function ProjectsCard() {
 
   return (
     <Card className="group relative rounded-xl border transition-all lg:col-span-2 lg:col-start-4 mb-2">
-      <BorderBeam className="opacity-0 transition-opacity duration-1000 group-hover:opacity-100" />
       <CardHeader>
         <CardTitle>Projects</CardTitle>
       </CardHeader>

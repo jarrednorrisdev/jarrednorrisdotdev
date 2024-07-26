@@ -15,7 +15,7 @@ export function ExperienceShowcase({ className }: { className?: string }) {
             Education
           </TabsTrigger>
         </TabsList>
-        <div className="flex  flex-col md:overflow-scroll">
+        <div className="flex  flex-col ">
           <TabsContent  value="Experience">
             <WorkTimeline />
           </TabsContent>

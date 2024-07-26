@@ -17,11 +17,11 @@ export async function ImageView({
   const image = await getImage(imageId);
   const imageUploader = await clerkClient.users.getUser(image.userId);
   return (
-    <div className={cn("flex flex-grow gap-4 overflow-auto p-4 justify-between", className)}>
+    <div className={cn("flex flex-grow gap-4  p-4 justify-between", className)}>
       <div className="flex flex-col ">
         <TypographyH4>{image.name}</TypographyH4>
         <Separator orientation="horizontal" />
-        <div className="flex flex-grow flex-col gap-2 overflow-auto">
+        <div className="flex flex-grow flex-col gap-2">
           <TypographyP>Uploaded By: {imageUploader.fullName}</TypographyP>
           <TypographyP>
             Created At: {new Date(image.createdAt).toLocaleString()}

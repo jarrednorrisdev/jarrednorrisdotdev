@@ -8,6 +8,7 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { BorderBeam } from "~/components/magicui/border-beam";
+import Link from "next/link";
 
 export function MainHero() {
   const skills = [
@@ -44,13 +45,17 @@ export function MainHero() {
           architecting scalable web applications in React.
         </TypographyP>
         <div className="flex items-center gap-4">
-          <Button className="flex gap-2">
-            <DownloadIcon />
-            CV
+          <Button className="flex gap-2" asChild>
+            <Link href="/cv.pdf" download={true} target="_blank">
+              <DownloadIcon />
+              CV
+            </Link>
           </Button>
-          <Button className="flex gap-2">
-            <MailIcon />
-            Contact
+          <Button className="flex gap-2" asChild>
+            <a href="mailto:jarred.norris1@gmail.com" download={true} target="_blank">
+              <MailIcon />
+              Contact
+            </a>
           </Button>
         </div>
       </CardContent>

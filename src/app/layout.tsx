@@ -7,8 +7,6 @@ import { ourFileRouter } from "./api/uploadthing/core";
 import { ThemeProvider } from "~/components/theme-provider";
 import React from "react";
 import { Montserrat, JetBrains_Mono } from "next/font/google";
-import { Particle } from "@tsparticles/engine";
-import ParticlesEffect from "~/components/particles";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -42,9 +40,8 @@ export default function RootLayout({
             enableSystem={true}
             disableTransitionOnChange
           >
-            <div className="  flex h-dvh max-h-dvh flex-grow flex-col items-stretch justify-stretch overflow-auto">
-              <TopNav className="bg-background/80 px-8 py-2 backdrop-blur-lg" />
-              {/* <ParticlesEffect /> */}
+            <div className="flex h-dvh max-h-dvh flex-grow flex-col items-stretch justify-stretch overflow-auto">
+              <TopNav className="bg-background px-8 py-2" />
               {children}
               {modal}
               <div id="modal-root" />
