@@ -1,16 +1,12 @@
 import "~/styles/globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
-import TopNav from "../components/topnav";
-import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
-import { extractRouterConfig } from "uploadthing/server";
-import { ourFileRouter } from "./api/uploadthing/core";
-import { ThemeProvider } from "~/components/theme-provider";
 import React from "react";
-import { Montserrat, JetBrains_Mono } from "next/font/google";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-});
+import { ClerkProvider } from "@clerk/nextjs";
+import { extractRouterConfig } from "uploadthing/server";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { ourFileRouter } from "~/app/api/uploadthing/core";
+import { ThemeProvider } from "~/components/theme-provider";
+import { JetBrains_Mono } from "next/font/google";
+import TopNav from "~/components/jnd/top-nav";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -40,8 +36,8 @@ export default function RootLayout({
             enableSystem={true}
             disableTransitionOnChange
           >
-            <div className="flex h-dvh max-h-dvh flex-grow flex-col items-stretch justify-stretch overflow-auto">
-              <TopNav className="bg-background px-8 py-2" />
+            <div className="flex h-dvh min-h-dvh flex-col items-stretch justify-stretch bg-background-secondary">
+              <TopNav className="py-2 bg-card" />
               {children}
               {modal}
               <div id="modal-root" />

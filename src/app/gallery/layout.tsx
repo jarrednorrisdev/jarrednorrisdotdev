@@ -8,7 +8,7 @@ export default function GalleryLayout({
   modal: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="h-full">
       {children}
       {modal}
       <div id="modal-root" />

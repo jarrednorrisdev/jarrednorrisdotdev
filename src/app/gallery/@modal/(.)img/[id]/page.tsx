@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal } from "~/components/modal";
-import { ImageView } from "~/app/gallery/_components/ImageView";
+import { ImageDisplay } from "~/components/jnd/gallery/image-display";
+import { liveGetImageByIdAction } from "~/server/gallery/queries";
 
 export default async function ImageModal({
   params: { id: photoId },
@@ -11,10 +12,11 @@ export default async function ImageModal({
   if (isNaN(idAsNumber)) {
     return <div>Invalid image id</div>;
   }
+  const image = await liveGetImageByIdAction(idAsNumber);
 
   return (
-    <Modal className="min-w-max w-max">
-      <ImageView imageId={idAsNumber} />
+    <Modal className="h-[90dvh] max-h-[90dvh] min-h-[90dvh] max-w-[90%]">
+      <ImageDisplay image={image} className="flex-grow" />
     </Modal>
   );
 }
