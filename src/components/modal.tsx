@@ -1,8 +1,9 @@
 "use client";
 
 import { cn } from "~/lib/utils";
-import { Dialog, DialogOverlay, DialogContent } from "./ui/dialog";
+
 import { useRouter } from "next/navigation";
+import { Dialog, DialogContent, DialogOverlay } from "~/components/ui/dialog";
 
 export function Modal({
   children,
