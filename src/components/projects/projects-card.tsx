@@ -9,11 +9,11 @@ import {
 import { TypographyH3 } from "~/components/typography/typography";
 
 export function ProjectsCard({ className }: { className?: string }) {
-  const projectRecsDescription = `
-	A media recommendation platform that allows users to share reccomendations for movies, tv shows, games.
-	Where only the ratings and recommendations of those in their circle are counted.
-	Built with NextJS, Postgres, and Drizzle
-	`;
+  // const projectRecsDescription = `
+  // A media recommendation platform that allows users to share reccomendations for movies, tv shows, games.
+  // Where only the ratings and recommendations of those in their circle are counted.
+  // Built with NextJS, Postgres, and Drizzle
+  // `;
 
   return (
     <Card className={cn("", className)}>
@@ -22,14 +22,14 @@ export function ProjectsCard({ className }: { className?: string }) {
       </CardHeader>
       <CardContent>
         <ProjectsList>
-          <ProjectsListItem
+          {/* <ProjectsListItem
             projectTitle={
               <TypographyH3 className="text-center">cherry-recs</TypographyH3>
             }
             projectImage={<FilmIcon size={128} className="text-primary" />}
             projectDescription={projectRecsDescription}
             href="https://project-recs.vercel.app"
-          />
+          /> */}
           <ProjectsListItem
             projectTitle={
               <TypographyH3 className="text-center">jnd-gallery</TypographyH3>
