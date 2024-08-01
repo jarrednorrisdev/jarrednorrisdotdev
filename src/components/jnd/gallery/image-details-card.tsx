@@ -8,10 +8,11 @@ import {
 import { type Image } from "~/server/db/schema";
 import { TypographyP } from "~/components/typography/typography";
 import { cn } from "~/lib/utils";
-import { liveGetUserByIdAction } from "~/server/auth/queries/getUserById";
+import { liveGetUserById } from "~/server/auth/queries/getUserById";
 import Link from "next/link";
 import { SignedIn } from "@clerk/nextjs";
 import { ImageDetailsActions } from "~/components/jnd/gallery/image-details-actions";
+import { Effect } from "effect";
 
 export async function ImageDetailsCard({
   image,
@@ -20,7 +21,7 @@ export async function ImageDetailsCard({
   image: Image;
   className?: string;
 }) {
-  const imageUploader = await liveGetUserByIdAction(image.userId);
+  const imageUploader = await Effect.runPromise(liveGetUserById(image.userId));
 
   return (
     <Card className={cn("border-0 bg-transparent", className)}>

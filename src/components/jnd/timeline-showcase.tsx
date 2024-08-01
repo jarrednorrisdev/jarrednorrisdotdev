@@ -20,27 +20,24 @@ export function TimelineEntry({
   date,
   title,
   subtitle,
-  actions,
   children,
   className,
 }: {
   date: React.ReactNode;
   title: React.ReactNode;
   subtitle: React.ReactNode;
-  actions?: React.ReactNode[];
   children?: React.ReactNode;
   className?: string;
 }) {
   return (
     <li className={cn("flex gap-4 py-2", className)}>
-      <div className="flex min-w-24 justify-end py-[0.3rem]">{date}</div>
+      <div className="flex w-16 justify-end py-[0.3rem]">{date}</div>
       <div className="flex gap-4">
         <Separator orientation="vertical" className="h-full w-px" />
         <div className="flex flex-col gap-1">
           {title}
           {subtitle}
           {children}
-          {actions}
         </div>
       </div>
     </li>

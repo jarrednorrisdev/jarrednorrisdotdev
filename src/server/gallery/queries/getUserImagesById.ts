@@ -27,7 +27,4 @@ export function liveGetUserImagesById(
   return Effect.provide(getUserImagesById(userId), LiveGalleryServiceContext);
 }
 
-export async function liveGetUserImagesByIdAction(userId: string) {
-  "use server";
-  return await Effect.runPromise(liveGetUserImagesById(userId));
-}
+

@@ -1,7 +1,8 @@
 import React from "react";
 import { Modal } from "~/components/modal";
 import { ImageDisplay } from "~/components/jnd/gallery/image-display";
-import { liveGetImageByIdAction } from "~/server/gallery/queries";
+import { liveGetImageById } from "~/server/gallery/queries";
+import { Effect } from "effect";
 
 export default async function ImageModal({
   params: { id: photoId },
@@ -12,7 +13,7 @@ export default async function ImageModal({
   if (isNaN(idAsNumber)) {
     return <div>Invalid image id</div>;
   }
-  const image = await liveGetImageByIdAction(idAsNumber);
+  const image = await Effect.runPromise(liveGetImageById(idAsNumber));
 
   return (
     <Modal className="h-[90dvh] max-h-[90dvh] min-h-[90dvh] max-w-[90%]">

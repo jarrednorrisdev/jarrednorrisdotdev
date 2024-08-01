@@ -1,9 +1,10 @@
+import { Effect } from "effect";
 import { ImageGallery } from "~/components/jnd/gallery/image-gallery";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { liveGetUserImagesByIdAction } from "~/server/gallery/queries";
+import { liveGetUserImagesById } from "~/server/gallery/queries";
 
 export async function UserImageGallery({ userId }: { userId: string }) {
-  const images = await liveGetUserImagesByIdAction(userId);
+  const images = await Effect.runPromise(liveGetUserImagesById(userId));
   return (
     <Card className="flex-grow">
       <CardHeader>

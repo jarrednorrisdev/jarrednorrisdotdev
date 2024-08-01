@@ -1,37 +1,15 @@
-"use client";
-
 import { Button } from "~/components/ui/button";
-import { liveDeleteImageByIdAction } from "~/server/gallery/queries/liveDeleteImageByIdAction";
-import { useTransition } from "react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { type Image } from "~/server/db/schema";
+import { liveDeleteImageByIdAction } from "~/server/gallery/queries";
 
-export function DeleteButton({ imageId }: { imageId: number }) {
-  const [isPending, startTransition] = useTransition();
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+export async function DeleteButton({ image }: { image: Image }) {
+  const imageId = image.id;
 
-  const handleDelete = () => {
-    setError(null);
-    startTransition(async () => {
-      try {
-        await liveDeleteImageByIdAction(imageId);
-        // Optionally, you can add a small delay to ensure the deletion is processed
-        // await new Promise(resolve => setTimeout(resolve, 500));
-        router.back();
-      } catch (err) {
-        console.error("Failed to delete image:", err);
-        setError("Failed to delete image. Please try again.");
-      }
-    });
-  };
+  const deleteImageWithIdAction = liveDeleteImageByIdAction.bind(null, imageId);
 
   return (
-    <>
-      <Button onClick={handleDelete} disabled={isPending}>
-        {isPending ? "Deleting..." : "Delete"}
-      </Button>
-      {error && <p className="mt-2 text-red-500">{error}</p>}
-    </>
+    <form action={deleteImageWithIdAction}>
+      <Button type="submit" >Delete</Button>
+    </form>
   );
 }

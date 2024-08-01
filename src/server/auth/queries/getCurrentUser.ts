@@ -28,6 +28,4 @@ export function liveGetCurrentUser(): Effect.Effect<
   return Effect.provide(getCurrentUser(), LiveAuthServiceContext);
 }
 
-export async function liveGetCurrentUserAction() {
-  return Effect.runPromise(liveGetCurrentUser());
-}
+

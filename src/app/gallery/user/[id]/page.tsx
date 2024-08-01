@@ -1,4 +1,3 @@
-import { liveGetCurrentUserAction } from "~/server/auth/queries/getCurrentUser";
 import { Separator } from "~/components/ui/separator";
 import { GalleryUserPageBreadcrumb } from "./_components/GalleryUserPageBreadcrumb";
 import { UserImageGallery } from "~/components/jnd/gallery/user-image-gallery";

@@ -11,7 +11,7 @@ export function WorkTimeline() {
   return (
     <TimelineShowcase>
       <TimelineEntry
-        date={<TimelineEntryDate>2 Years</TimelineEntryDate>}
+        date={<TimelineEntryDate>2022 - 2023</TimelineEntryDate>}
         title={
           <TimelineEntryTitle>Simulation and Web Developer</TimelineEntryTitle>
         }
@@ -48,7 +48,7 @@ export function WorkTimeline() {
         </div>
       </TimelineEntry>
       <TimelineEntry
-        date={<TimelineEntryDate>2021</TimelineEntryDate>}
+        date={<TimelineEntryDate>2021 - 2021</TimelineEntryDate>}
         title={
           <TimelineEntryTitle>Admin and Marketing Assistant</TimelineEntryTitle>
         }

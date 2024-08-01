@@ -20,6 +20,4 @@ export function liveGetUserById(
   return Effect.provide(getUserById(userId), LiveAuthServiceContext);
 }
 
-export async function liveGetUserByIdAction(userId: string) {
-  return Effect.runPromise(liveGetUserById(userId));
-}
+

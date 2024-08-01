@@ -12,7 +12,7 @@ export async function ImageGallery({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-wrap justify-start gap-4", className)}>
+    <div className={cn("flex flex-wrap justify-around gap-4", className)}>
       {images.map((image) => {
         // todo: add a toggle for image rendering
         return (

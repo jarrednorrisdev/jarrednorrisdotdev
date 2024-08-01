@@ -35,7 +35,4 @@ export function liveGetOtherUserImages(): Effect.Effect<
   return Effect.provide(getOtherUserImages(), LiveGalleryServiceContext);
 }
 
-export async function liveGetOtherUserImagesAction() {
-  "use server";
-  return await Effect.runPromise(liveGetOtherUserImages());
-}
+

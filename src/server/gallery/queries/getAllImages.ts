@@ -33,7 +33,4 @@ export function liveGetAllImages(): Effect.Effect<
   return Effect.provide(getAllImages(), LiveGalleryServiceContext);
 }
 
-export async function liveGetAllImagesAction() {
-  "use server";
-  return await Effect.runPromise(liveGetAllImages());
-}
+

@@ -1,4 +1,4 @@
-import { ExperienceShowcase } from "~/components/experience/experience-showcase";
+import { ExperienceShowcase } from "~/components/jnd/experience/experience-showcase";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 import { cn } from "~/lib/utils";

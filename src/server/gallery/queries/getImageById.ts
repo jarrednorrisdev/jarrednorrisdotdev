@@ -30,7 +30,4 @@ export function liveGetImageById(
   return Effect.provide(getImageById(imageId), LiveGalleryServiceContext);
 }
 
-export async function liveGetImageByIdAction(imageId: number) {
-  "use server";
-  return await Effect.runPromise(liveGetImageById(imageId));
-}
+

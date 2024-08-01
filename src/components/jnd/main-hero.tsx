@@ -1,28 +1,20 @@
 import React from "react";
-import { DownloadIcon, MailIcon } from "lucide-react";
 import {
   TypographyMuted,
   TypographyP,
 } from "~/components/typography/typography";
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import { BorderBeam } from "~/components/magicui/border-beam";
-import Link from "next/link";
 import { cn } from "~/lib/utils";
+import { MainHeroButtons } from "./MainHeroButtons";
 
 export function MainHero({ className }: { className?: string }) {
-  const skills = [
-    "Javascript",
-    "Typescript",
-    "React",
-    "C#",
-    "Unity",
-    "Unreal",
-    "Git",
-    "Rust",
-    "Python",
-  ];
   return (
     <Card className={cn("group relative", className)}>
       <BorderBeam
@@ -32,41 +24,24 @@ export function MainHero({ className }: { className?: string }) {
       <CardHeader>
         <CardTitle>Jarred Norris</CardTitle>
         <TypographyMuted>
-          Software Engineer, Web Designer, Game Developer
+          Software Developer, Web Developer, Game Developer
         </TypographyMuted>
-        <div className="flex flex-wrap items-center gap-2">
-          {skills.map((skill) => (
-            <Badge key={skill} className="hover:bg-primary">
-              {skill}
-            </Badge>
-          ))}
-        </div>
       </CardHeader>
       <CardContent className="space-y-2">
-        <TypographyP>
-          Hi I&apos;m Jarred. I like finding creative solutions to complex
-          problems. From crafting immersive virtual worlds in Unity to
-          architecting scalable web applications in React.
-        </TypographyP>
-        <div className="flex items-center gap-4">
-          <Button className="flex gap-2" asChild>
-            <Link href="/cv.pdf" download={true} target="_blank">
-              <DownloadIcon />
-              CV
-            </Link>
-          </Button>
-          <Button className="flex gap-2" asChild>
-            <a
-              href="mailto:jarred.norris1@gmail.com"
-              download={true}
-              target="_blank"
-            >
-              <MailIcon />
-              Contact
-            </a>
-          </Button>
+        <div className="flex flex-grow flex-col justify-between gap-4 lg:flex-row">
+          <div className="flex flex-grow flex-col justify-between gap-2">
+            {/* <TypographyH4>About Me</TypographyH4> */}
+            <TypographyP>
+              Hi I&apos;m Jarred. I like finding creative solutions to complex
+              problems. From crafting immersive virtual worlds in Unity to
+              architecting scalable web applications in React.
+            </TypographyP>
+          </div>
         </div>
       </CardContent>
+      <CardFooter>
+        <MainHeroButtons />
+      </CardFooter>
     </Card>
   );
 }

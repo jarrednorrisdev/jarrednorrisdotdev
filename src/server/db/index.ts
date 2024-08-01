@@ -10,5 +10,5 @@ export class DatabaseService extends Context.Tag("@jnd/DbService")<
   VercelPgDatabase<typeof schema>
 >() {}
 
-export const LiveDatabseServiceContext: Context.Context<DatabaseService> =
+export const LiveDatabaseServiceContext: Context.Context<DatabaseService> =
   Context.empty().pipe(Context.add(DatabaseService, db));

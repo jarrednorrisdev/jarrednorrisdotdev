@@ -9,18 +9,19 @@ import {
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb";
 import { type Image } from "~/server/db/schema";
-import { liveGetImageByIdAction } from "~/server/gallery/queries";
+import { liveGetImageById } from "~/server/gallery/queries";
+import { Effect } from "effect";
 
 export default async function GalleryImagePage({
-  params: { id: photoId },
+  params: { id: imageId },
 }: {
   params: { id: string };
 }) {
-  const idAsNumber = Number(photoId);
+  const idAsNumber = Number(imageId);
   if (isNaN(idAsNumber)) {
     return <div>Invalid image id</div>;
   }
-  const image = await liveGetImageByIdAction(idAsNumber);
+  const image = await Effect.runPromise(liveGetImageById(idAsNumber));
 
   return (
     <div className="container flex h-full flex-grow flex-col flex-wrap items-stretch gap-4 py-4">
