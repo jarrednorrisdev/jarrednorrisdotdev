@@ -6,25 +6,23 @@ import { EducationTimeline } from "~/components/jnd/experience/education-timelin
 
 export function ExperienceShowcase({ className }: { className?: string }) {
   return (
-    <div className={cn(className, "")}>
-      <Tabs defaultValue="Experience" className="min-w-1/2">
-        <TabsList className="p-0" variant="ghost">
-          <TabsTrigger value="Experience" variant="outline">
-            Experience
-          </TabsTrigger>
-          <TabsTrigger value="Education" variant="outline">
-            Education
-          </TabsTrigger>
-        </TabsList>
-        <div className="flex flex-col">
-          <TabsContent value="Experience">
-            <WorkTimeline />
-          </TabsContent>
-          <TabsContent value="Education">
-            <EducationTimeline />
-          </TabsContent>
-        </div>
-      </Tabs>
-    </div>
+    <Tabs defaultValue="Experience" className={cn("flex flex-col", className)}>
+      <TabsList className="h-min flex items-center justify-start flex-grow flex-wrap" variant="ghost">
+        <TabsTrigger value="Experience" variant="outline">
+          Experience
+        </TabsTrigger>
+        <TabsTrigger value="Education" variant="outline">
+          Education
+        </TabsTrigger>
+      </TabsList>
+      <div className="flex flex-col">
+        <TabsContent value="Experience">
+          <WorkTimeline />
+        </TabsContent>
+        <TabsContent value="Education">
+          <EducationTimeline />
+        </TabsContent>
+      </div>
+    </Tabs>
   );
 }

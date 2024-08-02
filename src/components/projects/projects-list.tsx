@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import {  TypographyP } from "~/components/typography/typography";
+import { TypographyP } from "~/components/typography/typography";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
 import { cn } from "~/lib/utils";
@@ -40,7 +40,7 @@ export function ProjectsListItem({
         {projectTitle}
         <Separator />
 
-        <TypographyP className="items-start text-wrap text-justify">
+        <TypographyP className="items-start text-wrap">
           {projectDescription}
         </TypographyP>
       </Link>
