@@ -23,24 +23,21 @@ export function MainHero({ className }: { className?: string }) {
       />
       <CardHeader>
         <CardTitle>Jarred Norris</CardTitle>
-        <TypographyMuted>
-          Software Developer, Web Developer, Game Developer
+        <TypographyMuted className="flex flex-wrap whitespace-pre-wrap text-xs sm:text-base">
+          <span>Software Developer, </span>
+          <span>Web Developer, </span>
+          <span>Game Developer</span>
         </TypographyMuted>
       </CardHeader>
-      <CardContent className="space-y-2">
-        <div className="flex flex-grow flex-col justify-between gap-4 lg:flex-row">
-          <div className="flex flex-grow flex-col justify-between gap-2">
-            {/* <TypographyH4>About Me</TypographyH4> */}
-            <TypographyP>
-              Hi I&apos;m Jarred. I like finding creative solutions to complex
-              problems. From crafting immersive virtual worlds in Unity to
-              architecting scalable web applications in React.
-            </TypographyP>
-          </div>
-        </div>
+      <CardContent className="flex flex-grow flex-col justify-between gap-4 lg:flex-row">
+        <TypographyP className="text-sm sm:text-base">
+          Hi I&apos;m Jarred. I like finding creative solutions to complex
+          problems. From crafting immersive virtual worlds in Unity to
+          architecting scalable web applications in React.
+        </TypographyP>
       </CardContent>
       <CardFooter>
-        <MainHeroButtons />
+        <MainHeroButtons className="flex flex-grow flex-wrap items-end" />
       </CardFooter>
     </Card>
   );

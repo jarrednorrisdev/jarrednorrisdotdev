@@ -27,7 +27,7 @@ export const LiveAuthServiceContext = Context.empty().pipe(
     currentUser: Effect.promise(async () => {
       const user = await currentUser();
       if (user === null) {
-        throw new UserNotSignedInError();
+        Effect.fail(new UserNotSignedInError());
       }
       return user;
     }),

@@ -10,7 +10,7 @@ export function TypographyH1({ children, className }: ITypographyProps) {
   return (
     <h1
       className={cn(
-        "scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl",
+        "scroll-m-20 text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl",
         className,
       )}
     >
@@ -23,7 +23,7 @@ export function TypographyH2({ children, className }: ITypographyProps) {
   return (
     <h2
       className={cn(
-        "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        "scroll-m-20 pb-2 text-2xl font-semibold tracking-tight first:mt-0 sm:text-3xl",
         className,
       )}
     >
@@ -36,7 +36,7 @@ export function TypographyH3({ children, className }: ITypographyProps) {
   return (
     <h3
       className={cn(
-        "scroll-m-20 text-2xl font-semibold tracking-tight",
+        "scroll-m-20 text-xl font-semibold tracking-tight sm:text-2xl",
         className,
       )}
     >
@@ -49,7 +49,7 @@ export function TypographyH4({ children, className }: ITypographyProps) {
   return (
     <h3
       className={cn(
-        "scroll-m-20 text-xl font-semibold tracking-tight",
+        "scroll-m-20 text-lg font-semibold tracking-tight sm:text-xl",
         className,
       )}
     >
@@ -60,7 +60,11 @@ export function TypographyH4({ children, className }: ITypographyProps) {
 
 // Consider "[&:not(:first-child)]:mt-4"
 export function TypographyP({ children, className }: ITypographyProps) {
-  return <p className={cn("leading-5", className)}>{children}</p>;
+  return (
+    <p className={cn("text-sm leading-5 sm:text-base", className)}>
+      {children}
+    </p>
+  );
 }
 
 export function TypographyBlockquote({
@@ -104,7 +108,9 @@ export function TypographyLarge({ children, className }: ITypographyProps) {
 
 export function TypographySmall({ children, className }: ITypographyProps) {
   return (
-    <small className={cn("text-sm font-medium leading-none", className)}>
+    <small
+      className={cn("text-xs font-medium leading-none sm:text-sm", className)}
+    >
       {children}
     </small>
   );
@@ -112,6 +118,8 @@ export function TypographySmall({ children, className }: ITypographyProps) {
 
 export function TypographyMuted({ children, className }: ITypographyProps) {
   return (
-    <p className={cn("text-sm text-muted-foreground", className)}>{children}</p>
+    <p className={cn("text-xs text-muted-foreground sm:text-sm", className)}>
+      {children}
+    </p>
   );
 }

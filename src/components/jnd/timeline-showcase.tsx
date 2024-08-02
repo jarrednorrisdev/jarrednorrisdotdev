@@ -31,13 +31,19 @@ export function TimelineEntry({
 }) {
   return (
     <li className={cn("flex gap-4 py-2", className)}>
-      <div className="flex w-16 justify-end py-[0.3rem]">{date}</div>
+      <div className="hidden w-16 justify-end py-[0.3rem] sm:visible sm:flex">
+        {date}
+      </div>
       <div className="flex gap-4">
-        <Separator orientation="vertical" className="h-full w-px" />
+        <Separator
+          orientation="vertical"
+          className="hidden h-full w-px sm:visible sm:flex"
+        />
         <div className="flex flex-col gap-1">
           {title}
           {subtitle}
-          {children}
+          <div className="flex sm:hidden">{date}</div>
+          <div className="">{children}</div>
         </div>
       </div>
     </li>

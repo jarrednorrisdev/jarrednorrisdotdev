@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { TypographyH3, TypographyP } from "~/components/typography/typography";
+import {  TypographyP } from "~/components/typography/typography";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
 import { cn } from "~/lib/utils";

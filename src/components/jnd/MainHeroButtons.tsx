@@ -2,17 +2,12 @@ import React from "react";
 import { DownloadIcon, MailIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import Link from "next/link";
+import { cn } from "~/lib/utils";
 
-export function MainHeroButtons() {
+export function MainHeroButtons({ className }: { className?: string }) {
   return (
-    <div className="flex flex-grow items-end gap-4">
-      <Button className="flex gap-2" asChild>
-        <Link href="/cv.pdf" download={true} target="_blank">
-          <DownloadIcon />
-          CV
-        </Link>
-      </Button>
-      <Button className="flex gap-2" asChild>
+    <div className={cn("flex gap-2", className)}>
+      <Button className="flex gap-2" size="sm" asChild>
         <a
           href="mailto:jarred.norris1@gmail.com"
           download={true}
@@ -21,6 +16,12 @@ export function MainHeroButtons() {
           <MailIcon />
           Contact
         </a>
+      </Button>
+      <Button className="flex gap-2" size="sm" asChild>
+        <Link href="/cv.pdf" download={true} target="_blank">
+          <DownloadIcon />
+          CV
+        </Link>
       </Button>
     </div>
   );
