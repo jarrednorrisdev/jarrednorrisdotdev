@@ -31,7 +31,7 @@ export function TimelineEntry({
 }) {
   return (
     <li className={cn("flex gap-4 py-2", className)}>
-      <div className="hidden w-16 justify-end py-[0.3rem] sm:visible sm:flex">
+      <div className="hidden lg:visible lg:flex lg:min-w-max lg:justify-end lg:py-[0.3rem]">
         {date}
       </div>
       <div className="flex gap-4">

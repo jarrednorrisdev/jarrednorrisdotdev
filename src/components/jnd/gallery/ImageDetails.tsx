@@ -14,7 +14,7 @@ import { SignedIn } from "@clerk/nextjs";
 import { ImageDetailsActions } from "~/components/jnd/gallery/image-details-actions";
 import { Effect } from "effect";
 
-export async function ImageDetailsCard({
+export async function ImageDetails({
   image,
   className,
 }: {
@@ -24,9 +24,11 @@ export async function ImageDetailsCard({
   const imageUploader = await Effect.runPromise(liveGetUserById(image.userId));
 
   return (
-    <Card className={cn("border-0 bg-transparent", className)}>
+    <Card className={cn("rounded-none", className)}>
       <CardHeader>
-        <CardTitle className="text-wrap break-words">{image.name}</CardTitle>
+        <TypographyP className="text-wrap break-words">
+          {image.name}
+        </TypographyP>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <TypographyP>
@@ -35,7 +37,9 @@ export async function ImageDetailsCard({
             href={`/gallery/user/${imageUploader.id}`}
             className="text-primary underline"
           >
-            {imageUploader.fullName}
+            {imageUploader.username ??
+              imageUploader.fullName ??
+              imageUploader.id}
           </Link>
         </TypographyP>
         <TypographyP>

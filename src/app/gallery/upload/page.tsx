@@ -1,25 +1,23 @@
 import { liveGetCurrentUser } from "~/server/auth/queries/getCurrentUser";
-import { Separator } from "~/components/ui/separator";
-import { GalleryUploadPageBreadcrumb } from "./_components/GalleryUploadPageBreadcrumb";
-import { GalleryNav } from "~/components/jnd/gallery/GalleryNav";
+
 import { ImageUploadCard } from "~/components/jnd/gallery/ImageUploadCard";
 import { Effect } from "effect";
+import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
 
 export const dynamic = "force-dynamic";
 
-export default async function GalleryPage() {
-  const user = await Effect.runPromise(liveGetCurrentUser());
+const breadcrumbLinks = [{ label: "Home", href: "/" }, { label: "Upload" }];
 
+export default async function GalleryPage() {
   return (
-    <div className="container flex h-full flex-shrink-0 flex-col gap-4 py-4">
-      <GalleryUploadPageBreadcrumb />
-      <Separator />
-      <div className="flex flex-grow gap-8">
-        <GalleryNav userId={user.id}></GalleryNav>
-        <main className="flex flex-grow flex-col gap-2">
-          <ImageUploadCard />
-        </main>
-      </div>
+    <div className="flex h-full flex-grow flex-col overflow-y-auto">
+      <GalleryTopNav breadcrumbLinks={breadcrumbLinks} />
+
+      <main className="flex flex-grow flex-col gap-2 overflow-y-auto p-4">
+        <ImageUploadCard className="" />
+      </main>
     </div>
   );
 }
+
+//
