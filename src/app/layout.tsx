@@ -6,7 +6,9 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { ourFileRouter } from "~/app/api/uploadthing/core";
 import { ThemeProvider } from "~/components/theme-provider";
 import { JetBrains_Mono } from "next/font/google";
-import TopNav from "~/components/jnd/top-nav";
+
+import { GlobalTopNavContents } from "~/components/jnd/navigation/GlobalTopNavContents";
+import { NavBarTop } from "~/components/jnd/NavBarTop";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -36,8 +38,11 @@ export default function RootLayout({
             enableSystem={true}
             disableTransitionOnChange
           >
-            <div className="flex h-dvh min-h-dvh flex-col items-stretch justify-stretch bg-background-secondary">
-              <TopNav className="py-2 bg-card" />
+            <div className="flex h-screen min-h-screen flex-col items-stretch justify-stretch">
+              <NavBarTop className="bg-card">
+                <GlobalTopNavContents />
+              </NavBarTop>
+
               {children}
               {modal}
               <div id="modal-root" />

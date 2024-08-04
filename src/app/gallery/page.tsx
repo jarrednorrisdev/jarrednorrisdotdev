@@ -1,35 +1,26 @@
-import { PublicImageGallery } from "~/components/jnd/gallery/public-image-gallery";
-import { liveGetCurrentUser } from "~/server/auth/queries/getCurrentUser";
-import { Separator } from "~/components/ui/separator";
-import { GalleryPageBreadcrumb } from "./_components/GalleryPageBreadcrumb";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { GalleryNav } from "../../components/jnd/gallery/GalleryNav";
+import React from "react";
 import { Effect } from "effect";
+import { liveGetCurrentUser } from "~/server/auth/queries/getCurrentUser";
+import { liveGetAllImages } from "~/server/gallery/queries";
+
+import { GalleryImagesList } from "~/components/jnd/gallery/GalleryImagesList";
+import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
+import { GalleryNavSheet } from "~/components/jnd/gallery/GalleryNavSheet";
+import { GallerySideNavContents } from "~/components/jnd/gallery/GallerySideNavContents";
 
 export const dynamic = "force-dynamic";
 
-export default async function GalleryPage() {
-  const user = await Effect.runPromise(liveGetCurrentUser());
+const breadcrumbLinks = [{ label: "Home", href: "/" }, { label: "Gallery" }];
+
+export default async function GalleryHomePage() {
+  const images = await Effect.runPromise(liveGetAllImages());
 
   return (
-    <div className="container flex h-full flex-shrink-0 flex-col gap-4 py-4">
-      <GalleryPageBreadcrumb />
-      <Separator />
-      <SignedIn>
-        {user ? (
-          <div className="flex flex-grow flex-wrap gap-8 sm:flex-nowrap">
-            <GalleryNav userId={user.id}></GalleryNav>
-            <main className="flex flex-grow flex-col gap-2">
-              <PublicImageGallery />
-            </main>
-          </div>
-        ) : null}
-      </SignedIn>
-      <SignedOut>
-        <div className="flex justify-center">
-          Please sign in to view the gallery
-        </div>
-      </SignedOut>
+    <div className="flex h-full flex-grow flex-col overflow-y-auto">
+      <GalleryTopNav breadcrumbLinks={breadcrumbLinks} />
+      <main className="flex flex-grow flex-col gap-2 overflow-y-auto p-4">
+        <GalleryImagesList images={images} />
+      </main>
     </div>
   );
 }

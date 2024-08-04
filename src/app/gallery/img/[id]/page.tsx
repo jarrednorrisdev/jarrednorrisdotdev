@@ -1,16 +1,9 @@
 import React from "react";
-import { ImageDisplay } from "~/components/jnd/gallery/image-display";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "~/components/ui/breadcrumb";
-import { type Image } from "~/server/db/schema";
-import { liveGetImageById } from "~/server/gallery/queries";
 import { Effect } from "effect";
+import { liveGetImageById } from "~/server/gallery/queries";
+
+import { ImageDisplay } from "~/components/jnd/gallery/ImageDisplay";
+import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
 
 export default async function GalleryImagePage({
   params: { id: imageId },
@@ -23,30 +16,18 @@ export default async function GalleryImagePage({
   }
   const image = await Effect.runPromise(liveGetImageById(idAsNumber));
 
-  return (
-    <div className="container flex h-full flex-grow flex-col flex-wrap items-stretch gap-4 py-4">
-      <ImagePageBreadcrumb image={image} />
-      <ImageDisplay image={image} className="flex-grow" />
-    </div>
-  );
-}
+  const breadcrumbLinks = [
+    { label: "Home", href: "/" },
+    { label: "Gallery", href: "/gallery" },
+    { label: image.name },
+  ];
 
-function ImagePageBreadcrumb({ image }: { image: Image }) {
   return (
-    <Breadcrumb>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/gallery">Gallery</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>{image.name}</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
+    <div className="flex h-full flex-grow flex-col">
+      <GalleryTopNav breadcrumbLinks={breadcrumbLinks} />
+      <div className="flex flex-grow flex-col">
+        <ImageDisplay image={image} className="flex-grow" />
+      </div>
+    </div>
   );
 }
