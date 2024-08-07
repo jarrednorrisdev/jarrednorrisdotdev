@@ -1,33 +1,33 @@
 import { DatabaseService } from "~/server/db";
 import { Effect } from "effect";
 import { type Image } from "~/server/db/schema";
-import { type UserNotSignedInError } from "~/server/auth/errors";
 import { LiveGalleryServiceContext } from "..";
+import { ImageNotFoundError } from "~/server/gallery/errors";
+import { DrizzleQueryError } from "~/server/db/errors";
 
-export function getImageById(
-  imageId: number,
-): Effect.Effect<Image, UserNotSignedInError, DatabaseService> {
+export function getImageById(imageId: number) {
   return Effect.gen(function* (_) {
     const dbService = yield* DatabaseService;
 
-    const image = yield* Effect.promise(() =>
-      dbService.query.images.findFirst({
-        where: (model, { eq }) => eq(model.id, imageId),
-      }),
-    );
+    const image = yield* Effect.tryPromise({
+      try: () =>
+        dbService.query.images.findFirst({
+          where: (model, { eq }) => eq(model.id, imageId),
+        }),
+      catch: (error) =>
+        new DrizzleQueryError("Error querying for image", error),
+    });
 
-    if (!image) {
-      throw new Error("Image not found");
+    if (image === undefined) {
+      yield* Effect.fail(new ImageNotFoundError("Image not found"));
     }
 
-    return image;
+    return image!;
   });
 }
 
 export function liveGetImageById(
   imageId: number,
-): Effect.Effect<Image, UserNotSignedInError, never> {
+): Effect.Effect<Image, ImageNotFoundError | DrizzleQueryError, never> {
   return Effect.provide(getImageById(imageId), LiveGalleryServiceContext);
 }
-
-
