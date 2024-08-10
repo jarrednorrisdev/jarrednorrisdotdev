@@ -25,10 +25,10 @@ export default async function GalleryUserPage({
   ];
 
   return (
-    <div className="flex h-full flex-col overflow-y-auto">
+    <div className="flex h-full flex-col">
       <GalleryTopNav breadcrumbLinks={breadcrumbLinks} />
 
-      <main className="flex flex-grow flex-col gap-2 overflow-y-auto p-4">
+      <main className="flex flex-grow flex-col">
         <GalleryImagesList images={images} />
       </main>
     </div>

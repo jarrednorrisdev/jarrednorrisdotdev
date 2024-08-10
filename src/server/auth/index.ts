@@ -5,8 +5,8 @@ import {
   type User,
   clerkClient,
 } from "@clerk/nextjs/server";
-import { UserNotSignedInError } from "~/server/auth/errors/UserNotSignedInError";
-import { type UserNotFoundError } from "~/server/auth/errors/UserNotFoundError";
+import { UserNotFoundError } from "~/server/auth/errors/UserNotFoundError";
+import { ClerkAuthError } from "~/server/auth/errors/ClerkAuthError";
 
 type Auth = ReturnType<typeof auth>;
 
@@ -14,7 +14,7 @@ export class AuthService extends Context.Tag("@jnd/AuthService")<
   AuthService,
   {
     readonly auth: Effect.Effect<Auth, never, never>;
-    readonly currentUser: Effect.Effect<User, UserNotSignedInError, never>;
+    readonly currentUser: Effect.Effect<User | null, ClerkAuthError, never>;
     readonly getUser: (
       userId: string,
     ) => Effect.Effect<User, UserNotFoundError, never>;
@@ -24,16 +24,14 @@ export class AuthService extends Context.Tag("@jnd/AuthService")<
 export const LiveAuthServiceContext = Context.empty().pipe(
   Context.add(AuthService, {
     auth: Effect.sync(() => auth()),
-    currentUser: Effect.promise(async () => {
-      const user = await currentUser();
-      if (user === null) {
-        Effect.fail(new UserNotSignedInError());
-      }
-      return user;
+    currentUser: Effect.tryPromise({
+      try: async () => await currentUser(),
+      catch: () => new ClerkAuthError(),
     }),
     getUser: (userId: string) =>
-      Effect.promise((signal: AbortSignal) => {
-        return clerkClient.users.getUser(userId);
+      Effect.tryPromise({
+        try: async () => await clerkClient.users.getUser(userId),
+        catch: () => new UserNotFoundError(),
       }),
   }),
 );

@@ -3,15 +3,18 @@ import { Effect } from "effect";
 import { AuthService } from "~/server/auth";
 import { images } from "~/server/db/schema";
 import { and, eq } from "drizzle-orm";
-import { type UserNotSignedInError } from "~/server/auth/errors";
-import { LiveGalleryServiceContext } from "..";
-import { type ImageNotFoundError } from "~/server/gallery/errors";
+import {
+  UserNotSignedInError,
+  type ClerkAuthError,
+} from "~/server/auth/errors";
+import { ImageNotFoundError } from "~/server/gallery/errors";
+import { LiveGalleryServiceContext } from "~/server/gallery";
 
 export function deleteImageById(
   imageId: number,
 ): Effect.Effect<
   void,
-  UserNotSignedInError | ImageNotFoundError,
+  ImageNotFoundError | UserNotSignedInError | ClerkAuthError,
   AuthService | DatabaseService
 > {
   return Effect.gen(function* (_) {
@@ -20,12 +23,19 @@ export function deleteImageById(
 
     const user = yield* authService.currentUser;
 
-    yield* Effect.promise(() =>
-      dbService
-        .delete(images)
-        .where(and(eq(images.id, imageId), eq(images.userId, user.id)))
-        .returning(),
-    );
+    if (user == null) {
+      return yield* Effect.fail(new UserNotSignedInError());
+    }
+
+    yield* Effect.tryPromise({
+      try: () =>
+        dbService
+          .delete(images)
+          .where(and(eq(images.id, imageId), eq(images.userId, user.id))),
+      catch: () => {
+        return new ImageNotFoundError("Image not found");
+      },
+    });
   });
 }
 export function liveDeleteImageById(imageId: number) {

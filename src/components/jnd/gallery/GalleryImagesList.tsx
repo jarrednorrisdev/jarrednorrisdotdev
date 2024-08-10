@@ -6,7 +6,7 @@ import { type Image } from "~/server/db/schema";
 import { RowsPhotoAlbum } from "react-photo-album";
 import "react-photo-album/rows.css";
 import { transformDrizzlePhotosToPhotos } from "~/lib/adapters/ReactPhotoAlbumAdapter.ts";
-
+import { ScrollArea } from "~/components/ui/scroll-area";
 
 export async function GalleryImagesList({
   images,
@@ -15,9 +15,7 @@ export async function GalleryImagesList({
   images: Image[];
   className?: string;
 }) {
-	const photos = await transformDrizzlePhotosToPhotos(images);
-	
-	
+  const photos = await transformDrizzlePhotosToPhotos(images);
 
   return (
     // <div className={cn("flex flex-wrap justify-around gap-4", className)}>
@@ -36,7 +34,10 @@ export async function GalleryImagesList({
     //     );
     //   })}
     // </div>
-
-    <RowsPhotoAlbum photos={photos} />
+    <ScrollArea
+      className={cn("flex flex-grow flex-col overflow-auto", className)}
+    >
+      <RowsPhotoAlbum photos={photos} />
+    </ScrollArea>
   );
 }

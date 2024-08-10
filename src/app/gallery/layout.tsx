@@ -15,18 +15,18 @@ export default async function GalleryLayout({
   const user = await Effect.runPromise(liveGetCurrentUser());
 
   return (
-    <div className="flex h-full">
+    <div className="flex overflow-auto">
       <GallerySideNavContents
         userId={user?.id}
         className="hidden bg-card md:visible md:flex md:border-r"
       />
-      <div className="flex flex-grow flex-col">
+      <div className="flex flex-grow flex-col overflow-auto">
         {children}
-        <NavBarBottom className="border-t md:hidden">
+        {/* <NavBarBottom className="border-t md:hidden">
           <GalleryNavSheet buttonClassName="flex flex-grow">
             <GallerySideNavContents userId={user?.id} className="flex" />
           </GalleryNavSheet>
-        </NavBarBottom>
+        </NavBarBottom> */}
       </div>
 
       {modal}

@@ -38,7 +38,7 @@ export default function RootLayout({
             enableSystem={true}
             disableTransitionOnChange
           >
-            <div className="flex h-screen min-h-screen flex-col items-stretch justify-stretch">
+            <div className="flex h-screen max-h-screen min-h-screen flex-col items-stretch justify-stretch overflow-auto">
               <NavBarTop className="bg-card">
                 <GlobalTopNavContents />
               </NavBarTop>
