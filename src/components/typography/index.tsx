@@ -61,7 +61,12 @@ export function TypographyH4({ children, className }: ITypographyProps) {
 // Consider "[&:not(:first-child)]:mt-4"
 export function TypographyP({ children, className }: ITypographyProps) {
   return (
-    <p className={cn("text-sm leading-5 sm:text-base", className)}>
+    <p
+      className={cn(
+        "text-sm leading-5 text-secondary-foreground sm:text-base",
+        className,
+      )}
+    >
       {children}
     </p>
   );

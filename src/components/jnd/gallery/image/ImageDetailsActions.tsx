@@ -6,7 +6,7 @@ import { DeleteButton } from "./DeleteButton"; // Import the Client Component
 
 export async function ImageDetailsActions({ image }: { image: Image }) {
   const currentUser = await Effect.runPromise(liveGetCurrentUser());
-  const isUploader = currentUser.id === image.userId;
+  const isUploader = currentUser?.id === image.userId;
 
   return <div>{isUploader && <DeleteButton image={image} />}</div>;
 }

@@ -1,3 +1,1 @@
-import { ImageNotFoundError } from "~/server/gallery/errors/ImageNotFoundError";
-
-export { ImageNotFoundError };
+export * from "./ImageNotFoundError";

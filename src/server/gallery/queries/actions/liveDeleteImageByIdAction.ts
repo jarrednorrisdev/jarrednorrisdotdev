@@ -1,6 +1,6 @@
 "use server";
 import { Effect } from "effect";
-import { liveDeleteImageById } from "./deleteImageById";
+import { liveDeleteImageById } from "~/server/gallery/queries";
 import { redirect } from "next/navigation";
 
 export async function liveDeleteImageByIdAction(
@@ -20,3 +20,4 @@ export async function liveDeleteImageByIdAction(
     redirect("/gallery");
   }
 }
+

@@ -1,12 +1,9 @@
-import { Separator } from "~/components/ui/separator";
-import { GalleryUserPageBreadcrumb } from "./_components/GalleryUserPageBreadcrumb";
-import { liveGetCurrentUser } from "~/server/auth/queries/getCurrentUser";
 import { Effect } from "effect";
 import { liveGetUserImagesById } from "~/server/gallery/queries";
 import { liveGetUserById } from "~/server/auth/queries/getUserById";
-import { GalleryImagesList } from "~/components/jnd/gallery/GalleryImagesList";
-import { NavBarBottom } from "~/components/jnd/NavBarBottom";
-import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
+import { GalleryImagesList } from "~/components/jnd/gallery";
+import { GalleryTopNav } from "~/components/jnd/gallery";
+import StyledPage from "~/components/jnd/StyledPage";
 
 export const dynamic = "force-dynamic";
 
@@ -25,12 +22,15 @@ export default async function GalleryUserPage({
   ];
 
   return (
-    <div className="flex h-full flex-col">
+    <StyledPage>
       <GalleryTopNav breadcrumbLinks={breadcrumbLinks} />
+      {/* <NavBarTop className="z-25 sticky flex justify-between py-2">
+        <div className="flex gap-2 text-orange-500">TODO: add image filters</div>
+      </NavBarTop> */}
 
-      <main className="flex flex-grow flex-col">
+      <main className="flex flex-grow flex-col overflow-auto">
         <GalleryImagesList images={images} />
       </main>
-    </div>
+    </StyledPage>
   );
 }

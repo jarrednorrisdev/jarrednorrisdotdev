@@ -2,7 +2,7 @@ import React from "react";
 import {
   TypographyMuted,
   TypographyP,
-} from "~/components/typography/typography";
+} from "~/components/typography";
 import {
   Card,
   CardContent,

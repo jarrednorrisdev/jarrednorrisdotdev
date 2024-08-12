@@ -1,7 +1,7 @@
 import { cn } from "~/lib/utils";
 import { type Image } from "~/server/db/schema";
 import NextImage from "next/image";
-import { ImageDetails } from "~/components/jnd/gallery/ImageDetails";
+import { ImageDetails } from "~/components/jnd/gallery/image";
 
 export function ImageDisplay({
   image,
@@ -11,7 +11,7 @@ export function ImageDisplay({
   className?: string;
 }) {
   return (
-    <div className={cn("flex", className)}>
+    <div className={cn("flex flex-grow", className)}>
       <div className="flex flex-grow p-4">
         <div className="relative min-w-[200px] flex-grow items-center">
           <NextImage

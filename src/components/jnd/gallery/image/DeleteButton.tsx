@@ -1,6 +1,6 @@
 import { Button } from "~/components/ui/button";
 import { type Image } from "~/server/db/schema";
-import { liveDeleteImageByIdAction } from "~/server/gallery/queries";
+import { liveDeleteImageByIdAction } from "~/server/gallery/queries/actions";
 
 export async function DeleteButton({ image }: { image: Image }) {
   const imageId = image.id;

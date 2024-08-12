@@ -1,8 +1,9 @@
 import React from "react";
 import { Effect } from "effect";
 import { liveGetAllImages } from "~/server/gallery/queries";
-import { GalleryImagesList } from "~/components/jnd/gallery/GalleryImagesList";
-import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
+import { GalleryImagesList } from "~/components/jnd/gallery";
+import { GalleryTopNav } from "~/components/jnd/gallery";
+import StyledPage from "~/components/jnd/StyledPage";
 
 export const dynamic = "force-dynamic";
 
@@ -12,9 +13,9 @@ export default async function GalleryHomePage() {
   const images = await Effect.runPromise(liveGetAllImages());
 
   return (
-    <div className="flex max-h-full flex-grow flex-col ">
+    <StyledPage>
       <GalleryTopNav breadcrumbLinks={breadcrumbLinks} />
-      <GalleryImagesList images={images} className="mb-4  p-4" />
-    </div>
+      <GalleryImagesList images={images} className="mb-4 p-4" />
+    </StyledPage>
   );
 }

@@ -1,5 +1,3 @@
-import NextImage from "next/image";
-import Link from "next/link";
 import React from "react";
 import { cn } from "~/lib/utils";
 import { type Image } from "~/server/db/schema";
@@ -18,26 +16,12 @@ export async function GalleryImagesList({
   const photos = await transformDrizzlePhotosToPhotos(images);
 
   return (
-    // <div className={cn("flex flex-wrap justify-around gap-4", className)}>
-    //   {images.map((image) => {
-    //     // todo: add a toggle for image rendering
-    //     return (
-    //       <Link href={`/gallery/img/${image.id}`} key={image.id}>
-    //         <NextImage
-    //           src={image.url}
-    //           alt={image.name}
-    //           width={256}
-    //           height={256}
-    //           className="rounded-lg"
-    //         />
-    //       </Link>
-    //     );
-    //   })}
-    // </div>
-    <ScrollArea
-      className={cn("flex flex-grow flex-col overflow-auto", className)}
-    >
-      <RowsPhotoAlbum photos={photos} />
+    <ScrollArea className={cn("flex flex-grow flex-col p-4", className)}>
+      <RowsPhotoAlbum
+        photos={photos}
+        rowConstraints={{ singleRowMaxHeight: 512, maxPhotos: 50 }}
+        breakpoints={[300, 600, 1200]}
+      />
     </ScrollArea>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { TypographyMuted } from "~/components/typography/typography";
+import { TypographyMuted } from "~/components/typography";
 import { Badge } from "~/components/ui/badge";
 
 export function SkillsBadgeList() {

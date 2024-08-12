@@ -7,8 +7,8 @@ import { ourFileRouter } from "~/app/api/uploadthing/core";
 import { ThemeProvider } from "~/components/theme-provider";
 import { JetBrains_Mono } from "next/font/google";
 
-import { GlobalTopNavContents } from "~/components/jnd/navigation/GlobalTopNavContents";
-import { NavBarTop } from "~/components/jnd/NavBarTop";
+import { GlobalTopNavContents } from "~/components/jnd/navigation";
+import { NavBarTop } from "~/components/jnd/navigation";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],

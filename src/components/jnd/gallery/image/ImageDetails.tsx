@@ -6,12 +6,12 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { type Image } from "~/server/db/schema";
-import { TypographyP } from "~/components/typography/typography";
+import { TypographyP } from "~/components/typography";
 import { cn } from "~/lib/utils";
 import { liveGetUserById } from "~/server/auth/queries/getUserById";
 import Link from "next/link";
 import { SignedIn } from "@clerk/nextjs";
-import { ImageDetailsActions } from "~/components/jnd/gallery/image-details-actions";
+import { ImageDetailsActions } from "~/components/jnd/gallery/image";
 import { Effect } from "effect";
 
 export async function ImageDetails({

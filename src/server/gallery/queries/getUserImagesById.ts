@@ -26,5 +26,3 @@ export function liveGetUserImagesById(
 ): Effect.Effect<Image[], UserNotSignedInError, never> {
   return Effect.provide(getUserImagesById(userId), LiveGalleryServiceContext);
 }
-
-

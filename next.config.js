@@ -15,6 +15,12 @@ const coreConfig = {
   images: {
     domains: ["utfs.io"],
   },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback.fs = false;
+    }
+    return config;
+  },
 };
 
 import { withSentryConfig } from "@sentry/nextjs";

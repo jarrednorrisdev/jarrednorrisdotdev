@@ -1,6 +1,6 @@
-import { Photo } from "react-photo-album";
-import { Image } from "~/server/db/schema";
-import probe, { ProbeResult } from "probe-image-size";
+import { type Photo } from "react-photo-album";
+import { type Image } from "~/server/db/schema";
+import probe, { type ProbeResult } from "probe-image-size";
 // Assuming default width and height values for the photos
 const DEFAULT_WIDTH = 800;
 const DEFAULT_HEIGHT = 600;
@@ -21,8 +21,8 @@ export async function transformDrizzlePhotosToPhotos(
 
   return images.map((image, index) => ({
     src: image.url,
-    width: imageSizes[index]?.width || DEFAULT_WIDTH,
-    height: imageSizes[index]?.height || DEFAULT_HEIGHT,
+    width: imageSizes[index]?.width ?? DEFAULT_WIDTH,
+    height: imageSizes[index]?.height ?? DEFAULT_HEIGHT,
     key: image.id.toString(),
     alt: image.name,
     title: image.name,

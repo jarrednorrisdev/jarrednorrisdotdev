@@ -28,9 +28,18 @@ export function DynamicBreadcrumb({
             <React.Fragment key={index}>
               <BreadcrumbItem className="truncate">
                 {item.href ? (
-                  <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
+                  <BreadcrumbLink href={item.href} className="hover:underline">
+                    {item.label}
+                  </BreadcrumbLink>
                 ) : (
-                  <BreadcrumbPage className="max-w-40 truncate">
+                  <BreadcrumbPage
+                    className={cn(
+                      "max-w-40 truncate",
+                      index === breadcrumbLinks.length - 1
+                        ? "text-foreground"
+                        : "text-primary",
+                    )}
+                  >
                     {item.label}
                   </BreadcrumbPage>
                 )}
