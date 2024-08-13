@@ -13,12 +13,14 @@ export default async function GalleryLayout({
   const user = await liveGetCurrentUser();
 
   return (
-    <div className="flex flex-grow overflow-auto">
+    <div className="flex h-full flex-grow overflow-hidden">
       <GallerySideNavContents
         userId={user?.id}
         className="hidden bg-card md:visible md:flex md:border-r"
       />
-      <div className="flex flex-grow flex-col overflow-auto">{children}</div>
+      <div className="flex h-full flex-grow flex-col ">
+        {children}
+      </div>
 
       {modal}
       <div id="modal-root" />

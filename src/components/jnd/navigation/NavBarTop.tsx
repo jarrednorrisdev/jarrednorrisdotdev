@@ -10,7 +10,7 @@ export async function NavBarTop({
   return (
     <nav
       className={cn(
-        "sticky z-50 flex items-center border-b  px-4 py-2 transition-all duration-300",
+        "sticky z-50 flex items-center border-b px-4 py-2 transition-all duration-300",
         className,
       )}
     >

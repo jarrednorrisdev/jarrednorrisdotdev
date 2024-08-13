@@ -7,9 +7,5 @@ export async function StyledPage({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <div className={cn("flex flex-grow flex-col overflow-y-scroll", className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn("max-w-full", className)}>{children}</div>;
 }

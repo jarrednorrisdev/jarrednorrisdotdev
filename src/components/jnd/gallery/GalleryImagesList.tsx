@@ -18,12 +18,10 @@ export async function GalleryImagesList({
   const photos = await transformDrizzlePhotosToPhotos(images);
 
   return (
-    <ScrollArea className={cn("flex flex-grow flex-col p-4", className)}>
-      <RowsPhotoAlbum
-        photos={photos}
-        rowConstraints={{ singleRowMaxHeight: 512, maxPhotos: 50 }}
-        breakpoints={[300, 600, 1200]}
-      />
-    </ScrollArea>
+    <RowsPhotoAlbum
+      photos={photos}
+      rowConstraints={{ singleRowMaxHeight: 512, maxPhotos: 50 }}
+      breakpoints={[200, 600, 1200, 1600]}
+    />
   );
 }

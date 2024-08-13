@@ -7,15 +7,15 @@ import { StyledPage } from "~/components/jnd/StyledPage";
 
 export default async function HomePage() {
   return (
-    <StyledPage>
-      <ScrollArea>
-        <main className="grid flex-col gap-4 overflow-y-auto overflow-x-clip p-4 md:container md:grid-cols-2 xl:grid-cols-3">
+    <ScrollArea type="always">
+      <StyledPage>
+        <main className="grid flex-col gap-4 p-4 md:container md:grid-cols-2 xl:grid-cols-3">
           <MainHero className="flex-grow md:col-span-1 md:col-start-1" />
           <SkillsCard className="flex-grow md:col-span-1 md:col-start-2" />
           <ProjectsCard className="col-span-1 flex-grow md:col-span-2 md:col-start-1 xl:col-span-full xl:col-start-3" />
           <ExperienceCard className="flex-grow md:col-span-2 md:col-start-1 xl:col-span-3" />
         </main>
-      </ScrollArea>
-    </StyledPage>
+      </StyledPage>
+    </ScrollArea>
   );
 }

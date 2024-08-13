@@ -1,5 +1,5 @@
 import "~/styles/globals.css";
-import React from "react";
+import React, { BaseHTMLAttributes } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { extractRouterConfig } from "uploadthing/server";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
@@ -29,23 +29,26 @@ export default async function RootLayout({
   modal: React.ReactNode;
 }) {
   const user = await liveGetCurrentUser();
+
+  const htmlClassName: React.ComponentProps<"html">["className"] = `${jetBrainsMono.className} h-full `;
   return (
     <ClerkProvider>
-      <html lang="en" className={`${jetBrainsMono.className} h-full`}>
+      <html lang="en" className={htmlClassName}>
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-        <body>
+        <body className="flex h-full flex-col">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem={true}
             disableTransitionOnChange
           >
-            <div className="flex h-screen max-h-screen min-h-screen flex-col items-stretch justify-stretch overflow-auto">
+            <div className="flex h-full flex-col">
               <NavBarTop className="bg-card">
                 <GlobalTopNavContents userId={user?.id} />
               </NavBarTop>
 
               {children}
+
               {modal}
               <div id="modal-root" />
             </div>
