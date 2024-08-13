@@ -1,4 +1,4 @@
-import { Context, Effect } from "effect";
+import { Console, Context, Effect } from "effect";
 import {
   auth,
   currentUser,
@@ -14,24 +14,44 @@ export class AuthService extends Context.Tag("@jnd/AuthService")<
   AuthService,
   {
     readonly auth: Effect.Effect<Auth, never, never>;
-    readonly currentUser: Effect.Effect<User | null, ClerkAuthError, never>;
+    readonly currentUser: Effect.Effect<User | null, never, never>;
     readonly getUser: (
       userId: string,
-    ) => Effect.Effect<User, UserNotFoundError, never>;
+    ) => Effect.Effect<User | null, never, never>;
   }
 >() {}
 
 export const LiveAuthServiceContext = Context.empty().pipe(
   Context.add(AuthService, {
     auth: Effect.sync(() => auth()),
-    currentUser: Effect.tryPromise({
-      try: async () => await currentUser(),
-      catch: () => new ClerkAuthError(),
-    }),
-    getUser: (userId: string) =>
+
+    currentUser: Effect.match(
       Effect.tryPromise({
-        try: async () => await clerkClient.users.getUser(userId),
-        catch: () => new UserNotFoundError(),
+        try: async () => await currentUser(),
+        catch: () => new ClerkAuthError(),
       }),
+      {
+        onSuccess: (user) => user,
+        onFailure: (error) => {
+          Effect.runSync(Console.error(error._tag));
+          return null;
+        },
+      },
+    ),
+
+    getUser: (userId: string) =>
+      Effect.match(
+        Effect.tryPromise({
+          try: async () => await clerkClient.users.getUser(userId),
+          catch: () => new UserNotFoundError(),
+        }),
+        {
+          onSuccess: (user) => user,
+          onFailure: (error) => {
+            Effect.runSync(Console.error(error._tag));
+            return null;
+          },
+        },
+      ),
   }),
 );

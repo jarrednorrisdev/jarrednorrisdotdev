@@ -1,4 +1,5 @@
 "use client";
+
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { LogInIcon, MenuIcon } from "lucide-react";
 import Link from "next/link";
@@ -6,8 +7,8 @@ import { ThemeToggle } from "~/components/theme-toggle";
 import { TypographyH3 } from "~/components/typography";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
-import { NavSheet } from "~/components/jnd/navigation";
-import { DynamicSideNav } from "~/components/jnd/navigation";
+import { NavSheet } from "~/components/jnd/navigation/NavSheet";
+import { DynamicSideNav } from "~/components/jnd/navigation/DynamicSideNav";
 import { usePathname } from "next/navigation";
 
 export const validSideNavRoutes = ["/gallery"];
@@ -24,8 +25,15 @@ function getMatchedPath(
   return [false];
 }
 
-export function GlobalTopNavContents({ className }: { className?: string }) {
+export function GlobalTopNavContents({
+  className,
+  userId,
+}: {
+  className?: string;
+  userId?: string;
+}) {
   const pathname = usePathname();
+
   return (
     <div className={cn("flex flex-grow justify-between", className)}>
       <div className="flex flex-grow items-center justify-start gap-4">
@@ -37,7 +45,7 @@ export function GlobalTopNavContents({ className }: { className?: string }) {
               buttonSize={"icon"}
               buttonVariant={"outline"}
             >
-              <DynamicSideNav />
+              <DynamicSideNav userId={userId} />
             </NavSheet>
           </a>
         )}

@@ -1,6 +1,6 @@
-import { ImageUploadCard } from "~/components/jnd/gallery";
-import { GalleryTopNav } from "~/components/jnd/gallery";
-import StyledPage from "~/components/jnd/StyledPage";
+import { ImageUploadCard } from "~/components/jnd/gallery/ImageUploadCard";
+import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
+import { StyledPage } from "~/components/jnd/StyledPage";
 
 const breadcrumbLinks = [{ label: "Home", href: "/" }, { label: "Upload" }];
 

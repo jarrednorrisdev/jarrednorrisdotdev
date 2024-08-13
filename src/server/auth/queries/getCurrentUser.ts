@@ -5,7 +5,7 @@ import { type ClerkAuthError } from "~/server/auth/errors";
 
 export function getCurrentUser(): Effect.Effect<
   User | null,
-  ClerkAuthError,
+  never,
   AuthService
 > {
   return Effect.gen(function* (_) {
@@ -15,10 +15,8 @@ export function getCurrentUser(): Effect.Effect<
   });
 }
 
-export function liveGetCurrentUser(): Effect.Effect<
-  User | null,
-  ClerkAuthError,
-  never
-> {
-  return Effect.provide(getCurrentUser(), LiveAuthServiceContext);
+export async function liveGetCurrentUser(): Promise<User | null> {
+  return Effect.runPromise(
+    Effect.provide(getCurrentUser(), LiveAuthServiceContext),
+  );
 }

@@ -1,4 +1,4 @@
-import StyledPage from "~/components/jnd/StyledPage";
+import { StyledPage } from "~/components/jnd/StyledPage";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 

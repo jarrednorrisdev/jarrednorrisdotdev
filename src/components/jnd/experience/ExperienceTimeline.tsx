@@ -10,7 +10,7 @@ import {
   Trigger,
 } from "~/components/lukacho/accordion";
 import { Badge } from "~/components/ui/badge";
-import { TimelineEntry } from "~/components/jnd/experience";
+import { type TimelineEntry } from "~/components/jnd/experience";
 
 export function ExperienceTimeline({
   TimelineData,

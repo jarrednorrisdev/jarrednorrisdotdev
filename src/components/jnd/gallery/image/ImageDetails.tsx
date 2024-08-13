@@ -11,7 +11,7 @@ import { cn } from "~/lib/utils";
 import { liveGetUserById } from "~/server/auth/queries/getUserById";
 import Link from "next/link";
 import { SignedIn } from "@clerk/nextjs";
-import { ImageDetailsActions } from "~/components/jnd/gallery/image";
+import { ImageDetailsActions } from "~/components/jnd/gallery/image/ImageDetailsActions";
 import { Effect } from "effect";
 
 export async function ImageDetails({

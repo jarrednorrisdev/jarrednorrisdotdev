@@ -22,21 +22,21 @@ export function ProjectsListItem({
   return (
     <Button
       variant="ghost"
-      className={cn("flex h-max items-center gap-2 px-4 py-2", className)}
+      className={cn(
+        "flex h-max flex-grow flex-col items-center justify-center gap-2 p-2",
+        className,
+      )}
       asChild={!disabled}
       disabled={disabled}
     >
-      <Link href={href} className="flex flex-row">
-        <div className="flex flex-col items-center justify-between gap-2">
-          <div className="flex flex-col items-center justify-center">
-            {projectImage}
-            {projectTitle}
-          </div>
-
-          <TypographyP className="items-start text-wrap">
-            {projectDescription}
-          </TypographyP>
+      <Link href={href} className="flex h-max flex-col items-center">
+        <div className="flex h-max flex-col items-center justify-center">
+          {projectImage}
+          {projectTitle}
         </div>
+        <TypographyP className="flex h-max items-center justify-center text-wrap text-center">
+          {projectDescription}
+        </TypographyP>
       </Link>
     </Button>
   );

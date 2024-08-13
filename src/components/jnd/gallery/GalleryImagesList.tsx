@@ -1,3 +1,5 @@
+import "server-only";
+
 import React from "react";
 import { cn } from "~/lib/utils";
 import { type Image } from "~/server/db/schema";

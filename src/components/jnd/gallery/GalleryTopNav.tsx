@@ -1,8 +1,8 @@
-import { NavBarTop } from "~/components/jnd/navigation";
+import { NavBarTop } from "~/components/jnd/navigation/NavBarTop";
 import {
   type BreadcrumbLink,
   DynamicBreadcrumb,
-} from "~/components/jnd/navigation";
+} from "~/components/jnd/navigation/DynamicBreadcrumb";
 
 export async function GalleryTopNav({
   breadcrumbLinks,

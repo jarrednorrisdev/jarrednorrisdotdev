@@ -18,8 +18,8 @@ export function MainHero({ className }: { className?: string }) {
   return (
     <Card className={cn("group relative", className)}>
       <BorderBeam
-        className="opacity-0 transition-opacity duration-1000 group-hover:opacity-100"
-        duration={3}
+        className=""
+        duration={8}
       />
       <CardHeader>
         <CardTitle>Jarred Norris</CardTitle>

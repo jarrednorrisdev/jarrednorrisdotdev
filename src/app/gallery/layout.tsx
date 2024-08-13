@@ -1,6 +1,6 @@
 import { Effect } from "effect";
 import React from "react";
-import { GallerySideNavContents } from "~/components/jnd/gallery";
+import { GallerySideNavContents } from "~/components/jnd/gallery/GallerySideNavContents";
 import { liveGetCurrentUser } from "~/server/auth/queries/getCurrentUser";
 
 export default async function GalleryLayout({
@@ -10,7 +10,7 @@ export default async function GalleryLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
-  const user = await Effect.runPromise(liveGetCurrentUser());
+  const user = await liveGetCurrentUser();
 
   return (
     <div className="flex flex-grow overflow-auto">

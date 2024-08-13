@@ -1,10 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-
-import { FilmIcon, ImageIcon } from "lucide-react";
+import React from "react";
 import { cn } from "~/lib/utils";
-import { ProjectsListItem } from "~/components/projects/ProjectsList";
-import { TypographyH3 } from "~/components/typography";
-
+import { FilmIcon, ImageIcon } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -12,54 +9,62 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "~/components/ui/carousel";
+import { TypographyH3, TypographyP } from "~/components/typography";
+import { ProjectsListItem } from "~/components/projects/ProjectsList";
 
 export function ProjectsCard({ className }: { className?: string }) {
-  // const projectRecsDescription = `
-  // A media recommendation platform that allows users to share reccomendations for movies, tv shows, games.
-  // Where only the ratings and recommendations of those in their circle are counted.
-  // Built with NextJS, Postgres, and Drizzle
-  // `;
-
   return (
-    <Card className={cn("", className)}>
+    <Card className={cn("overflow-hidden", className)}>
       <CardHeader>
         <CardTitle>Projects</CardTitle>
       </CardHeader>
-      <CardContent className="flex justify-center">
-        <Carousel className="max-w-[75%]">
-          <CarouselContent>
-            <CarouselItem>
-              <ProjectsListItem
-                projectTitle={
-                  <TypographyH3 className="text-center">
-                    jnd-gallery
-                  </TypographyH3>
-                }
-                projectImage={<ImageIcon size={64} className="text-primary" />}
-                projectDescription={"a basic public image hosting service"}
-                href="/gallery"
-              />
-            </CarouselItem>
-            <CarouselItem>
-              <ProjectsListItem
-                projectTitle={
-                  <TypographyH3 className="text-center">
-                    project-recs
-                  </TypographyH3>
-                }
-                projectImage={<FilmIcon size={64} className="text-primary" />}
-                projectDescription={`
-									A media recommendation platform where only the recommendations of those in your circle matter.
-									`}
-								href="https://project-recs.vercel.app/"
-								disabled
-              />
-            </CarouselItem>
-          </CarouselContent>
+      <CardContent className="flex-grow overflow-hidden">
+        <Carousel className="flex h-full flex-grow items-center justify-center">
           <CarouselPrevious />
-          <CarouselNext />
+          <CarouselContent className="flex h-full flex-grow">
+            <JNDGalleryCarouselItem />
+            <ProjectRecsCarouselItem />
+          </CarouselContent>
+
+          <CarouselNext className="flex" />
         </Carousel>
       </CardContent>
     </Card>
+  );
+}
+
+function JNDGalleryCarouselItem() {
+  return (
+    <CarouselItem className="flex flex-grow flex-col">
+      <ProjectsListItem
+        projectTitle={
+          <TypographyH3 className="text-center">jnd-gallery</TypographyH3>
+        }
+        projectImage={<ImageIcon size={64} className="text-primary" />}
+        projectDescription={"a basic public image hosting service"}
+        href="/gallery"
+      />
+    </CarouselItem>
+  );
+}
+
+function ProjectRecsCarouselItem() {
+  return (
+    <CarouselItem>
+      <ProjectsListItem
+        projectTitle={
+          <TypographyH3 className="text-center">project-recs</TypographyH3>
+        }
+        projectImage={<FilmIcon size={64} className="text-primary" />}
+        projectDescription={
+          "A social media style review and reccomendation platform."
+        }
+        href="https://project-recs.vercel.app/"
+        disabled
+      />
+      <TypographyP className="select-none text-center text-primary">
+        Coming Soon
+      </TypographyP>
+    </CarouselItem>
   );
 }

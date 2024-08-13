@@ -1,9 +1,9 @@
 import { Effect } from "effect";
 import { liveGetUserImagesById } from "~/server/gallery/queries";
 import { liveGetUserById } from "~/server/auth/queries/getUserById";
-import { GalleryImagesList } from "~/components/jnd/gallery";
-import { GalleryTopNav } from "~/components/jnd/gallery";
-import StyledPage from "~/components/jnd/StyledPage";
+import { GalleryImagesList } from "~/components/jnd/gallery/GalleryImagesList";
+import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
+import { StyledPage } from "~/components/jnd/StyledPage";
 
 export const dynamic = "force-dynamic";
 

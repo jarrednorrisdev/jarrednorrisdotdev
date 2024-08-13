@@ -1,6 +1,7 @@
 "use client";
+
 import { SignedIn } from "@clerk/nextjs";
-import { UploadButton, UploadDropzone } from "~/utils/uploadthing";
+import { UploadDropzone } from "~/utils/uploadthing";
 import { useRouter } from "next/navigation";
 
 export function ImageGalleryUpload() {
@@ -14,7 +15,7 @@ export function ImageGalleryUpload() {
 						router.push(`/gallery/user/${res[0]?.serverData?.uploadedBy}`);
 						router.refresh();
           }}
-        ></UploadDropzone>
+        />
       </SignedIn>
     </div>
   );

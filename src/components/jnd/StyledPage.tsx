@@ -1,6 +1,6 @@
 import { cn } from "~/lib/utils";
 
-export default async function StyledPage({
+export async function StyledPage({
   children,
   className,
 }: {
@@ -8,12 +8,7 @@ export default async function StyledPage({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "flex h-full flex-grow flex-col overflow-y-auto",
-        className,
-      )}
-    >
+    <div className={cn("flex flex-grow flex-col overflow-y-scroll", className)}>
       {children}
     </div>
   );

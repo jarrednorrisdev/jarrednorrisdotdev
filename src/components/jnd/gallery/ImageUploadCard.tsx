@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
-import { ImageGalleryUpload } from "~/components/jnd/gallery";
+import { ImageGalleryUpload } from "~/components/jnd/gallery/ImageGalleryUpload";
 import { cn } from "~/lib/utils";
 
 export function ImageUploadCard({ className }: { className?: string }) {

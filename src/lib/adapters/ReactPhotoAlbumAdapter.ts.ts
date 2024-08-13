@@ -1,3 +1,5 @@
+import "server-only";
+
 import { type Photo } from "react-photo-album";
 import { type Image } from "~/server/db/schema";
 import probe, { type ProbeResult } from "probe-image-size";

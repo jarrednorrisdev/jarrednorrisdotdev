@@ -2,9 +2,9 @@ import React from "react";
 import { Effect } from "effect";
 import { liveGetImageById } from "~/server/gallery/queries";
 
-import { ImageDisplay } from "~/components/jnd/gallery/image";
-import { GalleryTopNav } from "~/components/jnd/gallery";
-import StyledPage from "~/components/jnd/StyledPage";
+import { ImageDisplay } from "~/components/jnd/gallery/image/ImageDisplay";
+import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
+import { StyledPage } from "~/components/jnd/StyledPage";
 
 export default async function GalleryImagePage({
   params: { id: imageId },
@@ -26,9 +26,9 @@ export default async function GalleryImagePage({
   return (
     <StyledPage>
       <GalleryTopNav breadcrumbLinks={breadcrumbLinks} />
-      <div className="flex flex-grow flex-col">
+      <main className="flex flex-grow flex-col">
         <ImageDisplay image={image} className="flex-grow" />
-      </div>
+      </main>
     </StyledPage>
   );
 }

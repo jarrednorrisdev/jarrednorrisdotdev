@@ -7,8 +7,9 @@ import { ourFileRouter } from "~/app/api/uploadthing/core";
 import { ThemeProvider } from "~/components/theme-provider";
 import { JetBrains_Mono } from "next/font/google";
 
-import { GlobalTopNavContents } from "~/components/jnd/navigation";
-import { NavBarTop } from "~/components/jnd/navigation";
+import { GlobalTopNavContents } from "~/components/jnd/navigation/GlobalTopNavContents";
+import { NavBarTop } from "~/components/jnd/navigation/NavBarTop";
+import { liveGetCurrentUser } from "~/server/auth/queries";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -20,13 +21,14 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   modal,
 }: {
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
+  const user = await liveGetCurrentUser();
   return (
     <ClerkProvider>
       <html lang="en" className={`${jetBrainsMono.className} h-full`}>
@@ -40,7 +42,7 @@ export default function RootLayout({
           >
             <div className="flex h-screen max-h-screen min-h-screen flex-col items-stretch justify-stretch overflow-auto">
               <NavBarTop className="bg-card">
-                <GlobalTopNavContents />
+                <GlobalTopNavContents userId={user?.id} />
               </NavBarTop>
 
               {children}

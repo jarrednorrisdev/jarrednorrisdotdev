@@ -10,8 +10,8 @@ export function ExperienceCard({ className }: { className?: string }) {
   return (
     <Card className={cn("", className)}>
       <Tabs defaultValue="Work" className={cn("flex flex-col", className)}>
-        <CardHeader className="flex flex-grow flex-row justify-between">
-          <CardTitle>Experience</CardTitle>
+        <CardHeader className="flex flex-grow flex-row flex-wrap justify-between">
+          <CardTitle className="hidden sm:flex sm:visible">Experience</CardTitle>
           <TabsList
             className="flex h-min flex-wrap items-center justify-start"
             variant="ghost"
@@ -25,14 +25,12 @@ export function ExperienceCard({ className }: { className?: string }) {
           </TabsList>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col">
             <TabsContent value="Work">
               <ExperienceTimeline TimelineData={workTimelineData} />
             </TabsContent>
             <TabsContent value="Education">
               <ExperienceTimeline TimelineData={educationTimelineData} />
             </TabsContent>
-          </div>
         </CardContent>
       </Tabs>
     </Card>
