@@ -1,7 +1,7 @@
 "use client";
 
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { LogInIcon, MenuIcon } from "lucide-react";
+import { LogInIcon, MenuIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "~/components/theme-toggle";
 import { TypographyH3 } from "~/components/typography";
@@ -38,12 +38,11 @@ export function GlobalTopNavContents({
     <div className={cn("flex flex-grow justify-between", className)}>
       <div className="flex flex-grow items-center justify-start gap-4">
         {getMatchedPath(pathname, validSideNavRoutes)[0] && (
-          <a className="md:hidden">
+          <a className="lg:hidden">
             <NavSheet
-              buttonClassName="flex flex-grow bg-transparent"
-              buttonChildren={<MenuIcon />}
-              buttonSize={"icon"}
-              buttonVariant={"outline"}
+              buttonChildren={<MenuIcon  />}
+              buttonSize="icon"
+              buttonVariant="backgroundSecondary"
             >
               <DynamicSideNav userId={userId} />
             </NavSheet>
@@ -59,9 +58,12 @@ export function GlobalTopNavContents({
       <div className="flex flex-grow items-center justify-end gap-4">
         <ThemeToggle />
         <SignedOut>
-          <Button size="icon" variant="outline">
+          <Button size="icon" variant="backgroundSecondary" asChild>
             <SignInButton>
-              <LogInIcon />
+              <div className="flex flex-row items-center gap-2">
+                {/* <a>Sign In</a> */}
+                <UserIcon className="text-primary" />
+              </div>
             </SignInButton>
           </Button>
         </SignedOut>

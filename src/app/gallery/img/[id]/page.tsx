@@ -5,6 +5,8 @@ import { liveGetImageById } from "~/server/gallery/queries";
 import { ImageDisplay } from "~/components/jnd/gallery/image/ImageDisplay";
 import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
 import { StyledPage } from "~/components/jnd/StyledPage";
+import { probeImage } from "~/server/gallery/probeImage";
+import { TypographyP } from "~/components/typography";
 
 export default async function GalleryImagePage({
   params: { id: imageId },
@@ -16,19 +18,27 @@ export default async function GalleryImagePage({
     return <div>Invalid image id</div>;
   }
   const image = await Effect.runPromise(liveGetImageById(idAsNumber));
+  const imageData = await probeImage(image);
 
   const breadcrumbLinks = [
     { label: "Home", href: "/" },
     { label: "Gallery", href: "/gallery" },
-    { label: image.name },
+    // { label: image.name },
+    { label: "Image" },
   ];
 
   return (
-    <StyledPage>
+    <>
       <GalleryTopNav breadcrumbLinks={breadcrumbLinks} />
-      <main className="flex flex-grow flex-col">
-        <ImageDisplay image={image} className="flex-grow" />
-      </main>
-    </StyledPage>
+      <StyledPage>
+        <div className="h-full space-y-2 p-4">
+          <ImageDisplay
+            image={image}
+            imageData={imageData ? imageData : undefined}
+            className="gap-4"
+          />
+        </div>
+      </StyledPage>
+    </>
   );
 }

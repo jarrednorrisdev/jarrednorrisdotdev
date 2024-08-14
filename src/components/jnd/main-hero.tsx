@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  TypographyMuted,
-  TypographyP,
-} from "~/components/typography";
+import { TypographyMuted, TypographyP } from "~/components/typography";
 import {
   Card,
   CardContent,
@@ -17,16 +14,13 @@ import { MainHeroButtons } from "./MainHeroButtons";
 export function MainHero({ className }: { className?: string }) {
   return (
     <Card className={cn("group relative", className)}>
-      <BorderBeam
-        className=""
-        duration={8}
-      />
+      <BorderBeam className="" duration={8} />
       <CardHeader>
         <CardTitle>Jarred Norris</CardTitle>
         <TypographyMuted className="flex flex-wrap whitespace-pre-wrap text-xs sm:text-base">
-          <span>Software Developer, </span>
-          <span>Web Developer, </span>
-          <span>Game Developer</span>
+          <span>Full-Stack Developer, </span>
+          <span>Software Engineer, </span>
+          <span>Games Programmer</span>
         </TypographyMuted>
       </CardHeader>
       <CardContent className="flex flex-grow flex-col justify-between gap-4 lg:flex-row">

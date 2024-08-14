@@ -1,21 +1,15 @@
 import "server-only";
 
-import React from "react";
-import { cn } from "~/lib/utils";
 import { type Image } from "~/server/db/schema";
+import { schemaImagesToReactPhotoAlbum } from "~/server/gallery/schemaPhotosToReactPhotoAlbum";
+import { probeImages } from "~/server/gallery/probeImages";
+
 import { RowsPhotoAlbum } from "react-photo-album";
 import "react-photo-album/rows.css";
-import { transformDrizzlePhotosToPhotos } from "~/lib/adapters/ReactPhotoAlbumAdapter.ts";
-import { ScrollArea } from "~/components/ui/scroll-area";
 
-export async function GalleryImagesList({
-  images,
-  className,
-}: {
-  images: Image[];
-  className?: string;
-}) {
-  const photos = await transformDrizzlePhotosToPhotos(images);
+export async function GalleryImagesList({ images }: { images: Image[] }) {
+  const imageProbeData = await probeImages(images);
+  const photos = schemaImagesToReactPhotoAlbum(images, imageProbeData);
 
   return (
     <RowsPhotoAlbum

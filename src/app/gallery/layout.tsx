@@ -16,7 +16,7 @@ export default async function GalleryLayout({
     <div className="flex h-full flex-grow overflow-hidden">
       <GallerySideNavContents
         userId={user?.id}
-        className="hidden bg-card md:visible md:flex md:border-r"
+        className="hidden bg-card lg:visible lg:flex lg:border-r"
       />
       <div className="flex h-full flex-grow flex-col ">
         {children}

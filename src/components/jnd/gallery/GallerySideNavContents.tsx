@@ -76,7 +76,7 @@ export function GallerySideNavContents({
         ) : (
           <TooltipProvider key={link.label}>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Button
                   variant="ghost"
                   className="flex justify-start gap-2"

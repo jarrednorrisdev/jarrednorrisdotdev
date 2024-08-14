@@ -7,5 +7,5 @@ export async function StyledPage({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={cn("max-w-full", className)}>{children}</div>;
+  return <div className={cn("flex flex-col max-w-full h-full", className)}>{children}</div>;
 }

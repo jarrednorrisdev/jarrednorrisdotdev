@@ -22,7 +22,7 @@ export function DynamicBreadcrumb({
     breadcrumbLinks && (
       <Breadcrumb>
         <BreadcrumbList
-          className={cn("flex min-w-0 flex-nowrap text-nowrap", className)}
+          className={cn("flex min-w-0 flex-wrap text-nowrap overflow-clip", className)}
         >
           {breadcrumbLinks.map((item, index) => (
             <React.Fragment key={index}>
@@ -36,8 +36,8 @@ export function DynamicBreadcrumb({
                     className={cn(
                       "max-w-40 truncate",
                       index === breadcrumbLinks.length - 1
-                        ? "text-foreground"
-                        : "text-primary",
+                        ? "text-primary"
+                        : "text-foreground",
                     )}
                   >
                     {item.label}

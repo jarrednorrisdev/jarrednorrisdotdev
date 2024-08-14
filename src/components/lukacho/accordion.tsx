@@ -3,8 +3,8 @@
 import { cn } from "~/lib/utils";
 
 import {
-  Dispatch,
-  SetStateAction,
+  type Dispatch,
+  type SetStateAction,
   createContext,
   useContext,
   useState,
@@ -37,7 +37,7 @@ export const Tab: React.FC<{
 
   return (
     <TabContext.Provider value={{ isOpen, setOpenState }}>
-      <div className={cn("bg-bg w-full p-2 sm:p-6", className)}>{children}</div>
+      <div className={cn("bg-bg w-full p-2 sm:p-4", className)}>{children}</div>
     </TabContext.Provider>
   );
 };
@@ -84,7 +84,7 @@ export const Content: React.FC<{
       initial={{ height: 0, pointerEvents: "none" }}
       animate={
         isOpen
-          ? { height: "fit-content", pointerEvents: "auto", marginTop: "1rem" }
+          ? { height: "fit-content", pointerEvents: "auto" }
           : { height: 0, pointerEvents: "none" }
       }
       transition={{ duration: 0.2 }}

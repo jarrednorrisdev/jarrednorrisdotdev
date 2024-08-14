@@ -33,7 +33,8 @@ export function ExperienceTimeline({
                 {data.badges?.map((badge, index) => (
                   <Badge
                     key={index}
-                    variant={badge.variant}
+                    // variant={badge.variant}
+                    variant="secondaryNoHover"
                     className="min-w-max"
                   >
                     {badge.name}
@@ -43,7 +44,9 @@ export function ExperienceTimeline({
             </div>
           </Trigger>
           <Content>
-            <TypographyP>{data.content}</TypographyP>
+            <TypographyP className="whitespace-pre-line">
+              {data.content}
+            </TypographyP>
           </Content>
         </Tab>
       ))}
