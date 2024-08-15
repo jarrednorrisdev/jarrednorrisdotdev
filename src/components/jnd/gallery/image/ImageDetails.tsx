@@ -12,7 +12,8 @@ import {
 } from "~/components/ui/table";
 import React from "react";
 import { TypographyP } from "~/components/typography";
-import { User } from "@clerk/nextjs/server";
+import { type User } from "@clerk/nextjs/server";
+import Link from "next/link";
 
 export async function ImageDetails({
   image,
@@ -53,7 +54,13 @@ export async function ImageDetails({
             </TableCell>
             <TableCell className="p-2">
               <TypographyP className="text-wrap break-all">
-                {data.value}
+                {data.label === "Uploaded By" ? (
+                  <Link href={`/gallery/user/${imageUploader.id}`} className="text-primary underline">
+                    {data.value}
+                  </Link>
+                ) : (
+                  data.value
+                )}
               </TypographyP>
             </TableCell>
           </TableRow>

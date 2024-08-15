@@ -31,7 +31,7 @@ export function MainHero({ className }: { className?: string }) {
         </TypographyP>
       </CardContent>
       <CardFooter>
-        <MainHeroButtons className="flex flex-grow flex-wrap items-end" />
+        <MainHeroButtons className="flex flex-grow flex-wrap" />
       </CardFooter>
     </Card>
   );

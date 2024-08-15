@@ -14,44 +14,32 @@ export class AuthService extends Context.Tag("@jnd/AuthService")<
   AuthService,
   {
     readonly auth: Effect.Effect<Auth, never, never>;
-    readonly currentUser: Effect.Effect<User | null, never, never>;
+    readonly currentUser: Effect.Effect<User | null, ClerkAuthError, never>;
     readonly getUser: (
       userId: string,
-    ) => Effect.Effect<User | null, never, never>;
+    ) => Effect.Effect<User, UserNotFoundError, never>;
   }
 >() {}
 
 export const LiveAuthServiceContext = Context.empty().pipe(
   Context.add(AuthService, {
     auth: Effect.sync(() => auth()),
-
-    currentUser: Effect.match(
-      Effect.tryPromise({
-        try: async () => await currentUser(),
-        catch: () => new ClerkAuthError(),
-      }),
-      {
-        onSuccess: (user) => user,
-        onFailure: (error) => {
-          Effect.runSync(Console.error(error._tag));
-          return null;
-        },
-      },
+    currentUser: Effect.catchAll(
+      Effect.tryPromise(() => currentUser()),
+      (error) =>
+        Effect.flatMap(
+          Console.error(`Error fetching current user: ${String(error)}`),
+          () => Effect.fail(new ClerkAuthError()),
+        ),
     ),
-
     getUser: (userId: string) =>
-      Effect.match(
-        Effect.tryPromise({
-          try: async () => await clerkClient.users.getUser(userId),
-          catch: () => new UserNotFoundError(),
-        }),
-        {
-          onSuccess: (user) => user,
-          onFailure: (error) => {
-            Effect.runSync(Console.error(error._tag));
-            return null;
-          },
-        },
+      Effect.catchAll(
+        Effect.tryPromise(() => clerkClient.users.getUser(userId)),
+        (error) =>
+          Effect.flatMap(
+            Console.error(`Error fetching current user: ${String(error)}`),
+            () => Effect.fail(new UserNotFoundError()),
+          ),
       ),
   }),
 );

@@ -2,7 +2,7 @@ import { type TimelineEntry } from "~/components/jnd/experience";
 
 export const workTimelineData: TimelineEntry[] = [
   {
-    title: "Web Developer",
+    title: "Full-Stack Web Developer",
     location: "Megasets LTD",
     date: "2023",
     content: `
@@ -10,9 +10,7 @@ export const workTimelineData: TimelineEntry[] = [
 
 		This included working with technologies such as React, Gatsby and Chakra UI, and implementing a wide range of features; page routing, complex data manipulation, front-end to back-end interoperability and much more.
 		
-		I later championed the transition of the platform to NextJS, which resulted in a significant performance boost and opened up new possibilities for the platform.
-		
-		Further contributions include building a custom sensor editor with Three.js and a custom map view with Leaflet.js.`,
+		I later championed the transition of the platform to NextJS, which resulted in a significant performance boost and opened up new possibilities for the platform. Further contributions include building a custom sensor editor with Three.js and a custom map view with Leaflet.js.`,
     badges: [
       { name: "React", variant: "tertiaryNoHover" },
       { name: "NextJS", variant: "tertiaryNoHover" },
@@ -31,7 +29,7 @@ export const workTimelineData: TimelineEntry[] = [
 		
 		Leveraging my expertise in Unity Engine, I contributed to the creation of a dynamically generated world environment through which synthetic data can be captured in configurable simulations.
 
-		Furthermore, I helped develop the simulation runner which could produce frame data from a varied range of virtual sensors. This invloved harnessing Unity's scriptable render pipelines to generate visual data, utilizing Unity animation tools to create realistic agent behaviour,and ensuring a seamless user experience within our tools.`,
+		Furthermore, I helped develop the simulation runner which could produce frame data from a varied range of virtual sensors. This involved harnessing Unity's scriptable render pipelines to generate visual data, utilizing Unity animation tools to create realistic agent behaviour, and ensuring a seamless user experience within our tools.`,
     badges: [
       { name: "Unity Engine", variant: "primaryNoHover" },
       { name: "C#", variant: "primaryNoHover" },
