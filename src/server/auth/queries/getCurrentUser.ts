@@ -5,7 +5,7 @@ import { type ClerkAuthError } from "~/server/auth/errors";
 
 export function getCurrentUser(): Effect.Effect<
   User | null,
-  never,
+  ClerkAuthError,
   AuthService
 > {
   return Effect.gen(function* (_) {
