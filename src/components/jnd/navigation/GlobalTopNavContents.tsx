@@ -1,7 +1,7 @@
 "use client";
 
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { LogInIcon, MenuIcon, UserIcon } from "lucide-react";
+import { MenuIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "~/components/theme-toggle";
 import { TypographyH3 } from "~/components/typography";

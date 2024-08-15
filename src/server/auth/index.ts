@@ -25,21 +25,17 @@ export const LiveAuthServiceContext = Context.empty().pipe(
   Context.add(AuthService, {
     auth: Effect.sync(() => auth()),
     currentUser: Effect.catchAll(
-      Effect.tryPromise(() => currentUser()),
+      Effect.promise(() => currentUser()),
       (error) =>
         Effect.flatMap(
-          Console.error(`Error fetching current user: ${String(error)}`),
+          Console.log(`Error fetching current user: ${String(error)}`),
           () => Effect.fail(new ClerkAuthError()),
         ),
     ),
     getUser: (userId: string) =>
       Effect.catchAll(
-        Effect.tryPromise(() => clerkClient.users.getUser(userId)),
-        (error) =>
-          Effect.flatMap(
-            Console.error(`Error fetching current user: ${String(error)}`),
-            () => Effect.fail(new UserNotFoundError()),
-          ),
+        Effect.promise(() => clerkClient.users.getUser(userId)),
+        () => Effect.fail(new UserNotFoundError()),
       ),
   }),
 );

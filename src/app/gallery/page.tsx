@@ -6,7 +6,6 @@ import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
 import { StyledPage } from "~/components/jnd/StyledPage";
 import { ScrollArea } from "~/components/ui/scroll-area";
 
-export const dynamic = "force-dynamic";
 
 const breadcrumbLinks = [{ label: "Home", href: "/" }, { label: "Gallery" }];
 

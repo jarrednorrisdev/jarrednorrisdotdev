@@ -1,6 +1,5 @@
 import "~/styles/globals.css";
-import React, { BaseHTMLAttributes } from "react";
-import { ClerkProvider } from "@clerk/nextjs";
+import React from "react";
 import { extractRouterConfig } from "uploadthing/server";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { ourFileRouter } from "~/app/api/uploadthing/core";
@@ -10,6 +9,7 @@ import { JetBrains_Mono } from "next/font/google";
 import { GlobalTopNavContents } from "~/components/jnd/navigation/GlobalTopNavContents";
 import { NavBarTop } from "~/components/jnd/navigation/NavBarTop";
 import { liveGetCurrentUser } from "~/server/auth/queries";
+import { Providers } from "~/components/Providers";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -32,7 +32,7 @@ export default async function RootLayout({
 
   const htmlClassName: React.ComponentProps<"html">["className"] = `${jetBrainsMono.className} h-full `;
   return (
-    <ClerkProvider>
+    <Providers>
       <html lang="en" className={htmlClassName}>
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <body className="flex h-full flex-col">
@@ -55,6 +55,6 @@ export default async function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </ClerkProvider>
+    </Providers>
   );
 }

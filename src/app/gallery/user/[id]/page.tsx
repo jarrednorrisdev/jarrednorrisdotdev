@@ -6,7 +6,6 @@ import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
 import { StyledPage } from "~/components/jnd/StyledPage";
 import { ScrollArea } from "~/components/ui/scroll-area";
 
-export const dynamic = "force-dynamic";
 
 export default async function GalleryUserPage({
   params: { id: userId },

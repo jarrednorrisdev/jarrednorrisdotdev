@@ -22,10 +22,10 @@ interface NavLink {
 }
 
 export function GallerySideNavContents({
-  userId = undefined,
+  userId,
   className,
 }: {
-  userId?: string | undefined;
+  userId?: string | null;
   className?: string;
 }) {
   const currentPath = usePathname();

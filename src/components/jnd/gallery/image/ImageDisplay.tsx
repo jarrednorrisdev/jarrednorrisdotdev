@@ -2,7 +2,7 @@ import { cn } from "~/lib/utils";
 import { type Image } from "~/server/db/schema";
 import NextImage from "next/image";
 import { ImageDetails } from "~/components/jnd/gallery/image/ImageDetails";
-import { Card, CardHeader } from "~/components/ui/card";
+import { Card } from "~/components/ui/card";
 import { type ProbeResult } from "probe-image-size";
 import { Effect } from "effect";
 import { liveGetUserById } from "~/server/auth/queries";
