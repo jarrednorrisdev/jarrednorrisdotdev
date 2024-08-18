@@ -1,7 +1,5 @@
-import { Effect } from "effect";
 import React from "react";
 import { GallerySideNavContents } from "~/components/jnd/gallery/GallerySideNavContents";
-import { liveGetCurrentUser } from "~/server/auth/queries/getCurrentUser";
 
 export default async function GalleryLayout({
   children,
@@ -10,17 +8,10 @@ export default async function GalleryLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
-  const user = await liveGetCurrentUser();
-
   return (
     <div className="flex h-full flex-grow overflow-hidden">
-      <GallerySideNavContents
-        userId={user?.id}
-        className="hidden bg-card lg:visible lg:flex lg:border-r"
-      />
-      <div className="flex h-full flex-grow flex-col ">
-        {children}
-      </div>
+      <GallerySideNavContents className="hidden bg-card lg:visible lg:flex lg:border-r" />
+      <div className="flex h-full flex-grow flex-col">{children}</div>
 
       {modal}
       <div id="modal-root" />

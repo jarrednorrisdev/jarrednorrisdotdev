@@ -1,18 +1,19 @@
 import { cn } from "~/lib/utils";
-import { type Image } from "~/server/db/schema";
+import { type Image } from "~/app/server/db/schema";
 import NextImage from "next/image";
 import { ImageDetails } from "~/components/jnd/gallery/image/ImageDetails";
 import { Card } from "~/components/ui/card";
 import { type ProbeResult } from "probe-image-size";
 import { Effect } from "effect";
-import { liveGetUserById } from "~/server/auth/queries";
 
-import { liveGetCurrentUser } from "~/server/auth/queries/getCurrentUser";
+// import { liveGetCurrentUserId } from "~/server/auth/queries/getCurrentUserId";
 import { DeleteButton } from "./DeleteButton"; // Import the Client Component
 import { TypographyP } from "~/components/typography";
 import { ImageDownIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import Link from "next/link";
+import { UserService, UserServiceLive } from "~/app/server/auth/userService";
+import { AuthService } from "~/app/server/auth/authService";
 
 export async function ImageDisplay({
   image,
@@ -23,9 +24,13 @@ export async function ImageDisplay({
   imageData?: ProbeResult;
   className?: string;
 }) {
-  const imageUploader = await Effect.runPromise(liveGetUserById(image.userId));
-  const currentUser = await liveGetCurrentUser();
-  const isUploader = currentUser?.id === image.userId;
+  const getImageUploader = UserServiceLive.pipe(
+    Effect.andThen((userService) => userService.getUserById(image.userId)),
+  );
+
+  // const currentUserId = liveGetCurrentUserId();
+
+  const isUploader = userId === image.userId;
   return (
     <div className={cn("flex h-full flex-col gap-2 lg:flex-row", className)}>
       <div className="relative flex flex-grow lg:flex-[3]">

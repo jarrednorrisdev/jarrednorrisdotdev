@@ -1,6 +1,6 @@
 "use client";
 
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+// import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { MenuIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "~/components/theme-toggle";
@@ -25,13 +25,7 @@ function getMatchedPath(
   return [false];
 }
 
-export function GlobalTopNavContents({
-  className,
-  userId,
-}: {
-  className?: string;
-  userId?: string;
-}) {
+export function GlobalTopNavContents({ className }: { className?: string }) {
   const pathname = usePathname();
 
   return (
@@ -40,11 +34,11 @@ export function GlobalTopNavContents({
         {getMatchedPath(pathname, validSideNavRoutes)[0] && (
           <a className="lg:hidden">
             <NavSheet
-              buttonChildren={<MenuIcon  />}
+              buttonChildren={<MenuIcon />}
               buttonSize="icon"
               buttonVariant="backgroundSecondary"
             >
-              <DynamicSideNav userId={userId} />
+              <DynamicSideNav />
             </NavSheet>
           </a>
         )}
@@ -57,11 +51,17 @@ export function GlobalTopNavContents({
       </div>
       <div className="flex flex-grow items-center justify-end gap-4">
         <ThemeToggle />
-        <SignedOut>
+        <Button asChild variant="outline">
+          <Link className="flex flex-row items-center gap-2" href="/signin">
+            <a>Sign In</a>
+            <UserIcon className="text-primary" />
+          </Link>
+        </Button>
+        {/* <SignedOut>
           <Button size="icon" variant="backgroundSecondary" asChild>
             <SignInButton>
               <div className="flex flex-row items-center gap-2">
-                {/* <a>Sign In</a> */}
+                <a>Sign In</a>
                 <UserIcon className="text-primary" />
               </div>
             </SignInButton>
@@ -69,7 +69,7 @@ export function GlobalTopNavContents({
         </SignedOut>
         <SignedIn>
           <UserButton />
-        </SignedIn>
+        </SignedIn> */}
       </div>
     </div>
   );

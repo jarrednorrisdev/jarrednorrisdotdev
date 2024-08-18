@@ -15,6 +15,9 @@ let config = {
   images: {
     remotePatterns: [{ hostname: "utfs.io" }],
   },
+  experimental: {
+    serverComponentsExternalPackages: ["@node-rs/argon2"],
+  },
 };
 
 export default config;

@@ -1,6 +1,6 @@
 "use client";
 
-import { SignedIn } from "@clerk/nextjs";
+// import { SignedIn } from "@clerk/nextjs";
 import { UploadDropzone } from "~/utils/uploadthing";
 import { useRouter } from "next/navigation";
 
@@ -8,7 +8,7 @@ export function ImageGalleryUpload() {
   const router = useRouter();
   return (
     <div className="flex flex-col gap-2">
-      <SignedIn>
+      {/* <SignedIn>
         <UploadDropzone
           endpoint="imageUploader"
           onClientUploadComplete={(res) => {
@@ -16,7 +16,7 @@ export function ImageGalleryUpload() {
 						router.refresh();
           }}
         />
-      </SignedIn>
+      </SignedIn> */}
     </div>
   );
 }

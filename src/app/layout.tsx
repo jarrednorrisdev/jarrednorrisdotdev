@@ -8,7 +8,6 @@ import { JetBrains_Mono } from "next/font/google";
 
 import { GlobalTopNavContents } from "~/components/jnd/navigation/GlobalTopNavContents";
 import { NavBarTop } from "~/components/jnd/navigation/NavBarTop";
-import { liveGetCurrentUser } from "~/server/auth/queries";
 import { Providers } from "~/components/Providers";
 
 const jetBrainsMono = JetBrains_Mono({
@@ -28,33 +27,25 @@ export default async function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
-  const user = await liveGetCurrentUser();
-
   const htmlClassName: React.ComponentProps<"html">["className"] = `${jetBrainsMono.className} h-full `;
+
   return (
-    <Providers>
-      <html lang="en" className={htmlClassName}>
-        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-        <body className="flex h-full flex-col">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem={true}
-            disableTransitionOnChange
-          >
-            <div className="flex h-full flex-col">
-              <NavBarTop className="bg-card">
-                <GlobalTopNavContents userId={user?.id} />
-              </NavBarTop>
+    <html lang="en" className={htmlClassName}>
+      <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+      <body className="flex h-full flex-col">
+        <Providers>
+          <div className="flex h-full flex-col">
+            <NavBarTop className="bg-card">
+              <GlobalTopNavContents />
+            </NavBarTop>
 
-              {children}
+            {children}
 
-              {modal}
-              <div id="modal-root" />
-            </div>
-          </ThemeProvider>
-        </body>
-      </html>
-    </Providers>
+            {modal}
+            <div id="modal-root" />
+          </div>
+        </Providers>
+      </body>
+    </html>
   );
 }

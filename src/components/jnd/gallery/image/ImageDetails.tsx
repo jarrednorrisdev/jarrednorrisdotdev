@@ -1,4 +1,4 @@
-import { type Image } from "~/server/db/schema";
+import { type Image } from "~/app/server/db/schema";
 import { cn } from "~/lib/utils";
 import { Effect } from "effect";
 import {
@@ -55,7 +55,10 @@ export async function ImageDetails({
             <TableCell className="p-2">
               <TypographyP className="text-wrap break-all">
                 {data.label === "Uploaded By" ? (
-                  <Link href={`/gallery/user/${imageUploader.id}`} className="text-primary underline">
+                  <Link
+                    href={`/gallery/user/${imageUploader.id}`}
+                    className="text-primary underline"
+                  >
                     {data.value}
                   </Link>
                 ) : (

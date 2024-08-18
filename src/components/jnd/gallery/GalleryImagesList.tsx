@@ -1,8 +1,8 @@
 import "server-only";
 
-import { type Image } from "~/server/db/schema";
-import { schemaImagesToReactPhotoAlbum } from "~/server/gallery/schemaPhotosToReactPhotoAlbum";
-import { probeImages } from "~/server/gallery/probeImages";
+import { type Image } from "~/app/server/db/schema";
+import { schemaImagesToReactPhotoAlbum } from "~/app/server/gallery/schemaPhotosToReactPhotoAlbum";
+import { probeImages } from "~/app/server/gallery/probeImages";
 
 import { RowsPhotoAlbum } from "react-photo-album";
 import "react-photo-album/rows.css";

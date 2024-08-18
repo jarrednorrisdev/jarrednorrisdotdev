@@ -3,13 +3,15 @@
 import { usePathname } from "next/navigation";
 import { GallerySideNavContents } from "~/components/jnd/gallery/GallerySideNavContents";
 
-export function DynamicSideNav({ userId }: { userId?: string }) {
+export function DynamicSideNav() {
   const pathname = usePathname();
+	
+
 
   if (pathname === "/") {
     return;
   } else if (pathname.includes("/gallery")) {
-    return <GallerySideNavContents userId={userId} />;
+    return <GallerySideNavContents />;
   }
 }
 

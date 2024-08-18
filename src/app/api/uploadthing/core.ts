@@ -1,8 +1,7 @@
-import { auth } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { db } from "~/server/db";
-import { images } from "~/server/db/schema";
+import { db } from "~/app/server/db";
+import { imageTable } from "~/app/server/db/schema";
 
 const f = createUploadthing();
 
@@ -13,6 +12,7 @@ export const ourFileRouter = {
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
+      // TODO: replace with lucia
       const user = auth();
 
       // If you throw, the user will not be able to upload
@@ -27,11 +27,10 @@ export const ourFileRouter = {
 
       console.log("file url", file.url);
 
-      await db.insert(images).values({
+      await db.insert(imageTable).values({
         name: file.name,
         url: file.url,
-				userId: metadata.userId,
-				
+        userId: metadata.userId,
       });
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
