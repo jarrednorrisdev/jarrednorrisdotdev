@@ -58,12 +58,22 @@ export function GlobalTopNavContents({
       </div>
       <div className="flex flex-grow items-center justify-end gap-4">
         <ThemeToggle />
-				{!userId && <Button asChild variant="outline">
-					<Link className="flex flex-row items-center gap-2" href="/signin">
-						<p>Sign In</p>
-						<UserIcon className="text-primary" />
-					</Link>
-				</Button>}
+        {!userId && (
+          <>
+            <Button asChild variant="outline">
+              <Link className="flex flex-row items-center gap-2" href="/signin">
+                <p>Sign In</p>
+                <UserIcon className="text-primary" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link className="flex flex-row items-center gap-2" href="/signup">
+                <p>Sign Up</p>
+                <UserIcon className="text-primary" />
+              </Link>
+            </Button>
+          </>
+        )}
         {userId && <SignOutForm />}
       </div>
     </div>
