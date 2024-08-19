@@ -237,10 +237,7 @@ export const AuthServiceLive = Layer.effect(
       username: string;
       password: string;
     }) =>
-			Effect.gen(function* (_) {
-				
-				console.error(`TEST Signing in with username: ${input.username}`);
-
+      Effect.gen(function* (_) {
         const account = yield* Effect.orElse(
           yield* userService.getAccountByUsername(input.username),
           () => {
@@ -251,10 +248,6 @@ export const AuthServiceLive = Layer.effect(
               ),
             );
           },
-        );
-
-        console.log(
-          `Found account - id:${account.id}, userId:${account.userId}`,
         );
 
         const user = yield* Effect.orElse(
@@ -270,8 +263,6 @@ export const AuthServiceLive = Layer.effect(
             );
           },
         );
-
-        console.log(`Found user - id:${user.id},`);
 
         if (account.passwordHash == null) {
           console.error(`Account ${account.id} is missing a password hash`);
@@ -291,9 +282,7 @@ export const AuthServiceLive = Layer.effect(
           return yield* Effect.fail(
             new IncorrectPasswordError("Incorrect password"),
           );
-				}
-				
-				console.log(`Password is correct`);
+        }
 
         const session = yield* createSession(user.id);
         const sessionCookie = yield* createSessionCookie(session.id);
