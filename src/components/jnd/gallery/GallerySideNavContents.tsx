@@ -14,7 +14,8 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 
-import { liveGetCurrentUserId } from "~/server/auth/queries";
+import { Effect, Option } from "effect";
+import { getCurrentUserId } from "~/server/auth/live";
 
 interface NavLink {
   label: string;
@@ -23,9 +24,9 @@ interface NavLink {
   requiresAuth?: boolean;
 }
 
-export function GallerySideNavContents({ className }: { className?: string }) {
-  const currentPath = usePathname();
-
+export async function GallerySideNavContents({ userId, className }: { className?: string, userId?: string }) {
+	const currentPath = usePathname();
+	
   const navLinks: NavLink[] = [
     {
       label: "Gallery Home",

@@ -1,7 +1,7 @@
 import { TrashIcon } from "lucide-react";
 import { Button, ButtonProps } from "~/components/ui/button";
-import { type Image } from "~/app/server/db/schema";
-import { liveDeleteImageByIdAction } from "~/app/server/gallery/queries/actions";
+import { type Image } from "~/server/db/schema";
+import { liveDeleteImageByIdAction } from "~/server/gallery/queries/actions";
 
 export async function DeleteButton({
   image,

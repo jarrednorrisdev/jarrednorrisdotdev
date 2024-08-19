@@ -1,11 +1,8 @@
 import { Context, Effect, Layer, Option } from "effect";
-import { AuthServiceLive } from "~/app/server/auth/authService";
+import { DatabaseService, DatabaseServiceLive } from "~/server/db";
+import { DrizzleQueryError } from "~/server/db/errors";
 
-import { UserService, UserServiceLive } from "~/app/server/auth/userService";
-import { DatabaseService, DatabaseServiceLive } from "~/app/server/db";
-import { DrizzleQueryError } from "~/app/server/db/errors";
-
-import { type Image } from "~/app/server/db/schema";
+import { type Image } from "~/server/db/schema";
 
 export class GalleryService extends Context.Tag("@jnd/GalleryService")<
   GalleryService,

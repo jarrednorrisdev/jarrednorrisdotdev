@@ -1,124 +1,142 @@
-// "use client";
-// import { type z } from "zod";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { useFormState } from "react-dom";
-// import { useRef } from "react";
+"use client";
 
-// import { Button } from "~/components/ui/button";
-// import {
-//   Form,
-//   FormControl,
-//   FormDescription,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from "~/components/ui/form";
-// import { Input } from "~/components/ui/input";
-// import { type formState } from "~/server/actions/auth/signup";
-// import { formSchema } from "./signup-form-schema";
+import { useRef } from "react";
+import { signUpWithUsernameAction } from "~/server/auth/actions/signUpWithUsernameAction";
 
-// export function SignUpForm({
-//   onSignUp,
-// }: {
-//   onSignUp: (
-//     previousState: formState,
-//     formData: FormData,
-//   ) => Promise<formState>;
-// }) {
-//   const [state, formAction] = useFormState(onSignUp, {
-//     message: "",
-//   });
-//   const form = useForm<z.output<typeof formSchema>>({
-//     resolver: zodResolver(formSchema),
-//     // mode: "onChange",
-//     defaultValues: {
-//       username: "",
-//       email: "",
-//       password: "",
-//       confirmPassword: "",
-//       ...(state?.fields ?? {}),
-//     },
-//   });
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import { useServerAction } from "zsa-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { type z } from "zod";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import { TerminalIcon } from "lucide-react";
+import { signUpFormSchema } from "~/server/auth/actions/signUpFormSchema";
+import { LoaderButton } from "~/components/LoaderButton";
 
-//   const formRef = useRef<HTMLFormElement>(null);
+// TODO: Check if username is already used in the database
+export function SignUpForm() {
+  const { isPending, execute, error, reset } = useServerAction(
+    signUpWithUsernameAction,
+  );
 
-//   return (
-//     <Form {...form}>
-//       <form
-//         onSubmit={(evt) => {
-//           evt.preventDefault();
-//           void form.handleSubmit(() => {
-//             formAction(new FormData(formRef.current!));
-//           })(evt);
-//         }}
-//         action={formAction}
-//         ref={formRef}
-//         className="flex flex-col gap-4"
-//       >
-//         <FormField
-//           control={form.control}
-//           name="username"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Username</FormLabel>
-//               <FormControl>
-//                 <Input placeholder="Username" {...field} type="text" />
-//               </FormControl>
-//               <FormDescription>
-//                 This will be your public username used to login and add friends
-//               </FormDescription>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <FormField
-//           control={form.control}
-//           name="email"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Email Address</FormLabel>
-//               <FormControl>
-//                 <Input placeholder="Email Address" {...field} type="email" />
-//               </FormControl>
-//               <FormDescription>
-//                 This will be your public username used to login and add friends
-//               </FormDescription>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <FormField
-//           control={form.control}
-//           name="password"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Password</FormLabel>
-//               <FormControl>
-//                 <Input {...field} type="password" placeholder="Password" />
-//               </FormControl>
-//               {/* <FormDescription>This is your private password</FormDescription> */}
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <FormField
-//           control={form.control}
-//           name="confirmPassword"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Confirm Password</FormLabel>
-//               <FormControl>
-//                 <Input {...field} type="password" placeholder="Password" />
-//               </FormControl>
-//               {/* <FormDescription>This is your private password</FormDescription> */}
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <Button type="submit">Sign Up</Button>
-//       </form>
-//     </Form>
-//   );
-// }
+  // TODO: remove default values for production
+  const form = useForm<z.infer<typeof signUpFormSchema>>({
+    resolver: zodResolver(signUpFormSchema),
+    mode: "onChange",
+    defaultValues: {
+      username: "aaaaaaaa",
+      email: "aaaaaaaa@aa.aa",
+      password: "aaaaaaaa",
+      confirmPassword: "aaaaaaaa",
+    },
+  });
+
+  const formRef = useRef<HTMLFormElement>(null);
+
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={async () =>
+          form.handleSubmit(async () => {
+            console.log("Executing Sign Up Submit Button");
+            await execute(new FormData(formRef.current!));
+          })
+        }
+        action={execute}
+        ref={formRef}
+        className="w-96 space-y-6"
+      >
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  className="w-full"
+                  placeholder="Enter your username"
+                  type="text"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  className="w-full"
+                  placeholder="Enter your email"
+                  type="email"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  className="w-full"
+                  placeholder="Enter your password"
+                  type="password"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  className="w-full"
+                  placeholder="Confirm your password"
+                  type="password"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {error && (
+          <Alert variant="destructive">
+            <TerminalIcon className="h-4 w-4" />
+            <AlertTitle>Uhoh, we couldn&apos;t sign you up</AlertTitle>
+            <AlertDescription>{error.message}</AlertDescription>
+          </Alert>
+        )}
+        <LoaderButton isLoading={isPending} className="w-full" type="submit">
+          Sign Up
+        </LoaderButton>
+      </form>
+    </Form>
+  );
+}

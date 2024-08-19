@@ -1,6 +1,5 @@
 "use client";
 
-// import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { MenuIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "~/components/theme-toggle";
@@ -10,6 +9,8 @@ import { cn } from "~/lib/utils";
 import { NavSheet } from "~/components/jnd/navigation/NavSheet";
 import { DynamicSideNav } from "~/components/jnd/navigation/DynamicSideNav";
 import { usePathname } from "next/navigation";
+import { getCurrentUserId } from "~/server/auth/live";
+import { SignOutForm } from "~/components/auth/signout-form";
 
 export const validSideNavRoutes = ["/gallery"];
 
@@ -25,7 +26,13 @@ function getMatchedPath(
   return [false];
 }
 
-export function GlobalTopNavContents({ className }: { className?: string }) {
+export function GlobalTopNavContents({
+  userId,
+  className,
+}: {
+  userId?: string;
+  className?: string;
+}) {
   const pathname = usePathname();
 
   return (
@@ -38,7 +45,7 @@ export function GlobalTopNavContents({ className }: { className?: string }) {
               buttonSize="icon"
               buttonVariant="backgroundSecondary"
             >
-              <DynamicSideNav />
+              <DynamicSideNav userId={userId} />
             </NavSheet>
           </a>
         )}
@@ -51,25 +58,13 @@ export function GlobalTopNavContents({ className }: { className?: string }) {
       </div>
       <div className="flex flex-grow items-center justify-end gap-4">
         <ThemeToggle />
-        <Button asChild variant="outline">
-          <Link className="flex flex-row items-center gap-2" href="/signin">
-            <a>Sign In</a>
-            <UserIcon className="text-primary" />
-          </Link>
-        </Button>
-        {/* <SignedOut>
-          <Button size="icon" variant="backgroundSecondary" asChild>
-            <SignInButton>
-              <div className="flex flex-row items-center gap-2">
-                <a>Sign In</a>
-                <UserIcon className="text-primary" />
-              </div>
-            </SignInButton>
-          </Button>
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn> */}
+				{!userId && <Button asChild variant="outline">
+					<Link className="flex flex-row items-center gap-2" href="/signin">
+						<p>Sign In</p>
+						<UserIcon className="text-primary" />
+					</Link>
+				</Button>}
+        {userId && <SignOutForm />}
       </div>
     </div>
   );

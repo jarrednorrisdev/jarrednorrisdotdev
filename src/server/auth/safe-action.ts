@@ -1,7 +1,7 @@
 // import { env } from "~/env";
 import { createServerActionProcedure } from "zsa";
 import { Effect } from "effect";
-import { AuthService } from "~/app/server/auth/authService";
+import { AuthService } from "~/server/auth/authService";
 
 // function shapeErrors({ err }: any) {
 //   const isAllowedError = err instanceof PublicError;

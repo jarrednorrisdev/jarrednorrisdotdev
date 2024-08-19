@@ -1,10 +1,10 @@
 import { Context, Effect, Option } from "effect";
 import { UserService, UserServiceLive } from "./userService";
 import { Layer } from "effect";
-import { cookies } from "next/headers";
+
 import { redirect } from "next/navigation";
 
-import { lucia } from "~/app/server/auth/lucia";
+import { lucia } from "~/server/auth/lucia";
 
 import {
   AccountNotFoundError,
@@ -19,11 +19,14 @@ import {
   ValidateSessionError,
   GetSessionCookieError,
   NotAuthenticatedError,
-} from "~/app/server/auth/errors";
+} from "~/server/auth/errors";
 import { hash, verify } from "@node-rs/argon2";
 import { type User as LuciaUser, type Cookie, type Session } from "lucia";
-import { type DrizzleQueryError } from "~/app/server/db/errors";
-
+import { type DrizzleQueryError } from "~/server/db/errors";
+// import { getSessionCookie } from "~/app/_server/getSessionCookies";
+// import { setSessionCookie } from "~/app/_server/setSessionCookies";
+import { set } from "zod";
+import { cookies } from "next/headers";
 export class AuthService extends Context.Tag("@jnd/AuthService")<
   AuthService,
   {
@@ -91,6 +94,11 @@ export class AuthService extends Context.Tag("@jnd/AuthService")<
       | UsernameAlreadyExistsError,
       never
     >;
+    readonly signOut: () => Effect.Effect<
+      void,
+      ValidateSessionError | GetSessionCookieError | NotAuthenticatedError,
+      never
+    >;
   }
 >() {}
 
@@ -108,7 +116,10 @@ export const AuthServiceLive = Layer.effect(
             outputLen: 32,
             parallelism: 1,
           }),
-        catch: (e) => new PasswordDecryptError("Error decrypting password", e),
+        catch: (e) => {
+          console.error("Error decrypting password:", e);
+          return new PasswordDecryptError("Error decrypting password", e);
+        },
       });
 
     const hashPassword = (password: string) =>
@@ -120,14 +131,21 @@ export const AuthServiceLive = Layer.effect(
             outputLen: 32,
             parallelism: 1,
           }),
-        catch: (e) => new PasswordEncryptError("Error encrypting password", e),
+        catch: (e) => {
+          console.error("Error encrypting password:", e);
+          return new PasswordEncryptError("Error encrypting password", e);
+        },
       });
 
     const createSession = (userId: string) =>
       Effect.tryPromise({
         try: async () => await lucia.createSession(userId, {}),
-        catch: (e) =>
-          new CreateSessionError("Error creating new session", { cause: e }),
+        catch: (e) => {
+          console.error("Error creating new session:", e);
+          return new CreateSessionError("Error creating new session", {
+            cause: e,
+          });
+        },
       });
 
     const createSessionCookie = (sessionId: string) =>
@@ -136,10 +154,12 @@ export const AuthServiceLive = Layer.effect(
     const validateSession = (sessionId: string) =>
       Effect.tryPromise({
         try: async () => await lucia.validateSession(sessionId),
-        catch: (e) =>
-          new ValidateSessionError("Error creating new session", {
+        catch: (e) => {
+          console.error("Error validating session:", e);
+          return new ValidateSessionError("Error validating session", {
             cause: e,
-          }),
+          });
+        },
       });
 
     const getSessionCookie = () => {
@@ -156,34 +176,41 @@ export const AuthServiceLive = Layer.effect(
     };
 
     const validateRequest = Effect.gen(function* (_) {
-      // const sessionId = yield* getSessionCookie();
+      const sessionId = Option.getOrElse(getSessionCookie(), () => {
+        console.log("Could not find existing session cookie");
+        // return Effect.fail(
+        //   new GetSessionCookieError(
+        //     `Error getting session cookie from request`,
+        //   ),
+        // );
+        return null;
+      });
 
-      const sessionId = yield* Effect.orElse(getSessionCookie(), () =>
-        Effect.fail(
-          new GetSessionCookieError(
-            `Error getting session cookie from request`,
-          ),
-        ),
-      );
+      if (sessionId == null) {
+        return { user: null, session: null };
+      }
 
       const result = yield* validateSession(sessionId);
 
       // TODO: next.js throws when you attempt to set cookie when rendering page
       if (result.session?.fresh) {
-        const sessionCookie = lucia.createSessionCookie(result.session.id);
-        cookies().set(
-          sessionCookie.name,
-          sessionCookie.value,
-          sessionCookie.attributes,
-        );
+        // const sessionCookie = lucia.createSessionCookie(result.session.id);
+        const sessionCookie = yield* createSessionCookie(result.session.id);
+        setSessionCookie(sessionCookie);
+        // cookies().set(
+        //   sessionCookie.name,
+        //   sessionCookie.value,
+        //   sessionCookie.attributes,
+        // );
       }
       if (!result.session) {
         const sessionCookie = lucia.createBlankSessionCookie();
-        cookies().set(
-          sessionCookie.name,
-          sessionCookie.value,
-          sessionCookie.attributes,
-        );
+        setSessionCookie(sessionCookie);
+        // cookies().set(
+        //   sessionCookie.name,
+        //   sessionCookie.value,
+        //   sessionCookie.attributes,
+        // );
       }
 
       return result;
@@ -195,13 +222,14 @@ export const AuthServiceLive = Layer.effect(
     });
 
     const assertAuthenticated = Effect.gen(function* (_) {
-      const user = yield* Effect.orElse(yield* getCurrentUserId, () =>
-        Effect.fail(
+      const user = yield* Effect.orElse(yield* getCurrentUserId, () => {
+        console.error("User is not authenticated, please sign in");
+        return Effect.fail(
           new NotAuthenticatedError(
             `User is not authenticated, please sign in`,
           ),
-        ),
-      );
+        );
+      });
       return user;
     });
 
@@ -209,28 +237,44 @@ export const AuthServiceLive = Layer.effect(
       username: string;
       password: string;
     }) =>
-      Effect.gen(function* (_) {
+			Effect.gen(function* (_) {
+				
+				console.error(`TEST Signing in with username: ${input.username}`);
+
         const account = yield* Effect.orElse(
           yield* userService.getAccountByUsername(input.username),
-          () =>
-            Effect.fail(
+          () => {
+            console.error(`Account with username: ${input.username} not found`);
+            return Effect.fail(
               new AccountNotFoundError(
                 `Account with username: ${input.username} not found`,
               ),
-            ),
+            );
+          },
+        );
+
+        console.log(
+          `Found account - id:${account.id}, userId:${account.userId}`,
         );
 
         const user = yield* Effect.orElse(
           yield* userService.getUserById(account.userId),
-          () =>
-            Effect.fail(
+          () => {
+            console.error(
+              `User for accountId: ${account.id}, username: ${input.username}, userId ${account.userId} not found`,
+            );
+            return Effect.fail(
               new UserNotFoundError(
                 `User for accountId: ${account.id}, username: ${input.username}, userId ${account.userId} not found`,
               ),
-            ),
+            );
+          },
         );
 
+        console.log(`Found user - id:${user.id},`);
+
         if (account.passwordHash == null) {
+          console.error(`Account ${account.id} is missing a password hash`);
           return yield* Effect.fail(
             new MissingPasswordHashError(
               `Account ${account.id} is missing a password hash`,
@@ -243,16 +287,18 @@ export const AuthServiceLive = Layer.effect(
           input.password,
         );
         if (!validPassword) {
+          console.error("Incorrect password");
           return yield* Effect.fail(
             new IncorrectPasswordError("Incorrect password"),
           );
-        }
+				}
+				
+				console.log(`Password is correct`);
 
         const session = yield* createSession(user.id);
         const sessionCookie = yield* createSessionCookie(session.id);
 
         setSessionCookie(sessionCookie);
-        return redirect("/");
       });
 
     const signUpWithUsername = (input: {
@@ -265,7 +311,19 @@ export const AuthServiceLive = Layer.effect(
         const session = yield* createSession(user.id);
         const sessionCookie = yield* createSessionCookie(session.id);
         setSessionCookie(sessionCookie);
-        redirect("/");
+      });
+
+    const signOut = () =>
+      Effect.gen(function* (_) {
+        const { session } = yield* validateRequest;
+        if (!session) {
+          return yield* Effect.fail(
+            new NotAuthenticatedError("User is not authenticated"),
+          );
+        }
+
+        const sessionCookie = lucia.createBlankSessionCookie();
+        setSessionCookie(sessionCookie);
       });
 
     return {
@@ -280,6 +338,7 @@ export const AuthServiceLive = Layer.effect(
       assertAuthenticated,
       signInWithUsername,
       signUpWithUsername,
+      signOut,
     } as const;
   }),
 ).pipe(Layer.provide(UserServiceLive));

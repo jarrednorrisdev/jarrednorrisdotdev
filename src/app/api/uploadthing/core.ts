@@ -1,7 +1,7 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-import { db } from "~/app/server/db";
-import { imageTable } from "~/app/server/db/schema";
+import { db } from "~/server/db";
+import { imageTable } from "~/server/db/schema";
 
 const f = createUploadthing();
 

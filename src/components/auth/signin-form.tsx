@@ -1,11 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { Button } from "~/components/ui/button";
-import {
-  signInWithUsernameAction,
-  formSchema,
-} from "~/app/server/auth/actions/signInWithUsernameAction";
+import { signInWithUsernameAction } from "~/server/auth/actions/signInWithUsernameAction";
 
 import {
   Form,
@@ -23,6 +19,8 @@ import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { TerminalIcon } from "lucide-react";
+import { signInFormSchema } from "~/server/auth/actions/signInFormSchema";
+import { LoaderButton } from "~/components/LoaderButton";
 
 // TODO: Check if username is already used in the database
 export function SignInForm() {
@@ -30,9 +28,9 @@ export function SignInForm() {
     signInWithUsernameAction,
   );
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    // mode: "onChange",
+  const form = useForm<z.infer<typeof signInFormSchema>>({
+    resolver: zodResolver(signInFormSchema),
+    mode: "onChange",
     defaultValues: {
       username: "",
       password: "",
@@ -44,12 +42,11 @@ export function SignInForm() {
   return (
     <Form {...form}>
       <form
-        onSubmit={(event) => {
-          event.preventDefault();
+        onSubmit={() =>
           form.handleSubmit(async () => {
             await execute(new FormData(formRef.current!));
-          });
-        }}
+          })
+        }
         action={execute}
         ref={formRef}
         className="space-y-6"
@@ -93,13 +90,13 @@ export function SignInForm() {
         {error && (
           <Alert variant="destructive">
             <TerminalIcon className="h-4 w-4" />
-            <AlertTitle>Uhoh, we couldn&apos;t log you in</AlertTitle>
+            <AlertTitle>Uhoh, we couldn&apos;t sign you in</AlertTitle>
             <AlertDescription>{error.message}</AlertDescription>
           </Alert>
         )}
-        {/* <LoaderButton isLoading={isPending} className="w-full" type="submit"> */}
-        Sign In
-        {/* </LoaderButton> */}
+        <LoaderButton isLoading={isPending} className="w-full" type="submit">
+          Sign In
+        </LoaderButton>
       </form>
     </Form>
   );

@@ -1,5 +1,5 @@
 import "server-only";
-import { type Image } from "~/app/server/db/schema";
+import { type Image } from "~/server/db/schema";
 import probe, { type ProbeResult } from "probe-image-size";
 import { Console, Effect } from "effect";
 

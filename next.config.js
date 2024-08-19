@@ -16,7 +16,10 @@ let config = {
     remotePatterns: [{ hostname: "utfs.io" }],
   },
   experimental: {
-    serverComponentsExternalPackages: ["@node-rs/argon2"],
+    serverComponentsExternalPackages: [
+      "@node-rs/argon2",
+      "@node-rs/argon2-wasm32-wasi",
+    ],
   },
 };
 

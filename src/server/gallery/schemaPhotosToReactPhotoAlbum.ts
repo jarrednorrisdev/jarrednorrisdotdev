@@ -1,5 +1,5 @@
 import { type Photo } from "react-photo-album";
-import { type Image } from "~/app/server/db/schema";
+import { type Image } from "~/server/db/schema";
 import { type ProbeResult } from "probe-image-size";
 // Assuming default width and height values for the photos
 const DEFAULT_WIDTH = 800;

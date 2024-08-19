@@ -1,5 +1,5 @@
 import { cn } from "~/lib/utils";
-import { type Image } from "~/app/server/db/schema";
+import { type Image } from "~/server/db/schema";
 import NextImage from "next/image";
 import { ImageDetails } from "~/components/jnd/gallery/image/ImageDetails";
 import { Card } from "~/components/ui/card";
@@ -12,8 +12,8 @@ import { TypographyP } from "~/components/typography";
 import { ImageDownIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import Link from "next/link";
-import { UserService, UserServiceLive } from "~/app/server/auth/userService";
-import { AuthService } from "~/app/server/auth/authService";
+import { UserService, UserServiceLive } from "~/server/auth/userService";
+import { AuthService } from "~/server/auth/authService";
 
 export async function ImageDisplay({
   image,

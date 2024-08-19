@@ -29,7 +29,7 @@ export const userTable = createTable("user", {
 });
 
 export const sessionTable = createTable("session", {
-  id: uuid("id").primaryKey(),
+  id: varchar("id").primaryKey(),
   userId: uuid("user_id")
     .references(() => userTable.id, { onDelete: "cascade" })
     .notNull(),

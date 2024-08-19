@@ -1,7 +1,7 @@
 import React from "react";
 import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
 import { StyledPage } from "~/components/jnd/StyledPage";
-import { probeImage } from "~/app/server/gallery/probeImage";
+import { probeImage } from "~/server/gallery/probeImage";
 
 export default async function GalleryImagePage({
   params: { id: imageId },
