@@ -1,25 +1,31 @@
 import React from "react";
-import { Effect } from "effect";
-import { liveGetAllImages } from "~/server/gallery/queries";
+import { Effect, Option } from "effect";
+
 import { GalleryImagesList } from "~/components/jnd/gallery/GalleryImagesList";
 import { GalleryTopNav } from "~/components/jnd/gallery/GalleryTopNav";
 import { StyledPage } from "~/components/jnd/StyledPage";
 import { ScrollArea } from "~/components/ui/scroll-area";
-
-export const dynamic = "force-dynamic";
+import { GalleryService, GalleryServiceLive } from "~/server/gallery";
+import { getAllImages } from "~/server/gallery/live";
 
 const breadcrumbLinks = [{ label: "Home", href: "/" }, { label: "Gallery" }];
 
-export default async function GalleryHomePage() {
-  const images = await Effect.runPromise(liveGetAllImages());
+export const dynamic = "force-dynamic";
 
-	return (
+export default async function GalleryHomePage() {
+  const Images = await Effect.runPromise(getAllImages());
+
+  return (
     <>
       <GalleryTopNav breadcrumbLinks={breadcrumbLinks} />
       <ScrollArea type="always">
         <StyledPage>
           <div className="p-4">
-            <GalleryImagesList images={images} />
+            {Images ? (
+              <GalleryImagesList images={Images} />
+            ) : (
+              <div>There are no Images to display</div>
+            )}
           </div>
         </StyledPage>
       </ScrollArea>

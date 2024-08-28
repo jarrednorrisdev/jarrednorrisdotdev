@@ -2,17 +2,25 @@ import { cn } from "~/lib/utils";
 import { type Image } from "~/server/db/schema";
 import NextImage from "next/image";
 import { ImageDetails } from "~/components/jnd/gallery/image/ImageDetails";
-import { Card, CardHeader } from "~/components/ui/card";
+import { Card } from "~/components/ui/card";
 import { type ProbeResult } from "probe-image-size";
-import { Effect } from "effect";
-import { liveGetUserById } from "~/server/auth/queries";
+import { Effect, Option } from "effect";
 
-import { liveGetCurrentUser } from "~/server/auth/queries/getCurrentUser";
-import { DeleteButton } from "./DeleteButton"; // Import the Client Component
+// import { liveGetCurrentUserId } from "~/server/auth/queries/getCurrentUserId";
+// import { DeleteButton } from "./DeleteButton"; // Import the Client Component
 import { TypographyP } from "~/components/typography";
-import { ImageDownIcon } from "lucide-react";
+import { ImageDownIcon, Trash2Icon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import Link from "next/link";
+import { UserService, UserServiceLive } from "~/server/auth/userService";
+import { AuthService } from "~/server/auth/authService";
+import {
+  getAccountByUserId,
+  getCurrentUserId,
+  getUserById,
+} from "~/server/auth/live";
+import { ImageDeleteButton } from "~/components/jnd/gallery/image/DeleteButton";
+import { get } from "http";
 
 export async function ImageDisplay({
   image,
@@ -23,9 +31,23 @@ export async function ImageDisplay({
   imageData?: ProbeResult;
   className?: string;
 }) {
-  const imageUploader = await Effect.runPromise(liveGetUserById(image.userId));
-  const currentUser = await liveGetCurrentUser();
-  const isUploader = currentUser?.id === image.userId;
+  const imageUploaderUser = await Effect.runPromise(getUserById(image.userId));
+
+  if (!imageUploaderUser) {
+    return <div>Uploader not found</div>;
+  }
+
+  const imageUploaderAccount = await Effect.runPromise(
+    getAccountByUserId(image.userId),
+  );
+
+  if (!imageUploaderAccount) {
+    return <div>Uploader Account not found</div>;
+  }
+
+  const currentUserId = await Effect.runPromise(getCurrentUserId());
+
+  const isUploader = currentUserId === image.userId;
   return (
     <div className={cn("flex h-full flex-col gap-2 lg:flex-row", className)}>
       <div className="relative flex flex-grow lg:flex-[3]">
@@ -46,7 +68,11 @@ export async function ImageDisplay({
           <TypographyP className="items-center break-all border-b p-2 text-center text-sm md:text-base lg:text-lg">
             {image.name}
           </TypographyP>
-          <ImageDetails image={image} imageUploader={imageUploader} />
+          <ImageDetails
+            image={image}
+            uploaderUser={imageUploaderUser}
+            uploaderAccount={imageUploaderAccount}
+          />
         </Card>
         <div className="flex justify-between gap-2">
           <Button
@@ -60,7 +86,9 @@ export async function ImageDisplay({
             </Link>
           </Button>
           {isUploader && (
-            <DeleteButton image={image} buttonProps={{ size: "icon_xs" }} />
+            <ImageDeleteButton imageId={image.id}>
+              Delete <Trash2Icon />
+            </ImageDeleteButton>
           )}
         </div>
       </div>

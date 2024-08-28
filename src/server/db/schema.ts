@@ -4,9 +4,11 @@
 import { sql } from "drizzle-orm";
 import {
   index,
+  integer,
   pgTableCreator,
   serial,
   timestamp,
+  uuid,
   varchar,
 } from "drizzle-orm/pg-core";
 
@@ -20,31 +22,60 @@ export const createTable = pgTableCreator(
   (name) => `jarrednorrisdotdev_${name}`,
 );
 
-export const posts = createTable(
-  "post",
-  {
-    id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }).notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updatedAt", { withTimezone: true }),
-  },
-  (table) => ({
-    nameIndex: index("posts_name_idx").on(table.name),
-    createdAtIndex: index("posts_created_at_idx").on(table.createdAt),
-  }),
-);
+export const userTable = createTable("user", {
+  id: uuid("id").primaryKey(),
+  email: varchar("email").unique().notNull(),
+  emailVerified: timestamp("email_verified"),
+});
 
-export type Post = typeof posts.$inferSelect;
+export const sessionTable = createTable("session", {
+  id: varchar("id").primaryKey(),
+  userId: uuid("user_id")
+    .references(() => userTable.id, { onDelete: "cascade" })
+    .notNull(),
+  expiresAt: timestamp("expires_at", {
+    withTimezone: true,
+    mode: "date",
+  }).notNull(),
+});
 
-export const images = createTable(
+export const accountTypeEnum = ["username", "google", "github"] as const;
+
+export const accountTable = createTable("accounts", {
+  id: uuid("id").primaryKey(),
+  userId: uuid("user_id")
+    .references(() => userTable.id, { onDelete: "cascade" })
+    .unique()
+    .notNull(),
+  accountType: varchar("account_type", { enum: accountTypeEnum }).notNull(),
+  username: varchar("username").unique(),
+  githubId: varchar("github_id").unique(),
+  googleId: varchar("google_id").unique(),
+  passwordHash: varchar("password_hash"),
+  salt: varchar("salt"),
+});
+
+export const profileTable = createTable("profile", {
+  id: uuid("id").primaryKey(),
+  userId: uuid("user_id")
+    .references(() => userTable.id, { onDelete: "cascade" })
+    .unique()
+    .notNull(),
+  displayName: varchar("display_name"),
+  imageId: varchar("image_id"),
+  image: varchar("image"),
+  bio: varchar("bio").notNull().default(""),
+});
+
+export const imageTable = createTable(
   "image",
   {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }).notNull(),
     url: varchar("url", { length: 256 }).notNull(),
-    userId: varchar("userId", { length: 256 }).notNull(),
+    userId: uuid("user_id")
+      .references(() => userTable.id, { onDelete: "cascade" })
+      .notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -57,4 +88,7 @@ export const images = createTable(
   }),
 );
 
-export type Image = typeof images.$inferSelect;
+export type Image = typeof imageTable.$inferSelect;
+export type Profile = typeof profileTable.$inferSelect;
+export type Account = typeof accountTable.$inferSelect;
+export type User = typeof userTable.$inferSelect;

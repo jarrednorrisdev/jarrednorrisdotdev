@@ -1,4 +1,4 @@
-import { type Image } from "~/server/db/schema";
+import { Account, User, type Image } from "~/server/db/schema";
 import { cn } from "~/lib/utils";
 import { Effect } from "effect";
 import {
@@ -12,16 +12,17 @@ import {
 } from "~/components/ui/table";
 import React from "react";
 import { TypographyP } from "~/components/typography";
-import { type User } from "@clerk/nextjs/server";
 import Link from "next/link";
 
 export async function ImageDetails({
   image,
-  imageUploader,
+  uploaderUser,
+  uploaderAccount,
   className,
 }: {
   image: Image;
-  imageUploader: User;
+  uploaderUser: User;
+  uploaderAccount: Account;
   className?: string;
 }) {
   const imageData = [
@@ -31,8 +32,7 @@ export async function ImageDetails({
     // },
     {
       label: "Uploaded By",
-      value:
-        imageUploader.username ?? imageUploader.fullName ?? imageUploader.id,
+      value: uploaderAccount?.username ?? uploaderUser?.id,
     },
     {
       label: "Uploaded At",
@@ -55,7 +55,10 @@ export async function ImageDetails({
             <TableCell className="p-2">
               <TypographyP className="text-wrap break-all">
                 {data.label === "Uploaded By" ? (
-                  <Link href={`/gallery/user/${imageUploader.id}`} className="text-primary underline">
+                  <Link
+                    href={`/gallery/user/${uploaderUser.id}`}
+                    className="text-primary underline"
+                  >
                     {data.value}
                   </Link>
                 ) : (

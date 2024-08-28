@@ -1,6 +1,5 @@
 import "~/styles/globals.css";
-import React, { BaseHTMLAttributes } from "react";
-import { ClerkProvider } from "@clerk/nextjs";
+import React from "react";
 import { extractRouterConfig } from "uploadthing/server";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { ourFileRouter } from "~/app/api/uploadthing/core";
@@ -9,11 +8,15 @@ import { JetBrains_Mono } from "next/font/google";
 
 import { GlobalTopNavContents } from "~/components/jnd/navigation/GlobalTopNavContents";
 import { NavBarTop } from "~/components/jnd/navigation/NavBarTop";
-import { liveGetCurrentUser } from "~/server/auth/queries";
+import { Providers } from "~/components/Providers";
+import { getCurrentUserId } from "~/server/auth/live";
+import { Effect, Option } from "effect";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
+export const dynamic = "force-dynamic";
+
 
 export const metadata = {
   title: "jarrednorrisdev",
@@ -28,33 +31,26 @@ export default async function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
-  const user = await liveGetCurrentUser();
-
   const htmlClassName: React.ComponentProps<"html">["className"] = `${jetBrainsMono.className} h-full `;
+  const userId = await Effect.runPromise(getCurrentUserId());
+
   return (
-    <ClerkProvider>
-      <html lang="en" className={htmlClassName}>
-        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-        <body className="flex h-full flex-col">
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem={true}
-            disableTransitionOnChange
-          >
-            <div className="flex h-full flex-col">
-              <NavBarTop className="bg-card">
-                <GlobalTopNavContents userId={user?.id} />
-              </NavBarTop>
+    <html lang="en" className={htmlClassName}>
+      <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+      <body className="flex h-full flex-col">
+        <Providers>
+          <div className="flex h-full flex-col">
+            <NavBarTop className="bg-card">
+              <GlobalTopNavContents userId={userId} />
+            </NavBarTop>
 
-              {children}
+            {children}
 
-              {modal}
-              <div id="modal-root" />
-            </div>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+            {modal}
+            <div id="modal-root" />
+          </div>
+        </Providers>
+      </body>
+    </html>
   );
 }

@@ -33,7 +33,8 @@ export function NavSheet({
 
       <SheetContent
         side={side}
-        className={cn("flex flex-col", contentClassName)}
+				className={cn("flex flex-col w-min px-4 py-2 pr-8", contentClassName)}
+				
         onOpenAutoFocus={(event) => event.preventDefault()}
       >
         {children}
