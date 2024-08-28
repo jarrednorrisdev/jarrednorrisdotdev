@@ -1,11 +1,9 @@
-import { MainHero } from "~/components/jnd/main-hero";
+import { MainHero } from "~/components/jnd/main-hero/MainHero";
 import { SkillsCard } from "~/components/jnd/SkillsCard";
 import { ExperienceCard } from "~/components/jnd/experience/ExperienceCard";
 import { ProjectsCard } from "~/components/projects/ProjectsCard";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { StyledPage } from "~/components/jnd/StyledPage";
-
-
 
 export default async function HomePage() {
   return (

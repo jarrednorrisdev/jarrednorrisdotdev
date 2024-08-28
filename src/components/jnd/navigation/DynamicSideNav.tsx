@@ -10,6 +10,7 @@ export function DynamicSideNav({ userId }: { userId?: string }) {
     return;
   } else if (pathname.includes("/gallery")) {
     return <GallerySideNavContents userId={userId} />;
+    return <div />;
   }
 }
 

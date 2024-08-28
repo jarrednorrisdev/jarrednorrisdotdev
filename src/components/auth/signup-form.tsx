@@ -23,7 +23,7 @@ import { LoaderButton } from "~/components/LoaderButton";
 
 // TODO: Check if username is already used in the database
 export function SignUpForm() {
-  const { isPending, execute, error, reset } = useServerAction(
+  const { isPending, executeFormAction, error, reset } = useServerAction(
     signUpWithUsernameAction,
   );
 
@@ -47,10 +47,10 @@ export function SignUpForm() {
         onSubmit={async () =>
           form.handleSubmit(async () => {
             console.log("Executing Sign Up Submit Button");
-            await execute(new FormData(formRef.current!));
+            await executeFormAction(new FormData(formRef.current!));
           })
         }
-        action={execute}
+        action={executeFormAction}
         ref={formRef}
         className="w-96 space-y-6"
       >

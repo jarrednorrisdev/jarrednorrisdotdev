@@ -3,10 +3,8 @@
 import { HomeIcon, UploadIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "~/components/ui/button";
-
 import { cn } from "~/lib/utils";
-
+import { Button } from "~/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -14,8 +12,7 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 
-import { Effect, Option } from "effect";
-import { getCurrentUserId } from "~/server/auth/live";
+
 
 interface NavLink {
   label: string;
@@ -24,7 +21,7 @@ interface NavLink {
   requiresAuth?: boolean;
 }
 
-export async function GallerySideNavContents({ userId, className }: { className?: string, userId?: string }) {
+export function GallerySideNavContents({ userId, className }: { className?: string, userId?: string }) {
 	const currentPath = usePathname();
 	
   const navLinks: NavLink[] = [
@@ -49,13 +46,14 @@ export async function GallerySideNavContents({ userId, className }: { className?
   ];
 
   return (
-    <nav className={cn("flex flex-col gap-2 text-nowrap p-4", className)}>
+    <nav className={cn("flex flex-col gap-0 text-nowrap p-2 ", className)}>
       {navLinks.map((link) =>
         userId ?? !link.requiresAuth ? (
           <Button
             key={link.label}
             variant="ghost"
-            className="flex justify-start gap-2"
+						className="flex justify-start gap-2 rounded-none"
+						
             asChild
           >
             <Link

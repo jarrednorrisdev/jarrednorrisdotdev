@@ -21,5 +21,5 @@ export const signOutAction = authenticatedAction
       ),
     );
 
-    return redirect("/login");
+    return redirect("/");
   });

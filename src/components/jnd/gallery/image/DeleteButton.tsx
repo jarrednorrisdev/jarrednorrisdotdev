@@ -1,24 +1,45 @@
-import { TrashIcon } from "lucide-react";
-import { Button, ButtonProps } from "~/components/ui/button";
-import { type Image } from "~/server/db/schema";
-import { liveDeleteImageByIdAction } from "~/server/gallery/queries/actions";
+"use client";
 
-export async function DeleteButton({
-  image,
-  buttonProps,
-}: {
-  image: Image;
-  buttonProps?: ButtonProps;
-}) {
-  const imageId = image.id;
+import { useServerAction } from "zsa-react";
+import { LoaderButton } from "~/components/LoaderButton";
+import { toast } from "~/components/ui/use-toast";
+import { deleteImageAction } from "~/server/gallery/deleteImageAction";
+import { ButtonProps } from "~/components/ui/button";
+import { cn } from "~/lib/utils";
 
-  const deleteImageWithIdAction = liveDeleteImageByIdAction.bind(null, imageId);
+// TODO: Check if username is already used in the database
+export function ImageDeleteButton({
+  imageId,
+  children,
+  className,
+  ...props
+}: ButtonProps & { imageId: number }) {
+  const { isPending, execute } = useServerAction(deleteImageAction, {
+    onError({ err }) {
+      toast({
+        title: "Something went wrong",
+        description: err.message,
+        variant: "destructive",
+      });
+    },
+    onSuccess({ data }) {
+      toast({
+        title: "Let's Go!",
+        description: "Image Deleted",
+      });
+    },
+  });
 
   return (
-    <form action={deleteImageWithIdAction}>
-      <Button type="submit" {...buttonProps}>
-        <TrashIcon />
-      </Button>
-    </form>
+    <LoaderButton
+      isLoading={isPending}
+      onClick={async () => await execute({ imageId })}
+      size="sm"
+      name="delete"
+      className={cn("w-full", className)}
+      {...props}
+    >
+      {children}
+    </LoaderButton>
   );
 }

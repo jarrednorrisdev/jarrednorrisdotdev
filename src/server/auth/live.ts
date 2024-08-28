@@ -36,8 +36,18 @@ export const getCurrentUserId = () =>
   Effect.provide(
     Effect.gen(function* () {
       const authService = yield* AuthService;
-      const userId = yield* authService.getCurrentUserId;
-      return userId;
+      const userSession = yield* authService.getValidatedUserSession;
+      return userSession.user?.id;
+    }),
+    AuthServiceLive,
+  );
+
+export const assertAuthenticated = () =>
+  Effect.provide(
+    Effect.gen(function* () {
+      const authService = yield* AuthService;
+      const authenticatedUserId = yield* authService.assertAuthenticated;
+      return authenticatedUserId.id;
     }),
     AuthServiceLive,
   );

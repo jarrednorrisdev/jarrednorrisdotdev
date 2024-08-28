@@ -21,11 +21,27 @@ import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { TerminalIcon } from "lucide-react";
 import { signInFormSchema } from "~/server/auth/actions/signInFormSchema";
 import { LoaderButton } from "~/components/LoaderButton";
+import { toast } from "~/components/ui/use-toast";
 
 // TODO: Check if username is already used in the database
 export function SignInForm() {
-  const { isPending, execute, error, reset } = useServerAction(
+  const { isPending, executeFormAction, error, reset } = useServerAction(
     signInWithUsernameAction,
+    {
+      onError({ err }) {
+        toast({
+          title: "Something went wrong",
+          description: err.message,
+          variant: "destructive",
+        });
+      },
+      onSuccess() {
+        toast({
+          title: "Let's Go!",
+          description: "Enjoy your session",
+        });
+      },
+    },
   );
 
   const form = useForm<z.infer<typeof signInFormSchema>>({
@@ -41,13 +57,14 @@ export function SignInForm() {
 
   return (
     <Form {...form}>
+      {/* <p>{`IsPending: ${isPending}`}</p> */}
       <form
-        onSubmit={() =>
-          form.handleSubmit(async () => {
-            await execute(new FormData(formRef.current!));
-          })
-        }
-        action={execute}
+        // onSubmit={() =>
+        //   form.handleSubmit(async () => {
+        //     await executeFormAction(new FormData(formRef.current!));
+        //   })
+        // }
+        action={executeFormAction}
         ref={formRef}
         className="space-y-6"
       >

@@ -13,9 +13,7 @@ const breadcrumbLinks = [{ label: "Home", href: "/" }, { label: "Gallery" }];
 export const dynamic = "force-dynamic";
 
 export default async function GalleryHomePage() {
-  const maybeImages = await Effect.runPromise(
-    getAllImages(),
-  );
+  const Images = await Effect.runPromise(getAllImages());
 
   return (
     <>
@@ -23,10 +21,11 @@ export default async function GalleryHomePage() {
       <ScrollArea type="always">
         <StyledPage>
           <div className="p-4">
-            {Option.match(maybeImages, {
-              onNone: () => <div>There are no Images to display</div>,
-              onSome: (images) => <GalleryImagesList images={images} />,
-            })}
+            {Images ? (
+              <GalleryImagesList images={Images} />
+            ) : (
+              <div>There are no Images to display</div>
+            )}
           </div>
         </StyledPage>
       </ScrollArea>

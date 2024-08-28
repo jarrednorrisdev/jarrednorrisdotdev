@@ -9,7 +9,7 @@ import {
 } from "~/components/ui/card";
 import { BorderBeam } from "~/components/magicui/border-beam";
 import { cn } from "~/lib/utils";
-import { MainHeroButtons } from "./MainHeroButtons";
+import { MainHeroButtons } from "~/components/jnd/main-hero/MainHeroButtons";
 
 export function MainHero({ className }: { className?: string }) {
   return (

@@ -24,19 +24,19 @@ export class UserService extends Context.Tag("@jnd/UserService")<
   {
     readonly getUserById: (
       userId: string,
-    ) => Effect.Effect<Option.Option<User>, DrizzleQueryError, never>;
+    ) => Effect.Effect<User | null, DrizzleQueryError, never>;
     readonly getAccountByUsername: (
       username: string,
-    ) => Effect.Effect<Option.Option<Account>, DrizzleQueryError, never>;
+    ) => Effect.Effect<Account | null, DrizzleQueryError, never>;
     readonly getAccountByUserId: (
       username: string,
-    ) => Effect.Effect<Option.Option<Account>, DrizzleQueryError, never>;
+    ) => Effect.Effect<Account | null, DrizzleQueryError, never>;
     readonly getUserByEmail: (
       email: string,
-    ) => Effect.Effect<Option.Option<User>, DrizzleQueryError, never>;
+    ) => Effect.Effect<User | null, DrizzleQueryError, never>;
     readonly getUserByUsername: (
       username: string,
-    ) => Effect.Effect<Option.Option<User>, DrizzleQueryError, never>;
+    ) => Effect.Effect<User | null, DrizzleQueryError, never>;
     readonly createUserWithUsername: (input: {
       username: string;
       email: string;
@@ -49,9 +49,9 @@ export class UserService extends Context.Tag("@jnd/UserService")<
       | UsernameAlreadyExistsError,
       never
     >;
-    readonly createPasswordHash: (
-      password: string,
-    ) => Effect.Effect<string, PasswordEncryptError, never>;
+    // readonly createPasswordHash: (
+    //   password: string,
+    // ) => Effect.Effect<string, PasswordEncryptError, never>;
   }
 >() {}
 
@@ -63,35 +63,19 @@ export const UserServiceLive = Layer.effect(
     const getUserById = (userId: string) => {
       return Effect.tryPromise({
         try: async () => {
+          console.log("searching for user with id", userId);
           const user = await db.query.userTable.findFirst({
             where: eq(userTable.id, userId),
           });
-
-          return user == undefined ? Option.none() : Option.some(user);
+          user
+            ? console.log("searching for user with id", userId)
+            : console.log("user not found with id", userId);
+          return user ?? null;
         },
         catch: (e) => {
           console.error("Error when querying User by UserId:", e);
           return new DrizzleQueryError(
             "Unknown Error querying User with userId " + userId,
-            e,
-          );
-        },
-      });
-    };
-
-    const getUserByEmail = (email: string) => {
-      return Effect.tryPromise({
-        try: async () => {
-          const user = await db.query.userTable.findFirst({
-            where: eq(userTable.email, email),
-          });
-
-          return user == undefined ? Option.none() : Option.some(user);
-        },
-        catch: (e) => {
-          console.error("Error when querying User by Email:", e);
-          return new DrizzleQueryError(
-            "Unknown Error querying User with userId " + email,
             e,
           );
         },
@@ -105,7 +89,7 @@ export const UserServiceLive = Layer.effect(
             where: eq(accountTable.username, username),
           });
 
-          return account == undefined ? Option.none() : Option.some(account);
+          return account ?? null;
         },
         catch: (e) => {
           console.error("Error when querying Account by Username:", e);
@@ -124,7 +108,7 @@ export const UserServiceLive = Layer.effect(
             where: eq(accountTable.userId, userId),
           });
 
-          return account == undefined ? Option.none() : Option.some(account);
+          return account ?? null;
         },
         catch: (e) => {
           console.error("Error when querying Account by UserId:", e);
@@ -136,12 +120,31 @@ export const UserServiceLive = Layer.effect(
       });
     };
 
+    const getUserByEmail = (email: string) => {
+      return Effect.tryPromise({
+        try: async () => {
+          const user = await db.query.userTable.findFirst({
+            where: eq(userTable.email, email),
+          });
+
+          return user ?? null;
+        },
+        catch: (e) => {
+          console.error("Error when querying User by Email:", e);
+          return new DrizzleQueryError(
+            "Unknown Error querying User with userId " + email,
+            e,
+          );
+        },
+      });
+    };
+
     const getUserByUsername = (username: string) =>
       Effect.gen(function* (_) {
-        const account = Option.getOrNull(yield* getAccountByUsername(username));
+        const account = yield* getAccountByUsername(username);
 
         if (account == null) {
-          return Option.none();
+          return null;
         }
 
         return yield* getUserById(account.userId);
@@ -173,8 +176,8 @@ export const UserServiceLive = Layer.effect(
       Effect.gen(function* (_) {
         const existingAccount = yield* getAccountByUsername(input.username);
 
-        if (Option.isSome(existingAccount)) {
-          console.error("Username already exists:", input.username);
+        if (existingAccount) {
+          Effect.logError("Username already exists: ", input.username);
           return yield* Effect.fail(
             new UsernameAlreadyExistsError(
               `Username ${input.username} already exists`,
@@ -184,8 +187,8 @@ export const UserServiceLive = Layer.effect(
 
         const existingUser = yield* getUserByEmail(input.email);
 
-        if (Option.isSome(existingUser)) {
-          console.error("Email already registered:", input.email);
+        if (existingUser) {
+          Effect.logError("Email already registered:", input.email);
           return yield* Effect.fail(
             new EmailAlreadyRegisteredError(
               `Email ${input.email} already registered`,

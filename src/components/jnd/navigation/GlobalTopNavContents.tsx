@@ -9,7 +9,6 @@ import { cn } from "~/lib/utils";
 import { NavSheet } from "~/components/jnd/navigation/NavSheet";
 import { DynamicSideNav } from "~/components/jnd/navigation/DynamicSideNav";
 import { usePathname } from "next/navigation";
-import { getCurrentUserId } from "~/server/auth/live";
 import { SignOutForm } from "~/components/auth/signout-form";
 
 export const validSideNavRoutes = ["/gallery"];
@@ -39,15 +38,15 @@ export function GlobalTopNavContents({
     <div className={cn("flex flex-grow justify-between", className)}>
       <div className="flex flex-grow items-center justify-start gap-4">
         {getMatchedPath(pathname, validSideNavRoutes)[0] && (
-          <a className="lg:hidden">
-            <NavSheet
-              buttonChildren={<MenuIcon />}
-              buttonSize="icon"
-              buttonVariant="backgroundSecondary"
-            >
-              <DynamicSideNav userId={userId} />
-            </NavSheet>
-          </a>
+          <NavSheet
+            buttonChildren={<MenuIcon />}
+            buttonSize="icon"
+						buttonVariant="backgroundSecondary"
+						contentClassName="border b"
+						
+          >
+						<DynamicSideNav userId={userId} />
+          </NavSheet>
         )}
         <Link href="/">
           <TypographyH3>

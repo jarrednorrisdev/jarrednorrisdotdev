@@ -30,9 +30,8 @@ export default async function RootLayout({
   modal: React.ReactNode;
 }) {
   const htmlClassName: React.ComponentProps<"html">["className"] = `${jetBrainsMono.className} h-full `;
-  const userId = Option.getOrUndefined(
-    await Effect.runPromise(getCurrentUserId()),
-  );
+  const userId = await Effect.runPromise(getCurrentUserId());
+
   return (
     <html lang="en" className={htmlClassName}>
       <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
@@ -40,7 +39,7 @@ export default async function RootLayout({
         <Providers>
           <div className="flex h-full flex-col">
             <NavBarTop className="bg-card">
-              <GlobalTopNavContents userId={userId?.id} />
+              <GlobalTopNavContents userId={userId} />
             </NavBarTop>
 
             {children}

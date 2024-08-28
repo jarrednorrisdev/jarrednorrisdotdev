@@ -6,10 +6,10 @@ import { Button } from "~/components/ui/button";
 import { signOutAction } from "~/server/auth/actions/signOutAction";
 
 export function SignOutForm() {
-  const { isPending, execute, error, reset } = useServerAction(signOutAction);
+  const { isPending, executeFormAction, error, reset } = useServerAction(signOutAction);
 
   return (
-    <form action={execute}>
+    <form action={executeFormAction}>
       <LoaderButton isLoading={isPending} className="w-full" type="submit">
         Sign Out
       </LoaderButton>
