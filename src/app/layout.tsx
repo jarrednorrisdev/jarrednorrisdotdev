@@ -15,6 +15,8 @@ import { Effect, Option } from "effect";
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
+export const dynamic = "force-dynamic";
+
 
 export const metadata = {
   title: "jarrednorrisdev",
