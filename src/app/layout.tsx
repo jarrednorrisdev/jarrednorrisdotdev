@@ -12,11 +12,11 @@ import { Providers } from "~/components/Providers";
 import { getCurrentUserId } from "~/server/auth/live";
 import { Effect, Option } from "effect";
 
+export const dynamic = "force-dynamic";
+
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
-export const dynamic = "force-dynamic";
-
 
 export const metadata = {
   title: "jarrednorrisdev",
@@ -32,7 +32,6 @@ export default async function RootLayout({
   modal: React.ReactNode;
 }) {
   const htmlClassName: React.ComponentProps<"html">["className"] = `${jetBrainsMono.className} h-full `;
-  const userId = await Effect.runPromise(getCurrentUserId());
 
   return (
     <html lang="en" className={htmlClassName}>
@@ -41,7 +40,7 @@ export default async function RootLayout({
         <Providers>
           <div className="flex h-full flex-col">
             <NavBarTop className="bg-card">
-              <GlobalTopNavContents userId={userId} />
+              <GlobalTopNavContents />
             </NavBarTop>
 
             {children}

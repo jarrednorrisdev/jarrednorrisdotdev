@@ -13,8 +13,6 @@ export const signInWithUsernameAction = unauthenticatedAction
     type: "formData",
   })
   .handler(async ({ input }) => {
-    // TODO: remove for production
-    console.log("Executing signInWithUsernameAction with input:", input);
     const result = await Effect.runPromise(
       Effect.provide(
         Effect.gen(function* () {

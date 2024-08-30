@@ -10,7 +10,7 @@ export const deleteImageAction = authenticatedAction
   .createServerAction()
   .input(deleteImageSchema)
   .handler(async ({ input }) => {
-    // TODO: remove for production
+    
     console.error(`Attempting to delete image with id: ${input.imageId}`);
     const result = await Effect.runPromise(
       Effect.provide(

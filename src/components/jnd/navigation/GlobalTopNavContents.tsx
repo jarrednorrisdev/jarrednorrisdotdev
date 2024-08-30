@@ -1,5 +1,3 @@
-"use client";
-
 import { MenuIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "~/components/theme-toggle";
@@ -8,46 +6,38 @@ import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
 import { NavSheet } from "~/components/jnd/navigation/NavSheet";
 import { DynamicSideNav } from "~/components/jnd/navigation/DynamicSideNav";
-import { usePathname } from "next/navigation";
 import { SignOutForm } from "~/components/auth/signout-form";
+import { Effect } from "effect";
+import { getCurrentUserId } from "~/server/auth/live";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 
-export const validSideNavRoutes = ["/gallery"];
 
-function getMatchedPath(
-  pathname: string,
-  validRoutes: string[],
-): [boolean, string?] {
-  for (const route of validRoutes) {
-    if (pathname.includes(route)) {
-      return [true, route];
-    }
-  }
-  return [false];
-}
 
-export function GlobalTopNavContents({
-  userId,
+export async function GlobalTopNavContents({
   className,
 }: {
-  userId?: string;
   className?: string;
 }) {
-  const pathname = usePathname();
-
+  const userId = await Effect.runPromise(getCurrentUserId());
   return (
     <div className={cn("flex flex-grow justify-between", className)}>
       <div className="flex flex-grow items-center justify-start gap-4">
-        {getMatchedPath(pathname, validSideNavRoutes)[0] && (
-          <NavSheet
-            buttonChildren={<MenuIcon />}
-            buttonSize="icon"
-						buttonVariant="backgroundSecondary"
-						contentClassName="border b"
-						
-          >
-						<DynamicSideNav userId={userId} />
-          </NavSheet>
-        )}
+        <NavSheet
+          buttonChildren={<MenuIcon />}
+          buttonSize="icon"
+          buttonVariant="outline"
+          buttonClassName="lg:hidden"
+        >
+          <DynamicSideNav userId={userId} />
+        </NavSheet>
+
         <Link href="/">
           <TypographyH3>
             <span className="">jn</span>
@@ -57,23 +47,39 @@ export function GlobalTopNavContents({
       </div>
       <div className="flex flex-grow items-center justify-end gap-4">
         <ThemeToggle />
-        {!userId && (
-          <>
-            <Button asChild variant="outline">
-              <Link className="flex flex-row items-center gap-2" href="/signin">
-                <p>Sign In</p>
-                <UserIcon className="text-primary" />
-              </Link>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="icon">
+              <UserIcon className="text-primary" />
             </Button>
-            <Button asChild variant="outline">
-              <Link className="flex flex-row items-center gap-2" href="/signup">
-                <p>Sign Up</p>
-                <UserIcon className="text-primary" />
-              </Link>
-            </Button>
-          </>
-        )}
-        {userId && <SignOutForm />}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {userId ? (
+              <SignOutForm />
+            ) : (
+              <>
+                <DropdownMenuItem>
+                  <Link
+                    className="flex flex-row items-center gap-2"
+                    href="/signin"
+                  >
+                    <p>Sign In</p>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link
+                    className="flex flex-row items-center gap-2"
+                    href="/signup"
+                  >
+                    <p>Sign Up</p>
+                  </Link>
+                </DropdownMenuItem>
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

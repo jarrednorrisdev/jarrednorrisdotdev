@@ -48,7 +48,7 @@ export class GalleryService extends Context.Tag("@jnd/GalleryService")<
   }
 >() {}
 
-// todo solve Option usage
+
 export const GalleryServiceLive = Layer.effect(
   GalleryService,
   Effect.gen(function* (_) {

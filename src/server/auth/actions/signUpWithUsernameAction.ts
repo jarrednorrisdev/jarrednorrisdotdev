@@ -13,9 +13,6 @@ export const signUpWithUsernameAction = unauthenticatedAction
     type: "formData",
   })
   .handler(async ({ input }) => {
-    // TODO: remove for production
-    console.log("Executing signUpWithUsernameAction with input:", input);
-
     const result = await Effect.runPromise(
       Effect.provide(
         Effect.gen(function* () {
@@ -33,6 +30,5 @@ export const signUpWithUsernameAction = unauthenticatedAction
       result.sessionCookie.attributes,
     );
 
-    console.log("signUpWithUsernameAction completed successfully");
     return redirect("/");
   });
