@@ -12,6 +12,8 @@ import { Providers } from "~/components/Providers";
 import { getCurrentUserId } from "~/server/auth/live";
 import { Effect, Option } from "effect";
 
+export const dynamic = "force-dynamic";
+
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });

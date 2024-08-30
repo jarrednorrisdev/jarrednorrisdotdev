@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 
-export const dynamic = "force-dynamic";
+
 
 export async function GlobalTopNavContents({
   className,
