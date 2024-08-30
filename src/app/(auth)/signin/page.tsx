@@ -2,6 +2,8 @@ import { SignInForm } from "~/components/auth/signin-form";
 import { StyledPage } from "~/components/jnd/StyledPage";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
+export const dynamic = "force-dynamic";
+
 export default async function SignInPage() {
   return (
     <StyledPage>

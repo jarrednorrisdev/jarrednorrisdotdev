@@ -23,7 +23,7 @@ import { signInFormSchema } from "~/server/auth/actions/signInFormSchema";
 import { LoaderButton } from "~/components/LoaderButton";
 import { toast } from "~/components/ui/use-toast";
 
-// TODO: Check if username is already used in the database
+
 export function SignInForm() {
   const { isPending, executeFormAction, error, reset } = useServerAction(
     signInWithUsernameAction,

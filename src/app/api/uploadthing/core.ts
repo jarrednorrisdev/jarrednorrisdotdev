@@ -1,9 +1,7 @@
-import { Effect, Option } from "effect";
+import { Effect } from "effect";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 import { getCurrentUserId } from "~/server/auth/live";
-import { db } from "~/server/db";
-import { imageTable } from "~/server/db/schema";
 import { createImage } from "~/server/gallery/live";
 
 const f = createUploadthing();
@@ -15,7 +13,6 @@ export const ourFileRouter = {
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
-      // TODO: replace with lucia
       const userId = await Effect.runPromise(getCurrentUserId());
       // If you throw, the user will not be able to upload
       if (!userId) throw new UploadThingError("Unauthorized");

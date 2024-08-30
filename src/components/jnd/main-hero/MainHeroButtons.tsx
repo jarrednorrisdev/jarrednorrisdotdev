@@ -19,11 +19,7 @@ export function CvButton() {
 export function LinkedInButton() {
   return (
     <Button className="flex gap-2" size="icon_xs" asChild>
-      <Link
-        href="https://www.linkedin.com/in/jarred-norris/"
-        download={true}
-        target="_blank"
-      >
+      <Link href="https://www.linkedin.com/in/jarrednorris/">
         <LinkedinIcon />
       </Link>
     </Button>
@@ -33,11 +29,7 @@ export function LinkedInButton() {
 export function GithubButton() {
   return (
     <Button className="flex gap-2" size="icon_xs" asChild>
-      <Link
-        href="https://github.com/jarrednorrisdev/jarrednorrisdotdev"
-        download={true}
-        target="_blank"
-      >
+      <Link href="https://github.com/jarrednorrisdev/jarrednorrisdotdev">
         <GithubIcon />
       </Link>
     </Button>

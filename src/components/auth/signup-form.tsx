@@ -21,21 +21,21 @@ import { TerminalIcon } from "lucide-react";
 import { signUpFormSchema } from "~/server/auth/actions/signUpFormSchema";
 import { LoaderButton } from "~/components/LoaderButton";
 
-// TODO: Check if username is already used in the database
+
 export function SignUpForm() {
   const { isPending, executeFormAction, error, reset } = useServerAction(
     signUpWithUsernameAction,
   );
 
-  // TODO: remove default values for production
+
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     mode: "onChange",
     defaultValues: {
-      username: "aaaaaaaa",
-      email: "aaaaaaaa@aa.aa",
-      password: "aaaaaaaa",
-      confirmPassword: "aaaaaaaa",
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
   });
 

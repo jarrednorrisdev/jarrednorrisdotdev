@@ -18,7 +18,7 @@ export function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="backgroundSecondary" size="icon" className="gap-0">
+        <Button variant="outline" size="icon" className="gap-0">
           {theme === "light" ? (
             <Sun className="h-[1.2rem] w-[1.2rem] scale-100 transition-all dark:scale-0" />
           ) : (

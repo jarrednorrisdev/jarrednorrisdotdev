@@ -37,8 +37,6 @@ export function EmailButton() {
       >
         <a
           href="mailto:jarred.norris1@gmail.com"
-          download={true}
-          target="_blank"
         >
           Email
         </a>

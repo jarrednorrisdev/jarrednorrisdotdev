@@ -4,10 +4,9 @@ import { useServerAction } from "zsa-react";
 import { LoaderButton } from "~/components/LoaderButton";
 import { toast } from "~/components/ui/use-toast";
 import { deleteImageAction } from "~/server/gallery/deleteImageAction";
-import { ButtonProps } from "~/components/ui/button";
+import { type ButtonProps } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
 
-// TODO: Check if username is already used in the database
 export function ImageDeleteButton({
   imageId,
   children,

@@ -1,6 +1,8 @@
 import { SignUpForm } from "~/components/auth/signup-form";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
+export const dynamic = "force-dynamic";
+
 export default async function SignUpPage() {
 	return (
     <main className="flex h-full flex-grow flex-col items-center justify-center">
